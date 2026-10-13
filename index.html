@@ -8,10 +8,11 @@
     <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Preload wallpaper for instant 0-second render on page refresh -->
+    <link rel="preload" as="image" href="/images/wallpapers/wallpaper-5-shekhawati.webp" type="image/webp" />
   </head>
-  <body class="bg-brand-bg text-brand-brown font-sans antialiased selection:bg-brand-yellow/30 selection:text-brand-brown min-h-screen overflow-x-hidden">
-    <div id="root" class="overflow-x-hidden"></div>
+  <body class="bg-[#FDFBF7] text-brand-brown font-sans antialiased selection:bg-brand-yellow/30 selection:text-brand-brown min-h-screen overflow-x-hidden" style="background-image: linear-gradient(rgba(253, 251, 247, 0.12), rgba(253, 251, 247, 0.20)), url('/images/wallpapers/wallpaper-5-shekhawati.webp'); background-repeat: repeat-y; background-size: 100% auto; background-position: center top; background-attachment: scroll;">
+    <div id="root" class="overflow-x-hidden bg-transparent"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

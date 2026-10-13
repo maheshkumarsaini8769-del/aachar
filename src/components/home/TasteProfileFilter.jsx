@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flame, Sparkles, Heart, ShoppingBag, Eye, Star, ChevronRight } from 'lucide-react';
+import { Flame, Sparkles, Heart, ShoppingBag, Eye, Star, ChevronRight, Leaf, Citrus, Zap } from 'lucide-react';
 import { products } from '../../data/products';
 import { useCart } from '../../context/CartContext';
 
@@ -13,7 +13,8 @@ export const TasteProfileFilter = ({ onNavigate, onQuickView }) => {
       id: 'spicy',
       title: 'Spicy & Fiery',
       hindi: 'Fiery & Spiced',
-      emoji: '🌶️',
+      icon: Flame,
+      iconColor: 'text-rose-500',
       desc: 'Bold Banarasi spices, sun-cured red chillies, and sharp cold-pressed mustard punch.',
       meter: { tanginess: 65, spice: 95, crunch: 85, aroma: 98 },
       productIds: ['lal-mirch-bharwa', 'garlic-lahsun', 'green-mirch-classic', 'chatpata-aam']
@@ -22,7 +23,8 @@ export const TasteProfileFilter = ({ onNavigate, onQuickView }) => {
       id: 'tangy',
       title: 'Tangy & Zesty',
       hindi: 'Tangy & Zesty',
-      emoji: '🍋',
+      icon: Citrus,
+      iconColor: 'text-amber-500',
       desc: 'Sour Ramkela green mangoes and Kagzi lemons soaked in yellow mustard and rock salt.',
       meter: { tanginess: 95, spice: 60, crunch: 90, aroma: 85 },
       productIds: ['aam-classic', 'kairi-aam', 'rajasthani-aam', 'hari-mirch-rai']
@@ -31,7 +33,8 @@ export const TasteProfileFilter = ({ onNavigate, onQuickView }) => {
       id: 'sweet-sour',
       title: 'Sweet & Tangy',
       hindi: 'Sweet & Tangy',
-      emoji: '🍯',
+      icon: Heart,
+      iconColor: 'text-orange-400',
       desc: 'Natural raw organic jaggery & dates gently cooked with lemon and mango shreds.',
       meter: { tanginess: 75, spice: 30, crunch: 80, aroma: 80 },
       productIds: ['nimbu-khatta-meetha', 'meethi-aam', 'nimbu-meetha', 'holi-chatpata-duo']
@@ -40,7 +43,8 @@ export const TasteProfileFilter = ({ onNavigate, onQuickView }) => {
       id: 'digestive',
       title: 'Herbal & Digestive',
       hindi: 'Digestive & Mild',
-      emoji: '🌿',
+      icon: Leaf,
+      iconColor: 'text-emerald-500',
       desc: 'Infused with pure compounded asafoetida (hing), roasted carom seeds & fenugreek. Perfect with every meal.',
       meter: { tanginess: 70, spice: 45, crunch: 80, aroma: 92 },
       productIds: ['gunda-lesua-achar', 'methi-aam', 'nimbu-masaledar', 'mix-pachranga']
@@ -88,41 +92,47 @@ export const TasteProfileFilter = ({ onNavigate, onQuickView }) => {
 
         {/* 4 Flavour Selector Tabs */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          {TASTE_PROFILES.map(t => (
-            <button
-              key={t.id}
-              onClick={() => setActiveTaste(t.id)}
-              className={`p-4 rounded-2xl border-2 text-left transition-all ${
-                activeTaste === t.id
-                  ? 'border-brand-brown bg-gradient-to-br from-[#2D1810] to-[#43251A] text-white shadow-md transform -translate-y-0.5'
-                  : 'border-brand-border bg-white text-brand-brown hover:border-amber-400 hover:bg-amber-50/40'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-2xl">{t.emoji}</span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  activeTaste === t.id ? 'bg-amber-400 text-brand-brown' : 'bg-brand-cream text-brand-brownMuted'
-                }`}>
-                  {t.hindi}
-                </span>
-              </div>
-              <h4 className="font-serif font-bold text-sm sm:text-base">
-                {t.title}
-              </h4>
-            </button>
-          ))}
+          {TASTE_PROFILES.map(t => {
+            const IconComp = t.icon;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setActiveTaste(t.id)}
+                className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                  activeTaste === t.id
+                    ? 'border-brand-brown bg-gradient-to-br from-[#2D1810] to-[#43251A] text-white shadow-md transform -translate-y-0.5'
+                    : 'border-brand-border bg-white text-brand-brown hover:border-amber-400 hover:bg-amber-50/40'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${activeTaste === t.id ? 'bg-white/10' : 'bg-amber-50'}`}>
+                    <IconComp className={`w-5 h-5 ${activeTaste === t.id ? 'text-amber-300' : t.iconColor}`} />
+                  </div>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    activeTaste === t.id ? 'bg-amber-400 text-brand-brown' : 'bg-brand-cream text-brand-brownMuted'
+                  }`}>
+                    {t.hindi}
+                  </span>
+                </div>
+                <h4 className="font-serif font-bold text-sm sm:text-base">
+                  {t.title}
+                </h4>
+              </button>
+            );
+          })}
         </div>
 
         {/* Flavour Meter Info Card */}
         <div className="bg-amber-50/70 p-5 rounded-2xl border border-amber-200/80 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1 md:max-w-md">
             <h5 className="font-serif font-bold text-sm text-brand-brown flex items-center gap-2">
-              <span>{currentProfile.emoji} {currentProfile.title} ({currentProfile.hindi})</span>
+              <span>{currentProfile.title} ({currentProfile.hindi})</span>
             </h5>
             <p className="text-xs text-brand-brownMuted leading-relaxed">
               {currentProfile.desc}
             </p>
           </div>
+
 
           {/* Sensory Meters */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 flex-1">

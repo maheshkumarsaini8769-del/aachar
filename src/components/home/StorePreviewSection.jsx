@@ -26,7 +26,8 @@ export const StorePreviewSection = ({ onNavigate }) => {
             onClick={() => onNavigate('stores')}
             className="flex items-center gap-2 text-sm sm:text-base font-extrabold text-brand-green hover:underline self-start md:self-auto"
           >
-            <span>View All 4 Stores 📍</span>
+            <MapPin className="w-4 h-4 text-brand-green" />
+            <span>View All 4 Stores</span>
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>

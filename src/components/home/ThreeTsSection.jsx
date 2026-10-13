@@ -10,7 +10,9 @@ import {
   FileText, 
   Search,
   Check,
-  ChevronRight
+  ChevronRight,
+  Users,
+  FlaskConical
 } from 'lucide-react';
 
 export const ThreeTsSection = ({ onNavigate }) => {
@@ -88,8 +90,8 @@ export const ThreeTsSection = ({ onNavigate }) => {
             
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl shadow-2xs group-hover:scale-110 transition-transform">
-                  ☀️
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shadow-2xs group-hover:scale-110 transition-transform">
+                  <Sun className="w-7 h-7 text-amber-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-full">
                   T-1: Traditional
@@ -127,8 +129,8 @@ export const ThreeTsSection = ({ onNavigate }) => {
             
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-3xl shadow-2xs group-hover:scale-110 transition-transform">
-                  🔬
+                <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-2xs group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-7 h-7 text-emerald-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-full">
                   T-2: Tested & Pure
@@ -166,13 +168,14 @@ export const ThreeTsSection = ({ onNavigate }) => {
             
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-3xl shadow-2xs group-hover:scale-110 transition-transform">
-                  👩‍🌾
+                <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shadow-2xs group-hover:scale-110 transition-transform">
+                  <Users className="w-7 h-7 text-rose-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-rose-900 bg-rose-100 border border-rose-300 px-2.5 py-1 rounded-full">
                   T-3: Traceable
                 </span>
               </div>
+
 
               <div>
                 <h3 className="font-serif font-bold text-xl text-brand-brown mb-1.5 group-hover:text-brand-green transition-colors">

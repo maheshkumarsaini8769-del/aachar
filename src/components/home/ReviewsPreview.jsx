@@ -14,7 +14,7 @@ export const ReviewsPreview = ({ onNavigate }) => {
   }, []);
 
   return (
-    <section className="py-14 sm:py-16 bg-white border-b border-brand-border">
+    <section className="py-14 sm:py-16 bg-transparent border-b border-brand-border/60">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -59,7 +59,7 @@ export const ReviewsPreview = ({ onNavigate }) => {
             return (
               <div 
                 key={rev.id}
-                className="bg-brand-bg p-5 sm:p-6 rounded-2xl border border-brand-border flex flex-col justify-between hover:shadow-warm transition-all group"
+                className="bg-white/95 backdrop-blur-xs p-5 sm:p-6 rounded-2xl border border-brand-border flex flex-col justify-between hover:shadow-warm transition-all group shadow-xs"
               >
                 <div className="space-y-3.5">
                   {/* Product Badge */}

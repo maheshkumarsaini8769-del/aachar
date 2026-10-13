@@ -10,7 +10,7 @@ export const FAQSection = ({ onNavigate }) => {
   };
 
   return (
-    <section className="py-14 bg-brand-bg border-b border-brand-border">
+    <section className="py-14 bg-transparent border-b border-brand-border/60">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         <div className="text-center mb-10">

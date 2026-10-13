@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { ChevronRight, ShieldCheck, Truck, RotateCcw, Lock } from 'lucide-react';
 
 const POLICY_DATA = {
@@ -68,11 +69,13 @@ const POLICY_DATA = {
   }
 };
 
-export const PolicyPage = ({ policyType = 'shipping', onNavigate }) => {
-  const current = POLICY_DATA[policyType] || POLICY_DATA.shipping;
+export const PolicyPage = ({ policyType: propPolicyType = 'shipping', onNavigate }) => {
+  const { policyType: paramPolicyType } = useParams();
+  const activeType = paramPolicyType || propPolicyType || 'shipping';
+  const current = POLICY_DATA[activeType] || POLICY_DATA.shipping;
 
   return (
-    <div className="bg-brand-bg min-h-screen py-8">
+    <div className="bg-transparent min-h-screen py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Breadcrumbs */}

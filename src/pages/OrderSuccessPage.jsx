@@ -17,7 +17,7 @@ export const OrderSuccessPage = ({ orderId = 'ORD123456789', orderSummary, onNav
   }, []);
 
   return (
-    <div className="bg-brand-bg min-h-screen py-12">
+    <div className="bg-transparent min-h-screen py-12">
       <div className="max-w-xl mx-auto px-4 text-center">
         
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-brand-border shadow-warm space-y-6">

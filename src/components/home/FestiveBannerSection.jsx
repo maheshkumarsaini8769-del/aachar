@@ -34,15 +34,16 @@ export const FestiveBannerSection = ({ onNavigate }) => {
                   className="bg-brand-yellow hover:bg-brand-yellowHover text-brand-brown font-black text-sm sm:text-base px-7 py-3.5 rounded-full flex items-center gap-2 shadow-md transform hover:-translate-y-0.5 transition-all"
                 >
                   <Gift className="w-5 h-5" />
-                  <span>Explore Festive Collection 🎁</span>
+                  <span>Explore Festive Collection</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
                 <button
                   onClick={() => onNavigate('combo-builder')}
-                  className="bg-white/15 hover:bg-white/25 text-white border-2 border-white/30 font-bold text-sm sm:text-base px-6 py-3.5 rounded-full transition-colors"
+                  className="bg-white/15 hover:bg-white/25 text-white border-2 border-white/30 font-bold text-sm sm:text-base px-6 py-3.5 rounded-full transition-colors flex items-center gap-2"
                 >
-                  Custom Combo Box ✨
+                  <Sparkles className="w-4 h-4 text-amber-300" />
+                  <span>Custom Combo Box</span>
                 </button>
               </div>
             </div>

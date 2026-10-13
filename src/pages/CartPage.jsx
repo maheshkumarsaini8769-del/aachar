@@ -62,7 +62,7 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
   const upsellProducts = products.filter(p => !cartItems.some(i => i.productId === p.id)).slice(0, 4);
 
   return (
-    <div className="bg-brand-bg min-h-screen py-8">
+    <div className="bg-transparent min-h-screen py-8">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}

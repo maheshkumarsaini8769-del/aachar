@@ -11,8 +11,12 @@ import {
   Award,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   ZoomIn,
-  X
+  X,
+  Users,
+  Package,
+  ShoppingBag
 } from 'lucide-react';
 
 const PROCESS_STEPS = [
@@ -55,22 +59,22 @@ const PROCESS_STEPS = [
     icon: '🧄',
     image: '/images/process/step-3-spices-oil.jpg',
     artisanQuote: 'Stone-ground spices and pungent cold-pressed mustard oil are the true soul and heartbeat of our village pickle tradition.',
-    artisanName: 'Geeta Sharma',
-    artisanRole: 'Spice Master • Sikar Hub'
+    artisanName: 'Bhanwari Devi',
+    artisanRole: 'Spice Master Craftsman'
   },
   {
     step: 4,
     day: 'Day 05 - 25',
-    phase: 'Ceramic Jar Solar Fermentation',
-    title: '4. Glazed Ceramic Jar Solar Fermentation',
-    subtitle: '21 to 30 Days Slow Maturation in Sun-Warmed Ceramic Jars',
-    desc: 'The pickles are transferred into traditional glazed ceramic jars, covered with breathable muslin cloth, and placed under direct sunlight. Hand-stirred daily for 21 to 30 days, allowing spices and natural probiotic cultures to thoroughly meld.',
-    highlight: 'Aged in Authentic Ceramic Jars',
+    phase: 'Ceramic Jar Solar Maturation',
+    title: '4. Slow Fermentation in Glazed Ceramic Barnis',
+    subtitle: '21 Days of Solar Aging • Probiotic Gut Friendly',
+    desc: 'Pickle mixtures are packed into thick glazed ceramic barnis (martsban) tied with breathable cotton muslin cloth. For 21 consecutive days, jars absorb natural desert sun heat, allowing beneficial live enzymes and rich flavor to mature slowly.',
+    highlight: 'Glazed Ceramic Barnis Only',
     icon: '🏺',
     image: '/images/process/step-4-ceramic-barni.jpg',
-    artisanQuote: 'Pickles breathe inside glazed ceramic jars. Industrial machines can never replicate the warmth and depth of slow solar fermentation.',
-    artisanName: 'Santosh Devi',
-    artisanRole: 'Ceramic Fermentation Lead • Sikar'
+    artisanQuote: 'Plastic kills pickle fermentation. Glazed earthen ceramic barnis are the secret why our grandmother’s achar tasted unforgettable.',
+    artisanName: 'Kailash Kanwar',
+    artisanRole: 'Fermentation Supervisor'
   },
   {
     step: 5,
@@ -105,7 +109,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-[#F5EFE0] via-[#FAF7F0] to-[#F5EFE0] border-b-2 border-brand-yellow/30 relative overflow-hidden">
+    <section className="py-14 sm:py-20 bg-transparent border-b-2 border-brand-yellow/30 relative overflow-hidden">
       
       {/* Background Motifs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
@@ -114,26 +118,169 @@ export const MakingProcessPost = ({ onNavigate }) => {
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Post Eyebrow & Main Title Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-200 to-yellow-200 text-brand-brown border border-amber-300 px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-xs">
             <Sun className="w-4 h-4 text-amber-800" />
             <span>Ancestral Recipe • 5-Step Crafting Journey</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-brown tracking-tight leading-tight">
+          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold text-brand-brown tracking-tight leading-tight">
             How Is Marusthali Achar's Authentic Homemade Pickle Handcrafted?
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-brand-brownMuted leading-relaxed max-w-2xl mx-auto font-medium">
-            Authentic pickles are never made in factory machines — they are born in the warm desert sunshine, steeped in pure cold-pressed mustard oil, and perfected by 30+ years of culinary wisdom. <strong>Click on any step below to explore each phase of our making process:</strong>
+          <p className="text-xs sm:text-base md:text-lg text-brand-brownMuted leading-relaxed max-w-2xl mx-auto font-medium">
+            Authentic pickles are never made in factory machines — they are born in the warm desert sunshine, steeped in pure cold-pressed mustard oil, and perfected by 30+ years of culinary wisdom.
           </p>
         </div>
 
-        {/* Feature Grid: Left Dynamic Photo Showcase + Right Step List */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
+        {/* ========================================================================= */}
+        {/* MOBILE VIEW (< lg): ACCORDION WHERE ONLY THE PRESSED STEP OPENS ITS DETAILS */}
+        {/* ========================================================================= */}
+        <div className="lg:hidden space-y-3 mb-10">
           
-          {/* Left Visual Story Showcase Card (5 cols) - DYNAMICALLY UPDATES ON STEP CLICK */}
-          <div className="lg:col-span-5 bg-white rounded-3xl p-5 sm:p-7 border-2 border-brand-yellow/50 shadow-xl space-y-5 relative overflow-hidden">
+          {/* Quick Step Switcher Bar on Mobile */}
+          <div className="flex items-center justify-between gap-1.5 p-1.5 bg-white rounded-2xl border border-brand-border shadow-xs overflow-x-auto no-scrollbar">
+            {PROCESS_STEPS.map((s, idx) => {
+              const isSelected = activeStep === idx;
+              return (
+                <button
+                  key={s.step}
+                  onClick={() => setActiveStep(idx)}
+                  className={`flex-1 min-w-[58px] py-2 px-1 rounded-xl text-center transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-brand-brown text-amber-300 font-black shadow-xs ring-2 ring-brand-yellow/80'
+                      : 'bg-brand-bg text-brand-brown font-bold hover:bg-amber-50'
+                  }`}
+                >
+                  <span className="block text-[9px] opacity-80 uppercase">{s.day}</span>
+                  <span className="text-[11px]">Step {s.step}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Accordion List: ONLY the active step displays its details below! */}
+          <div className="space-y-3">
+            {PROCESS_STEPS.map((step, idx) => {
+              const isExpanded = activeStep === idx;
+              return (
+                <div
+                  key={step.step}
+                  className={`rounded-2xl border-2 transition-all overflow-hidden ${
+                    isExpanded
+                      ? 'bg-white border-brand-brown shadow-lg'
+                      : 'bg-white/80 border-brand-border'
+                  }`}
+                >
+                  {/* Step Header Button */}
+                  <button
+                    onClick={() => setActiveStep(idx)}
+                    className="w-full p-4 flex items-center justify-between text-left cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-serif font-black text-sm shrink-0 ${
+                        isExpanded
+                          ? 'bg-brand-brown text-[#FBBF24]'
+                          : 'bg-amber-100 text-brand-brown'
+                      }`}>
+                        {step.step}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-black uppercase text-amber-900 bg-amber-100 px-2 py-0.5 rounded-md">
+                            {step.day}
+                          </span>
+                          <span className="text-[10px] font-bold text-emerald-800">
+                            {step.highlight}
+                          </span>
+                        </div>
+                        <h3 className="font-serif font-bold text-sm text-brand-brown mt-0.5">
+                          {step.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <ChevronDown className={`w-5 h-5 text-brand-brown transition-transform duration-300 shrink-0 ${
+                      isExpanded ? 'rotate-180 text-brand-yellow' : ''
+                    }`} />
+                  </button>
+
+                  {/* ONLY Active Step Body Details */}
+                  {isExpanded && (
+                    <div className="px-4 pb-5 pt-1 space-y-4 border-t border-brand-border/60 animate-fade-in">
+                      
+                      {/* Step Photo with click-to-zoom */}
+                      <div 
+                        onClick={() => setLightboxImage(step)}
+                        className="relative aspect-16/10 rounded-xl overflow-hidden border border-amber-300 shadow-sm bg-amber-50 cursor-pointer group"
+                      >
+                        <img
+                          src={step.image}
+                          alt={step.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-2 right-2 bg-black/60 text-white p-1.5 rounded-full text-xs">
+                          <ZoomIn className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="absolute bottom-2 left-2 bg-brand-yellow text-brand-brown text-[10px] font-black px-2 py-0.5 rounded shadow-xs">
+                          {step.phase}
+                        </div>
+                      </div>
+
+                      {/* Subtitle & Description */}
+                      <div>
+                        <p className="text-xs font-bold text-brand-green mb-1">
+                          {step.subtitle}
+                        </p>
+                        <p className="text-xs text-brand-brown leading-relaxed font-medium">
+                          {step.desc}
+                        </p>
+                      </div>
+
+                      {/* Artisan Quote Box */}
+                      <div className="p-3 rounded-xl bg-[#F7F2E6] border border-amber-200 text-xs">
+                        <p className="italic font-serif text-brand-brown leading-relaxed font-semibold">
+                          "{step.artisanQuote}"
+                        </p>
+                        <span className="block text-[11px] font-bold text-brand-brown mt-1">
+                          — {step.artisanName} ({step.artisanRole})
+                        </span>
+                      </div>
+
+                      {/* Step Next / Previous navigation buttons */}
+                      <div className="flex items-center justify-between pt-1">
+                        <button
+                          onClick={handlePrev}
+                          className="text-xs font-bold text-brand-brown flex items-center gap-1 hover:text-brand-green p-1"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                          <span>Previous Step</span>
+                        </button>
+                        <button
+                          onClick={handleNext}
+                          className="text-xs font-bold text-brand-yellowHover flex items-center gap-1 hover:text-brand-yellow p-1"
+                        >
+                          <span>Next Step</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+
+        {/* ========================================================================= */}
+        {/* DESKTOP VIEW (lg+): INTERACTIVE SIDE-BY-SIDE SHOWCASE */}
+        {/* ========================================================================= */}
+        <div className="hidden lg:grid grid-cols-12 gap-8 items-start mb-14">
+          
+          {/* Left Visual Story Showcase Card (5 cols) */}
+          <div className="lg:col-span-5 bg-white rounded-3xl p-5 sm:p-7 border-2 border-brand-yellow/50 shadow-xl space-y-5 relative overflow-hidden sticky top-28">
             
             {/* Step Counter Top Bar */}
             <div className="flex items-center justify-between pb-2 border-b border-brand-border/60 text-xs">
@@ -146,7 +293,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
               </span>
             </div>
 
-            {/* DYNAMIC SIDE IMAGE (Changes on every step click!) */}
+            {/* DYNAMIC SIDE IMAGE */}
             <div 
               onClick={() => setLightboxImage(currentStep)}
               className="relative aspect-4/3 rounded-2xl overflow-hidden border-2 border-amber-300/80 shadow-md bg-amber-50 cursor-pointer group"
@@ -201,7 +348,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
                 <button
                   key={s.step}
                   onClick={() => setActiveStep(i)}
-                  className={`flex-1 min-w-[52px] py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-xs font-bold transition-all border text-center ${
+                  className={`flex-1 min-w-[52px] py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-xs font-bold transition-all border text-center cursor-pointer ${
                     activeStep === i
                       ? 'bg-brand-brown text-amber-100 border-brand-brown shadow-xs ring-2 ring-brand-yellow/80'
                       : 'bg-brand-bg text-brand-brown border-brand-border hover:bg-amber-100'
@@ -213,7 +360,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
               ))}
             </div>
 
-            {/* Dynamic Artisan Quote (Changes per step) */}
+            {/* Dynamic Artisan Quote */}
             <div className="p-3.5 sm:p-5 rounded-2xl bg-[#F7F2E6] border border-amber-300/80 space-y-2">
               <div className="text-amber-700 text-xl font-serif leading-none">“</div>
               <p className="font-serif italic text-xs sm:text-sm text-brand-brown leading-relaxed font-semibold">
@@ -229,7 +376,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
                   </span>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center text-xs font-bold shadow-xs">
-                  👩‍🌾
+                  <Users className="w-4 h-4 text-white" />
                 </div>
               </div>
             </div>
@@ -244,21 +391,12 @@ export const MakingProcessPost = ({ onNavigate }) => {
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>0% Sodium Benzoate</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 text-amber-900 border border-amber-200">
-                <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>Pure Cold-Pressed Mustard Oil</span>
-              </div>
-              <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 text-amber-900 border border-amber-200">
-                <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>Food-Grade Glass Jars</span>
-              </div>
             </div>
 
           </div>
 
-          {/* Right 5-Step Process Timeline Cards (7 cols) - CLICKING ANY UPDATES THE SIDE IMAGE */}
+          {/* Right 5-Step Process Timeline Cards (7 cols) */}
           <div className="lg:col-span-7 space-y-3.5">
-            
             {PROCESS_STEPS.map((step, idx) => {
               const isActive = activeStep === idx;
               return (
@@ -273,7 +411,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
                 >
                   <div className="flex items-start gap-4">
                     
-                    {/* Step Thumbnail Preview (Gives visual cue of the making process photo) */}
+                    {/* Step Thumbnail Preview */}
                     <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-brand-border shrink-0 bg-amber-50 shadow-xs">
                       <img
                         src={step.image}
@@ -299,9 +437,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
                         </span>
                       </div>
 
-                      <h3 className={`font-serif font-bold text-sm sm:text-base md:text-lg leading-snug transition-colors ${
-                        isActive ? 'text-brand-brown' : 'text-brand-brown'
-                      }`}>
+                      <h3 className="font-serif font-bold text-sm sm:text-base md:text-lg leading-snug text-brand-brown">
                         {step.title}
                       </h3>
 
@@ -323,7 +459,6 @@ export const MakingProcessPost = ({ onNavigate }) => {
                 </div>
               );
             })}
-
           </div>
 
         </div>
@@ -346,15 +481,17 @@ export const MakingProcessPost = ({ onNavigate }) => {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <button
               onClick={() => onNavigate('all-products')}
-              className="px-6 py-3.5 bg-brand-yellow hover:bg-brand-yellowHover text-brand-brown font-extrabold text-sm sm:text-base rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95"
+              className="px-6 py-3.5 bg-brand-yellow hover:bg-brand-yellowHover text-brand-brown font-extrabold text-sm sm:text-base rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
             >
-              Order Homemade Pickles 🏺
+              <ShoppingBag className="w-4 h-4" />
+              <span>Order Homemade Pickles</span>
             </button>
             <button
               onClick={() => onNavigate('combo-builder')}
-              className="px-6 py-3.5 bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold text-sm sm:text-base rounded-full transition-all"
+              className="px-6 py-3.5 bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold text-sm sm:text-base rounded-full transition-all flex items-center gap-2 cursor-pointer"
             >
-              Build Custom Combo ✨
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Build Custom Combo</span>
             </button>
           </div>
         </div>
@@ -382,7 +519,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
               </div>
               <button
                 onClick={() => setLightboxImage(null)}
-                className="w-8 h-8 rounded-full bg-white hover:bg-gray-100 border border-brand-border flex items-center justify-center text-brand-brown"
+                className="w-8 h-8 rounded-full bg-white hover:bg-gray-100 border border-brand-border flex items-center justify-center text-brand-brown cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -406,3 +543,5 @@ export const MakingProcessPost = ({ onNavigate }) => {
     </section>
   );
 };
+
+export default MakingProcessPost;

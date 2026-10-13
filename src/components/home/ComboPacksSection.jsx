@@ -9,7 +9,9 @@ import {
   ShoppingBag,
   CheckCircle2,
   Zap,
-  RotateCcw
+  RotateCcw,
+  Star,
+  Award
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
@@ -57,7 +59,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'mango-classic',
     name: 'Classic Mango Achar',
     tag: 'Bestseller Jar',
-    spice: 'Medium Spicy 🌶️',
+    spice: 'Medium Spicy',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-mango-jar.jpg'
   },
@@ -65,7 +67,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'red-chilli',
     name: 'Stuffed Red Chilli Achar',
     tag: 'Rajasthani Special',
-    spice: 'Hot & Zesty 🌶️🌶️',
+    spice: 'Hot & Zesty',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-chilli-jar.jpg'
   },
@@ -73,7 +75,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'nimbu-khatta-meetha',
     name: 'Khatta-Meetha Nimbu Achar',
     tag: 'Sun-Cured',
-    spice: 'Mild & Tangy 🍋',
+    spice: 'Mild & Tangy',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-lemon-jar.jpg'
   },
@@ -81,7 +83,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'garlic-special',
     name: 'Desi Lasun (Garlic) Achar',
     tag: 'Digestive',
-    spice: 'Bold Garlic 🧄',
+    spice: 'Bold Garlic',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-garlic-jar.jpg'
   },
@@ -89,7 +91,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'mixed-pachranga',
     name: 'Pachranga Mixed Achar',
     tag: 'Family Favorite',
-    spice: 'Medium Spicy 🌶️',
+    spice: 'Medium Spicy',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-mixed-jar.jpg'
   },
@@ -97,7 +99,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'green-chilli',
     name: 'Bharwa Hari Mirch Achar',
     tag: 'Fresh Batch',
-    spice: 'Chatpata 🌶️',
+    spice: 'Chatpata',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-green-chilli-jar.jpg'
   },
@@ -105,7 +107,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'marwari-heritage',
     name: 'Rajasthani Heritage Methi Achar',
     tag: 'Sikar Traditional',
-    spice: 'Traditional 🏺',
+    spice: 'Traditional',
     weight: '400g Glass Jar',
     image: '/images/products/marusthali-heritage-jar.jpg'
   },
@@ -113,7 +115,7 @@ const ACHAR_BOX_FLAVORS = [
     id: 'spiced-kairi',
     name: 'Marwari Masala Kairi Achar',
     tag: 'Cold-Pressed Oil',
-    spice: 'Bold Masala 🥭',
+    spice: 'Bold Masala',
     weight: '400g Glass Jar',
     image: '/images/products/mango-jar-classic.jpg'
   }
@@ -218,13 +220,15 @@ export const ComboPacksSection = ({ onNavigate }) => {
                 }`}
               >
                 {pack.popular && (
-                  <span className="absolute -top-3 left-5 bg-[#F5A623] text-[#1F110B] font-black text-[11px] uppercase tracking-wider px-3 py-0.5 rounded-full shadow-xs border border-[#2D1810]/20">
-                    ⭐ Most Popular Combo
+                  <span className="absolute -top-3 left-5 bg-[#F5A623] text-[#1F110B] font-black text-[11px] uppercase tracking-wider px-3 py-0.5 rounded-full shadow-xs border border-[#2D1810]/20 inline-flex items-center gap-1">
+                    <Star className="w-3 h-3 fill-current" />
+                    <span>Most Popular Combo</span>
                   </span>
                 )}
                 {pack.bestValue && (
-                  <span className="absolute -top-3 left-5 bg-[#1E5631] text-white font-black text-[11px] uppercase tracking-wider px-3 py-0.5 rounded-full shadow-xs">
-                    👑 Best Value Pack
+                  <span className="absolute -top-3 left-5 bg-[#1E5631] text-white font-black text-[11px] uppercase tracking-wider px-3 py-0.5 rounded-full shadow-xs inline-flex items-center gap-1">
+                    <Award className="w-3 h-3 text-amber-300" />
+                    <span>Best Value Pack</span>
                   </span>
                 )}
 

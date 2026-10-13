@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { categories } from '../../data/categories';
 
 export const CategoryRoundels = ({ onNavigate }) => {
@@ -13,8 +13,9 @@ export const CategoryRoundels = ({ onNavigate }) => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-amber-800 font-extrabold text-xs sm:text-sm uppercase tracking-wider bg-amber-100 px-3 py-0.5 rounded-full border border-amber-300">
-                🌿 Authentic Flavours
+              <span className="text-amber-800 font-extrabold text-xs sm:text-sm uppercase tracking-wider bg-amber-100 px-3 py-0.5 rounded-full border border-amber-300 inline-flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                <span>Authentic Flavours</span>
               </span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-brand-brown">

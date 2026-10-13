@@ -56,7 +56,7 @@ export const AllCategoriesPage = ({ onNavigate }) => {
   };
 
   return (
-    <div className="bg-[#FDFBF7] min-h-screen py-6 sm:py-10">
+    <div className="bg-transparent min-h-screen py-6 sm:py-10">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation Breadcrumb & Back */}

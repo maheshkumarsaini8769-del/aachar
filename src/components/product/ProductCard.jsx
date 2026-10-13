@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Heart, Star, ShoppingBag, Eye, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, Star, ShoppingBag, Eye, Check, ChevronLeft, ChevronRight, Leaf, Flame } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 
@@ -357,17 +357,18 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
         <div className="pt-0.5">
           <div className="flex items-center gap-1 sm:gap-1.5">
             {[
-              { id: 'Low', label: '🌿 Low' },
-              { id: 'Medium', label: '🌶️ Medium' },
-              { id: 'Spicy', label: '🔥 Spicy' }
+              { id: 'Low', label: 'Low', icon: Leaf },
+              { id: 'Medium', label: 'Medium', icon: Flame },
+              { id: 'Spicy', label: 'Spicy', icon: Flame }
             ].map(sp => {
+              const IconComponent = sp.icon;
               const isSelected = selectedSpice === sp.id;
               return (
                 <button
                   key={sp.id}
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setSelectedSpice(sp.id); }}
-                  className={`flex-1 py-1 px-1 sm:px-2 rounded-md sm:rounded-lg text-[9px] sm:text-[11px] font-extrabold transition-all border text-center whitespace-nowrap cursor-pointer ${
+                  className={`flex-1 py-1 px-1 sm:px-2 rounded-md sm:rounded-lg text-[9px] sm:text-[11px] font-extrabold transition-all border text-center whitespace-nowrap cursor-pointer inline-flex items-center justify-center gap-1 ${
                     isSelected
                       ? sp.id === 'Spicy'
                         ? 'bg-red-700 text-white border-red-700 shadow-2xs'
@@ -377,7 +378,8 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
                       : 'bg-[#FAF6EE] text-[#2D1810] border-[#E5D9C5] hover:border-[#D97706]'
                   }`}
                 >
-                  {sp.label}
+                  <IconComponent className={`w-3 h-3 ${isSelected ? 'text-white' : sp.id === 'Spicy' ? 'text-red-600' : sp.id === 'Low' ? 'text-emerald-700' : 'text-amber-600'}`} />
+                  <span>{sp.label}</span>
                 </button>
               );
             })}

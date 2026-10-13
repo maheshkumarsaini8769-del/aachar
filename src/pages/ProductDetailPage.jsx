@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { 
   ChevronRight, 
   Star, 
@@ -22,8 +23,11 @@ import { useAuth } from '../context/AuthContext';
 import { ProductGallery } from '../components/product/ProductGallery';
 import { DeliveryEstimator } from '../components/product/DeliveryEstimator';
 import { ProductCard } from '../components/product/ProductCard';
+import { ProductTrustBadges } from '../components/product/ProductTrustBadges';
 
-export const ProductDetailPage = ({ productId = 'aam-classic', onNavigate, onQuickView }) => {
+export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuickView }) => {
+  const { productId: paramProductId } = useParams();
+  const productId = propProductId || paramProductId || 'aam-classic';
   const product = products.find(p => p.id === productId) || products[0];
 
   const { addToCart } = useCart();
@@ -104,7 +108,7 @@ export const ProductDetailPage = ({ productId = 'aam-classic', onNavigate, onQui
   const relatedProducts = products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4);
 
   return (
-    <div className="bg-brand-bg min-h-screen py-8">
+    <div className="bg-transparent min-h-screen py-8">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}
@@ -125,12 +129,17 @@ export const ProductDetailPage = ({ productId = 'aam-classic', onNavigate, onQui
           
           {/* Left Gallery (Col 6) */}
           <div className="lg:col-span-6">
-            <div className="sticky top-28">
+            <div className="sticky top-28 space-y-5">
               <ProductGallery
                 images={product.gallery || [product.image]}
                 productName={product.name}
+                productId={product.id}
                 onNavigate={onNavigate}
               />
+              {/* Product Trust Badges under gallery on large screens */}
+              <div className="hidden lg:block">
+                <ProductTrustBadges />
+              </div>
             </div>
           </div>
 
@@ -366,6 +375,11 @@ export const ProductDetailPage = ({ productId = 'aam-classic', onNavigate, onQui
                 ))}
               </div>
             )}
+
+            {/* Mobile View: Product Trust Badges directly below Buy Box */}
+            <div className="block lg:hidden pt-3">
+              <ProductTrustBadges />
+            </div>
 
           </div>
 

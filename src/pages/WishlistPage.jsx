@@ -12,7 +12,7 @@ export const WishlistPage = ({ onNavigate, onQuickView }) => {
   const savedProducts = products.filter(p => wishlist.includes(p.id));
 
   return (
-    <div className="bg-brand-bg min-h-screen py-8">
+    <div className="bg-transparent min-h-screen py-8">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}

@@ -9,9 +9,22 @@
   }
   body {
     background-color: #FDFBF7;
+    background-image: 
+      linear-gradient(rgba(253, 251, 247, 0.12), rgba(253, 251, 247, 0.20)),
+      url('/images/wallpapers/wallpaper-5-shekhawati.webp');
+    background-repeat: repeat-y;
+    background-size: 768px auto;
+    background-position: center top;
+    background-attachment: scroll;
     color: #2D1810;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      background-size: 100% auto;
+    }
   }
 }
 

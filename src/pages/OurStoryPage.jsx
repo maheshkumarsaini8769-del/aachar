@@ -3,7 +3,7 @@ import { ChevronRight, Heart, Award, ShieldCheck, Sun } from 'lucide-react';
 
 export const OurStoryPage = ({ onNavigate }) => {
   return (
-    <div className="bg-brand-bg min-h-screen py-8">
+    <div className="bg-transparent min-h-screen py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Breadcrumbs */}

@@ -146,9 +146,10 @@ export const SamplerBoxSection = ({ onNavigate }) => {
 
               <button
                 onClick={() => onNavigate('combo-builder')}
-                className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-6 py-4 rounded-full border border-white/20 flex items-center justify-center transition-colors"
+                className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-6 py-4 rounded-full border border-white/20 flex items-center justify-center gap-2 transition-colors"
               >
-                <span>Or Custom Build 3-Jar Box ✨</span>
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Or Custom Build 3-Jar Box</span>
               </button>
             </div>
 

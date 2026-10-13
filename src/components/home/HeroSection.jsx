@@ -282,7 +282,7 @@ export const HeroSection = ({ onNavigate }) => {
 
   return (
     <section 
-      className="relative w-full bg-[#FAF5E8] overflow-hidden border-b border-[#E8DDCD]"
+      className="relative w-full bg-transparent overflow-hidden border-b border-[#E8DDCD]/60"
       onWheel={handleWheel}
     >
       
@@ -345,12 +345,16 @@ export const HeroSection = ({ onNavigate }) => {
           </div>
 
           {/* Foreground Content Container */}
-          <div className="w-full min-h-[500px] lg:min-h-[560px] relative z-10 flex flex-col justify-between px-8 lg:px-14 pt-8 lg:pt-12 pb-5">
+          <div className="w-full min-h-[500px] lg:min-h-[560px] relative z-10 flex flex-col justify-between px-8 lg:px-14 pt-8 lg:pt-12 pb-5 pointer-events-none">
             
-            {/* High-Contrast Card */}
+            {/* High-Contrast Card (Hides completely with smooth fade/scale when video plays so the user sees FULL video!) */}
             <div 
               onClick={(e) => e.stopPropagation()}
-              className="my-auto bg-[#FFFDF9]/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 lg:p-8 border-2 border-[#E5D9C5] shadow-2xl max-w-lg lg:max-w-[520px] transition-all duration-300 cursor-default"
+              className={`my-auto bg-[#FFFDF9]/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 lg:p-8 border-2 border-[#E5D9C5] shadow-2xl max-w-lg lg:max-w-[520px] transition-all duration-500 cursor-default pointer-events-auto ${
+                isPlayingVideo 
+                  ? 'opacity-0 scale-95 pointer-events-none translate-y-6 invisible' 
+                  : 'opacity-100 scale-100 translate-y-0 visible'
+              }`}
             >
               
               {/* Tag with Golden Amber Accent Line */}
@@ -410,34 +414,38 @@ export const HeroSection = ({ onNavigate }) => {
             {/* Bottom Controls Bar (Video Pill + Pagination Dots) */}
             <div 
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-between pt-4 z-20"
+              className="flex items-center justify-between pt-4 z-20 pointer-events-auto"
             >
               
               {/* Left: Video Play/Pause Pill */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={toggleVideo}
-                  className="inline-flex items-center gap-2 bg-black/70 hover:bg-black/85 text-white px-3.5 py-1.5 rounded-full text-xs font-bold backdrop-blur-md transition-all shadow-sm cursor-pointer"
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md transition-all shadow-md cursor-pointer border ${
+                    isPlayingVideo 
+                      ? 'bg-[#1C120C]/90 text-[#FBBF24] border-[#C88214] scale-105' 
+                      : 'bg-black/70 hover:bg-black/85 text-white border-white/20'
+                  }`}
                 >
-                  <div className="w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center text-white">
+                  <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-white">
                     {isPlayingVideo ? (
-                      <Pause className="w-2 h-2 fill-current" />
+                      <Pause className="w-2.5 h-2.5 fill-current" />
                     ) : (
-                      <Play className="w-2 h-2 fill-current ml-0.5" />
+                      <Play className="w-2.5 h-2.5 fill-current ml-0.5" />
                     )}
                   </div>
                   <span>
-                    {isPlayingVideo ? 'Video Playing' : 'Play Ambient Video'}
+                    {isPlayingVideo ? 'Full Video Playing • Click to Stop & Return' : 'Play Video'}
                   </span>
                 </button>
 
                 {isPlayingVideo && (
                   <button
                     onClick={() => setIsMuted(!isMuted)}
-                    className="p-1.5 rounded-full bg-black/70 hover:bg-black/85 text-white backdrop-blur-md transition-all cursor-pointer"
+                    className="p-2 rounded-full bg-[#1C120C]/90 hover:bg-black text-white border border-[#C88214] backdrop-blur-md transition-all cursor-pointer shadow-md"
                     title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
                   >
-                    {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#F5A623]" />}
+                    {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#F5A623]" />}
                   </button>
                 )}
               </div>
@@ -479,8 +487,16 @@ export const HeroSection = ({ onNavigate }) => {
         {/* Top Hero Image Container (92% Width, Rounded, Shadow, 1-Finger Swipe + Tap to Navigate) */}
         <div className="w-[92%] mx-auto">
           <div 
-            onClick={() => handleImageTap(currentSlide)}
-            className="relative w-full aspect-[16/10] bg-stone-900 rounded-2xl overflow-hidden shadow-md border border-[#E8DDCD] cursor-pointer"
+            onClick={() => {
+              if (isPlayingVideo) {
+                toggleVideo();
+              } else {
+                handleImageTap(currentSlide);
+              }
+            }}
+            className={`relative w-full transition-all duration-500 bg-stone-900 rounded-2xl overflow-hidden shadow-md border border-[#E8DDCD] cursor-pointer ${
+              isPlayingVideo ? 'aspect-[4/3] sm:aspect-[16/10] ring-2 ring-[#C88214]' : 'aspect-[16/10]'
+            }`}
           >
             
             {/* Real Horizontal Sliding Track on Mobile */}
@@ -500,26 +516,47 @@ export const HeroSection = ({ onNavigate }) => {
               ))}
             </div>
 
-            {/* Mobile Tap Badge on Image */}
-            <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none">
-              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black shadow-sm backdrop-blur-md ${
-                currentSlide.isComboSlide
-                  ? 'bg-[#2D1810]/90 text-[#FBBF24] border border-[#F5A623]'
-                  : 'bg-black/60 text-white'
-              }`}>
-                {currentSlide.isComboSlide ? '🎁 Tap for Combo Pack →' : 'Tap for Products →'}
-              </span>
-            </div>
+            {/* Mobile Tap Badge on Image (Hidden when video plays) */}
+            {!isPlayingVideo && (
+              <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none">
+                <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black shadow-sm backdrop-blur-md ${
+                  currentSlide.isComboSlide
+                    ? 'bg-[#2D1810]/90 text-[#FBBF24] border border-[#F5A623]'
+                    : 'bg-black/60 text-white'
+                }`}>
+                  {currentSlide.isComboSlide ? '🎁 Tap for Combo Pack →' : 'Tap for Products →'}
+                </span>
+              </div>
+            )}
 
             {isPlayingVideo && (
-              <video
-                src="/videos/hero-bg.mp4"
-                autoPlay
-                loop
-                muted={isMuted}
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover z-2"
-              />
+              <>
+                <video
+                  src="/videos/hero-bg.mp4"
+                  autoPlay
+                  loop
+                  muted={isMuted}
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover z-2"
+                />
+                {/* Floating pill over video on mobile */}
+                <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}
+                    className="p-1.5 rounded-full bg-black/75 text-white backdrop-blur-md shadow-md"
+                    aria-label="Toggle mute"
+                  >
+                    {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#FBBF24]" />}
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleVideo(); }}
+                    className="px-2.5 py-1 rounded-full bg-black/75 text-[#FBBF24] text-[10px] font-black backdrop-blur-md shadow-md flex items-center gap-1 border border-[#C88214]/50"
+                  >
+                    <Pause className="w-2.5 h-2.5 fill-current" />
+                    <span>Close Video</span>
+                  </button>
+                </div>
+              </>
             )}
 
             {/* Soft Bottom Gradient */}
@@ -527,74 +564,90 @@ export const HeroSection = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Bottom Clean Soft Card (92% Width) */}
-        <div className="w-[92%] mx-auto px-1 pt-3.5 pb-2 flex flex-col relative">
-          
-          {/* Subtitle tag */}
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-black tracking-wider text-[#2D1810] uppercase">
-              {currentSlide.tag}
-            </span>
-            <div className="w-7 h-[2px] bg-[#E59400]" />
-          </div>
-
-          {/* Headline */}
-          <h1 className="font-serif text-xl sm:text-2xl font-black text-[#2D1810] leading-tight mb-1.5">
-            {currentSlide.title1} <br />
-            <span className="text-[#D97706]">{currentSlide.title2}</span>
-          </h1>
-
-          {/* Description */}
-          <p className="text-xs font-semibold text-[#5A493F] leading-relaxed mb-3.5">
-            {currentSlide.desc}
-          </p>
-
-          {/* Action Buttons Row */}
-          <div className="flex items-center gap-2.5 w-full mb-3">
-            <button
-              onClick={() => onNavigate(currentSlide.primaryTarget, currentSlide.primaryParams || {})}
-              className="flex-1 bg-[#F5A623] hover:bg-[#E09415] text-[#2D1810] font-black text-xs py-2.5 px-3 rounded-full shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all"
-            >
-              <span>{currentSlide.primaryBtn}</span>
-            </button>
-
-            <button
-              onClick={() => onNavigate(currentSlide.secondaryTarget)}
-              className="flex-1 bg-white hover:bg-stone-50 text-[#2D1810] font-bold text-xs py-2.5 px-3 rounded-full border border-[#D5C7B8] shadow-2xs active:scale-95 transition-all"
-            >
-              <span>{currentSlide.secondaryBtn}</span>
-            </button>
-          </div>
-
-          {/* Mobile Bottom Row: Carousel Dots + Video Pause/Play Button */}
-          <div className="flex items-center justify-between pt-1">
-            {/* Dots */}
-            <div className="flex items-center gap-1.5 py-1">
-              {slides.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSelectDot(idx)}
-                  className={`h-2 rounded-full transition-all cursor-pointer ${
-                    activeSlide === idx
-                      ? 'w-7 bg-[#F5A623]'
-                      : 'w-2 bg-stone-300'
-                  }`}
-                  aria-label={`Slide ${idx + 1}`}
-                />
-              ))}
+        {/* Bottom Clean Soft Card (92% Width) - Hides when video plays so full video is seen */}
+        {!isPlayingVideo ? (
+          <div className="w-[92%] mx-auto px-1 pt-3.5 pb-2 flex flex-col relative transition-opacity duration-300">
+            
+            {/* Subtitle tag */}
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[10px] font-black tracking-wider text-[#2D1810] uppercase">
+                {currentSlide.tag}
+              </span>
+              <div className="w-7 h-[2px] bg-[#E59400]" />
             </div>
 
-            {/* Video Pause/Play Button on Bottom-Right */}
+            {/* Headline */}
+            <h1 className="font-serif text-xl sm:text-2xl font-black text-[#2D1810] leading-tight mb-1.5">
+              {currentSlide.title1} <br />
+              <span className="text-[#D97706]">{currentSlide.title2}</span>
+            </h1>
+
+            {/* Description */}
+            <p className="text-xs font-semibold text-[#5A493F] leading-relaxed mb-3.5">
+              {currentSlide.desc}
+            </p>
+
+            {/* Action Buttons Row */}
+            <div className="flex items-center gap-2.5 w-full mb-3">
+              <button
+                onClick={() => onNavigate(currentSlide.primaryTarget, currentSlide.primaryParams || {})}
+                className="flex-1 bg-[#F5A623] hover:bg-[#E09415] text-[#2D1810] font-black text-xs py-2.5 px-3 rounded-full shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <span>{currentSlide.primaryBtn}</span>
+              </button>
+
+              <button
+                onClick={() => onNavigate(currentSlide.secondaryTarget)}
+                className="flex-1 bg-white hover:bg-stone-50 text-[#2D1810] font-bold text-xs py-2.5 px-3 rounded-full border border-[#D5C7B8] shadow-2xs active:scale-95 transition-all"
+              >
+                <span>{currentSlide.secondaryBtn}</span>
+              </button>
+            </div>
+
+            {/* Mobile Bottom Row: Carousel Dots + Video Pause/Play Button */}
+            <div className="flex items-center justify-between pt-1">
+              {/* Dots */}
+              <div className="flex items-center gap-1.5 py-1">
+                {slides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSelectDot(idx)}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      activeSlide === idx
+                        ? 'w-7 bg-[#F5A623]'
+                        : 'w-2 bg-stone-300'
+                    }`}
+                    aria-label={`Slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Video Play Button on Bottom-Right */}
+              <button
+                onClick={toggleVideo}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1C120C] text-[#FBBF24] border border-[#C88214] text-xs font-bold shadow-sm active:scale-90 transition-transform"
+                aria-label="Play video"
+              >
+                <Play className="w-3.5 h-3.5 fill-current" />
+                <span>Play Video</span>
+              </button>
+            </div>
+
+          </div>
+        ) : (
+          <div className="w-[92%] mx-auto px-1 pt-3 pb-1 flex items-center justify-between">
+            <span className="text-xs font-bold text-[#1C120C] flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Full Process Video Playing
+            </span>
             <button
               onClick={toggleVideo}
-              className="w-8 h-8 rounded-full bg-stone-800 text-white flex items-center justify-center shadow-sm active:scale-90 transition-transform"
-              aria-label="Toggle video"
+              className="text-xs font-extrabold text-[#C88214] hover:underline"
             >
-              {isPlayingVideo ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current ml-0.5" />}
+              Show Offer Details →
             </button>
           </div>
-
-        </div>
+        )}
 
       </div>
 

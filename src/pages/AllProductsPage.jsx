@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, SlidersHorizontal, ChevronRight, X } from 'lucide-react';
+import { Filter, SlidersHorizontal, ChevronRight, X, Tag } from 'lucide-react';
 import { products } from '../data/products';
 import { categories } from '../data/categories';
 import { ProductCard } from '../components/product/ProductCard';
@@ -20,11 +20,10 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
 
   const quickPriceRanges = [
     { label: 'All Prices', min: 0, max: 1500 },
-    { label: '₹100 – ₹200', min: 100, max: 200 },
-    { label: '₹100 – ₹300', min: 100, max: 300 },
-    { label: '₹200 – ₹300', min: 200, max: 300 },
-    { label: '₹300 – ₹500', min: 300, max: 500 },
-    { label: '₹500 – ₹1500', min: 500, max: 1500 },
+    { label: 'Under ₹200 (250g)', min: 0, max: 200 },
+    { label: '₹200 – ₹300 (500g)', min: 200, max: 300 },
+    { label: '₹300 – ₹500 (1kg)', min: 300, max: 500 },
+    { label: '₹500+ (Gift Boxes)', min: 500, max: 1500 },
   ];
 
   // Filter and sort products
@@ -85,7 +84,7 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
   const activeFiltersCount = selectedCategories.length + selectedSizes.length + selectedSpices.length + (isPriceFiltered ? 1 : 0);
 
   return (
-    <div className="bg-brand-bg min-h-screen py-8">
+    <div className="bg-transparent min-h-screen py-8">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}
@@ -141,10 +140,11 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
           </div>
         </div>
 
-        {/* Quick Price Range Bar (1-Tap Filter for 100-200, 100-300, 200-300, 300-500, etc.) */}
+        {/* Quick Price Range Bar (1-Tap Filter for standard sizes) */}
         <div className="pt-4 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-extrabold text-brand-brown mr-1">
-            💰 Price Range:
+          <span className="text-xs font-extrabold text-brand-brown mr-1 inline-flex items-center gap-1.5">
+            <Tag className="w-3.5 h-3.5 text-brand-green" />
+            <span>Price Range:</span>
           </span>
           {quickPriceRanges.map((range) => {
             const isActive = minPrice === range.min && maxPrice === range.max;

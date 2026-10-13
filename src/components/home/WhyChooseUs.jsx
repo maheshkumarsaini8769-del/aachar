@@ -1,9 +1,9 @@
 import React from 'react';
-import { ShieldCheck, Heart, Sun, Award, CheckCircle2, Sparkles, Users, Flame } from 'lucide-react';
+import { ShieldCheck, Heart, Sun, Award, CheckCircle2, Sparkles, Users, Flame, Leaf } from 'lucide-react';
 
 export const WhyChooseUs = () => {
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-[#F5EFE0] via-[#FAF7F0] to-[#F5EFE0] border-b-2 border-brand-yellow/30 relative overflow-hidden">
+    <section className="py-16 sm:py-20 bg-transparent border-b-2 border-brand-yellow/30 relative overflow-hidden">
       
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
@@ -34,8 +34,8 @@ export const WhyChooseUs = () => {
           <div className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-brand-yellow/40 shadow-md hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl shadow-xs group-hover:scale-110 transition-transform">
-                  🌿
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shadow-xs group-hover:scale-110 transition-transform">
+                  <Leaf className="w-7 h-7 text-amber-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-full">
                   100% Cold-Pressed
@@ -67,8 +67,8 @@ export const WhyChooseUs = () => {
           <div className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-brand-yellow/40 shadow-md hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl shadow-xs group-hover:scale-110 transition-transform">
-                  ☀️
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shadow-xs group-hover:scale-110 transition-transform">
+                  <Sun className="w-7 h-7 text-amber-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-full">
                   21-40 Days Solar
@@ -100,8 +100,8 @@ export const WhyChooseUs = () => {
           <div className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-brand-yellow/40 shadow-md hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl shadow-xs group-hover:scale-110 transition-transform">
-                  👩‍🌾
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-emerald-700 shadow-xs group-hover:scale-110 transition-transform">
+                  <Users className="w-7 h-7 text-emerald-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-full">
                   45+ Sikar Artisans
@@ -133,8 +133,8 @@ export const WhyChooseUs = () => {
           <div className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-brand-yellow/40 shadow-md hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl shadow-xs group-hover:scale-110 transition-transform">
-                  🛡️
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-rose-700 shadow-xs group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-7 h-7 text-rose-600" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-rose-900 bg-rose-100 border border-rose-300 px-2.5 py-1 rounded-full">
                   0% Chemicals
@@ -144,6 +144,7 @@ export const WhyChooseUs = () => {
               <h3 className="font-serif font-bold text-lg sm:text-xl text-brand-brown mb-2 group-hover:text-brand-green transition-colors">
                 100% Pure & Vegetarian
               </h3>
+
               
               <p className="text-sm text-brand-brownMuted leading-relaxed mb-4">
                 100% free from sodium benzoate, synthetic vinegar (acetic acid), and artificial colors. Preserved solely by mineral salt, mustard seeds, and pure oil.

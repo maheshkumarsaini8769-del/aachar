@@ -8,10 +8,10 @@ export const BestsellersSection = ({ onNavigate, onQuickView }) => {
 
   const categories = [
     { id: 'all', label: 'All Bestsellers' },
-    { id: 'mango', label: '🥭 Mango' },
-    { id: 'mirchi', label: '🌶️ Red & Green Chilli' },
-    { id: 'garlic', label: '🧄 Garlic' },
-    { id: 'lemon', label: '🍋 Lemon' }
+    { id: 'mango', label: 'Mango' },
+    { id: 'mirchi', label: 'Red & Green Chilli' },
+    { id: 'garlic', label: 'Garlic' },
+    { id: 'lemon', label: 'Lemon' }
   ];
 
   const filteredProducts = products.filter(p => {
@@ -23,7 +23,7 @@ export const BestsellersSection = ({ onNavigate, onQuickView }) => {
   }).slice(0, 8);
 
   return (
-    <section className="py-14 sm:py-20 bg-gradient-to-b from-[#FAF6EE] via-[#FDFBF7] to-[#FAF6EE] border-b border-brand-yellow/30 relative overflow-hidden">
+    <section className="py-14 sm:py-20 bg-transparent border-b border-brand-yellow/30 relative overflow-hidden">
       
       {/* Ambient glow */}
       <div className="absolute top-0 right-1/4 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />

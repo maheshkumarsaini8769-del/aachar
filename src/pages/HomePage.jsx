@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeroSection } from '../components/home/HeroSection';
 import { BestsellersSection } from '../components/home/BestsellersSection';
-import { ComboPacksSection } from '../components/home/ComboPacksSection';
+import { ComboBuilderBanner } from '../components/home/ComboBuilderBanner';
 import { TrustMarquee } from '../components/common/TrustMarquee';
 import { MakingProcessPost } from '../components/home/MakingProcessPost';
 import { WhyChooseUs } from '../components/home/WhyChooseUs';
@@ -17,8 +17,8 @@ export const HomePage = ({ onNavigate, onQuickView }) => {
       {/* 2. Flagship Products: Bestselling Homemade Achar */}
       <BestsellersSection onNavigate={onNavigate} onQuickView={onQuickView} />
 
-      {/* 3. Combo Packs (Placed Directly Below Products as Requested) */}
-      <ComboPacksSection onNavigate={onNavigate} />
+      {/* 3. Compact Combo Box Preview (Quick access to /combo-builder without endless home scrolling) */}
+      <ComboBuilderBanner onNavigate={onNavigate} />
 
       {/* 4. Trust Ticker Marquee */}
       <TrustMarquee />

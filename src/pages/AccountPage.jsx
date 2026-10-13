@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { 
   Package, 
   MapPin, 
@@ -31,13 +32,18 @@ import {
   CreditCard,
   Globe,
   Headphones,
-  Send
+  Send,
+  Rotate3d
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
+import { MangoAchar3DAdminPanel } from '../components/admin/MangoAchar3DAdminPanel';
 
 export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavigate }) => {
+  const { tab: paramTab } = useParams();
+  const effectiveTab = paramTab || initialTab;
+
   const {
     user: rawUser,
     currentUser,
@@ -60,9 +66,31 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
   // 'menu' shows ONLY the clean list of pages first; clicking a card opens that specific page's details
   const [activePage, setActivePage] = useState(() => {
     if (initialOrderId) return 'orders';
-    if (initialTab && initialTab !== 'settings' && initialTab !== 'menu') return initialTab;
+    if (effectiveTab && effectiveTab !== 'settings' && effectiveTab !== 'menu') return effectiveTab;
     return 'menu';
   });
+
+  useEffect(() => {
+    if (paramTab && paramTab !== activePage) {
+      setActivePage(paramTab);
+    }
+  }, [paramTab]);
+
+  const handleSelectSubpage = (pageId) => {
+    if (pageId === 'orders') setSelectedOrder(null);
+    setActivePage(pageId);
+    if (onNavigate) {
+      onNavigate('account', { tab: pageId });
+    }
+  };
+
+  const handleBackToSettingsMenu = () => {
+    setActivePage('menu');
+    setSelectedOrder(null);
+    if (onNavigate) {
+      onNavigate('account', { tab: 'menu' });
+    }
+  };
 
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
@@ -275,49 +303,60 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
       id: 'loyalty',
       title: 'Pickle Coins & Rewards',
       desc: 'View your Pickle Coins balance & unlock member discount coupons',
-      badge: `${loyaltyCoins} Coins 🪙`,
+      badge: `${loyaltyCoins} Coins`,
       icon: Award,
       iconBg: 'bg-amber-100 text-[#B45309]'
+    },
+    {
+      id: '3d-admin',
+      title: 'Mango Achar 3D Experience Manager',
+      desc: 'Configure 3D viewer, upload GLB/GLTF models, angles, markers and preview live',
+      badge: 'Admin 3D',
+      icon: Rotate3d,
+      iconBg: 'bg-orange-100 text-orange-800'
     }
   ];
 
   const currentPageObj = settingsPages.find(p => p.id === activePage);
 
   return (
-    <div className="min-h-screen bg-[#FAF6EE] pb-20">
+    <div className="min-h-screen bg-transparent pb-20">
       
       {/* Clean Top Header Bar with Prominent Back to Home Button */}
-      <div className="bg-gradient-to-r from-[#2D1810] via-[#4A2511] to-[#2D1810] text-white py-6 sm:py-8 px-4 sm:px-6 lg:px-8 border-b-4 border-[#F5A623]">
+      <div className="bg-gradient-to-r from-[#2D1810] via-[#4A2511] to-[#2D1810] text-white py-5 sm:py-7 px-4 sm:px-6 lg:px-8 border-b-4 border-[#F5A623]">
         <div className="max-w-5xl mx-auto">
           
           {/* Top Navigation Row: Back to Home + Back to Settings Menu */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-white/15">
             <div className="flex flex-wrap items-center gap-2.5">
+              {/* Home Back Button (Super prominent) */}
               <button
                 onClick={() => onNavigate('home')}
-                className="inline-flex items-center gap-2 bg-[#F5A623] hover:bg-[#e09210] text-[#1F110B] font-black text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-2 bg-[#F5A623] hover:bg-[#e09210] text-[#1F110B] font-black text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer active:scale-95 border-2 border-amber-300"
+                aria-label="Back to Home Page"
               >
-                <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
-                <span>Back to Home Page</span>
+                <Home className="w-4 h-4 stroke-[2.5]" />
+                <span>Home</span>
               </button>
 
+              {/* Back to All Settings (when inside a subpage) */}
               {activePage !== 'menu' && (
                 <button
-                  onClick={() => setActivePage('menu')}
-                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white font-extrabold text-xs sm:text-sm px-4 py-2.5 rounded-xl border border-white/25 transition-all cursor-pointer"
+                  onClick={handleBackToSettingsMenu}
+                  className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-black text-xs sm:text-sm px-4 py-2.5 rounded-xl border border-white/30 transition-all cursor-pointer active:scale-95"
                 >
-                  <Settings className="w-4 h-4 text-[#F5A623]" />
-                  <span>← All Settings Pages</span>
+                  <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+                  <span>Settings Hub</span>
                 </button>
               )}
             </div>
 
             <button
               onClick={() => onNavigate('all-products')}
-              className="inline-flex items-center gap-1.5 text-xs font-extrabold text-amber-200 hover:text-white transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-black text-amber-300 hover:text-white transition-colors cursor-pointer bg-white/10 hover:bg-white/20 px-3.5 py-2 rounded-xl border border-white/20"
             >
               <ShoppingBag className="w-4 h-4 text-[#F5A623]" />
-              <span>Shop Pickles →</span>
+              <span>Shop All Pickles →</span>
             </button>
           </div>
 
@@ -382,10 +421,7 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
                 return (
                   <button
                     key={page.id}
-                    onClick={() => {
-                      if (page.id === 'orders') setSelectedOrder(null);
-                      setActivePage(page.id);
-                    }}
+                    onClick={() => handleSelectSubpage(page.id)}
                     className="group bg-white hover:bg-[#FFFDF9] rounded-2xl p-5 border-2 border-[#E8DDCD] hover:border-[#D97706] shadow-xs hover:shadow-md transition-all text-left flex items-center justify-between gap-4 cursor-pointer"
                   >
                     <div className="flex items-start gap-4 min-w-0">
@@ -1384,6 +1420,34 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
                 ))}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* PAGE 7: MANGO ACHAR 3D EXPERIENCE MANAGER (ADMIN PANEL)           */}
+        {/* ================================================================= */}
+        {activePage === '3d-admin' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-[#E8DDCD]">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => setActivePage('menu')}
+                  className="inline-flex items-center gap-1.5 bg-[#FAF6EE] hover:bg-[#F5EFE6] border border-[#D5C7B8] px-3.5 py-2 rounded-xl text-xs font-extrabold text-[#1F110B] cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Back to Settings</span>
+                </button>
+                <button
+                  onClick={() => onNavigate('product-detail', { productId: 'aam-classic' })}
+                  className="inline-flex items-center gap-1.5 bg-[#F5A623]/20 hover:bg-[#F5A623]/35 border border-[#D97706] px-3.5 py-2 rounded-xl text-xs font-extrabold text-[#1F110B] cursor-pointer"
+                >
+                  <Rotate3d className="w-3.5 h-3.5 text-[#B45309]" />
+                  <span>View Live Mango Achar Page →</span>
+                </button>
+              </div>
+            </div>
+
+            <MangoAchar3DAdminPanel />
           </div>
         )}
 

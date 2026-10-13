@@ -20,11 +20,10 @@ export const ProductFilters = ({
 }) => {
   const pricePresets = [
     { label: 'All Prices', min: 0, max: 1500 },
-    { label: '₹100 - ₹200', min: 100, max: 200 },
-    { label: '₹100 - ₹300', min: 100, max: 300 },
-    { label: '₹200 - ₹300', min: 200, max: 300 },
-    { label: '₹300 - ₹500', min: 300, max: 500 },
-    { label: '₹500 - ₹1500', min: 500, max: 1500 },
+    { label: 'Under ₹200 (250g)', min: 0, max: 200 },
+    { label: '₹200 – ₹300 (500g)', min: 200, max: 300 },
+    { label: '₹300 – ₹500 (1kg)', min: 300, max: 500 },
+    { label: '₹500+ (Gift Boxes)', min: 500, max: 1500 },
   ];
 
   const handleMinChange = (val) => {

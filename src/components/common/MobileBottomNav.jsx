@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Grid, Tag, ShoppingBag, User } from 'lucide-react';
+import { Home, Grid, Tag, ShoppingBag, User, Sparkles } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 
 export const MobileBottomNav = ({ currentView, onNavigate }) => {
@@ -37,7 +37,7 @@ export const MobileBottomNav = ({ currentView, onNavigate }) => {
           }`}
         >
           <div className="w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 text-brand-brown flex items-center justify-center shadow-xs">
-            ✨
+            <Sparkles className="w-4 h-4 text-amber-900 fill-amber-900/40" />
           </div>
           <span className="text-[9px] mt-0.5 font-bold">Combo</span>
         </button>

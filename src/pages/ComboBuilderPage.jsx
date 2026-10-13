@@ -298,7 +298,7 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
   });
 
   return (
-    <div className="bg-[#FAF5EC] min-h-screen pb-32">
+    <div className="bg-transparent min-h-screen pb-32">
       
       {/* 1. HEADER BANNER */}
       <div className="bg-gradient-to-b from-[#2A150B] via-[#3D2314] to-[#2D1810] text-white pt-8 pb-14 border-b-2 border-amber-500/30">
