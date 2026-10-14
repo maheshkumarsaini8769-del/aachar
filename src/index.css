@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  html, body {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: clip;
+    overflow-anchor: none;
   }
   body {
     background-color: #FDFBF7;
@@ -17,7 +19,6 @@
     background-position: center top;
     background-attachment: scroll;
     color: #2D1810;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 

@@ -20,6 +20,7 @@ export const HeroSection = ({ onNavigate }) => {
   const mouseStartX = useRef(null);
   const isMouseDragging = useRef(false);
   const didSwipeRef = useRef(false);
+  const touchDidMoveRef = useRef(false);
   const wheelLocked = useRef(false);
   const wheelDeltaAccum = useRef(0);
 
@@ -163,6 +164,7 @@ export const HeroSection = ({ onNavigate }) => {
       touchStartY.current = e.targetTouches[0].clientY;
       touchCurrentX.current = e.targetTouches[0].clientX;
       didSwipeRef.current = false;
+      touchDidMoveRef.current = false;
       setIsSwiping(true);
     }
   };
@@ -174,7 +176,12 @@ export const HeroSection = ({ onNavigate }) => {
     const diffX = currentX - touchStartX.current;
     const diffY = currentY - (touchStartY.current || 0);
 
-    // Only track horizontal 1-finger swipe
+    // If finger moved more than 6px in ANY direction (scroll or swipe), mark moved so click won't fire
+    if (Math.abs(diffX) > 6 || Math.abs(diffY) > 6) {
+      touchDidMoveRef.current = true;
+    }
+
+    // Only track horizontal 1-finger swipe for carousel drag
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
       didSwipeRef.current = true;
       touchCurrentX.current = currentX;
@@ -187,6 +194,7 @@ export const HeroSection = ({ onNavigate }) => {
       const diffX = touchStartX.current - touchCurrentX.current;
       if (Math.abs(diffX) > 35) {
         didSwipeRef.current = true;
+        touchDidMoveRef.current = true;
         if (diffX > 0) {
           handleNextSlide();
         } else {
@@ -201,7 +209,8 @@ export const HeroSection = ({ onNavigate }) => {
     setIsSwiping(false);
     setTimeout(() => {
       didSwipeRef.current = false;
-    }, 120);
+      touchDidMoveRef.current = false;
+    }, 250);
   };
 
   // Desktop Mouse Drag Support
@@ -210,6 +219,7 @@ export const HeroSection = ({ onNavigate }) => {
       mouseStartX.current = e.clientX;
       isMouseDragging.current = true;
       didSwipeRef.current = false;
+      touchDidMoveRef.current = false;
       setIsSwiping(true);
     }
   };
@@ -217,6 +227,9 @@ export const HeroSection = ({ onNavigate }) => {
   const handleMouseMove = (e) => {
     if (!isMouseDragging.current || mouseStartX.current === null) return;
     const diffX = e.clientX - mouseStartX.current;
+    if (Math.abs(diffX) > 6) {
+      touchDidMoveRef.current = true;
+    }
     if (Math.abs(diffX) > 10) {
       didSwipeRef.current = true;
     }
@@ -228,6 +241,7 @@ export const HeroSection = ({ onNavigate }) => {
     const diff = mouseStartX.current - e.clientX;
     if (Math.abs(diff) > 40) {
       didSwipeRef.current = true;
+      touchDidMoveRef.current = true;
       if (diff > 0) {
         handleNextSlide();
       } else {
@@ -240,12 +254,13 @@ export const HeroSection = ({ onNavigate }) => {
     setIsSwiping(false);
     setTimeout(() => {
       didSwipeRef.current = false;
-    }, 120);
+      touchDidMoveRef.current = false;
+    }, 250);
   };
 
-  // Tap on Hero Image -> Opens Products Page (or Combo Pack Page if Combo Image is active)
+  // Tap on Hero Image -> Opens Products Page ONLY if user actually tapped without scrolling
   const handleImageTap = (slide) => {
-    if (didSwipeRef.current) return;
+    if (didSwipeRef.current || touchDidMoveRef.current) return;
     const targetSlide = slide || currentSlide;
     if (targetSlide.isComboSlide || targetSlide.imageTapTarget === 'combo-builder') {
       onNavigate('combo-builder');
@@ -283,7 +298,6 @@ export const HeroSection = ({ onNavigate }) => {
   return (
     <section 
       className="relative w-full bg-transparent overflow-hidden border-b border-[#E8DDCD]/60"
-      onWheel={handleWheel}
     >
       
       {/* ================= DESKTOP LAYOUT (2-Finger Trackpad Scroll + Auto-Scroll, No Arrows) ================= */}
@@ -477,12 +491,7 @@ export const HeroSection = ({ onNavigate }) => {
       </div>
 
       {/* ================= MOBILE LAYOUT (< md) 1-Finger Touch Swipe + Auto-Scroll, No Arrows ================= */}
-      <div 
-        className="md:hidden flex flex-col bg-[#FAF6EE] py-3 touch-pan-y select-none"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className="md:hidden flex flex-col bg-transparent py-3">
         
         {/* Top Hero Image Container (92% Width, Rounded, Shadow, 1-Finger Swipe + Tap to Navigate) */}
         <div className="w-[92%] mx-auto">
@@ -494,7 +503,10 @@ export const HeroSection = ({ onNavigate }) => {
                 handleImageTap(currentSlide);
               }
             }}
-            className={`relative w-full transition-all duration-500 bg-stone-900 rounded-2xl overflow-hidden shadow-md border border-[#E8DDCD] cursor-pointer ${
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className={`relative w-full transition-all duration-500 bg-stone-900 rounded-2xl overflow-hidden shadow-md border border-[#E8DDCD] cursor-pointer touch-pan-y select-none ${
               isPlayingVideo ? 'aspect-[4/3] sm:aspect-[16/10] ring-2 ring-[#C88214]' : 'aspect-[16/10]'
             }`}
           >

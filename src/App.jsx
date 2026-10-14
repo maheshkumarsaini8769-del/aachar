@@ -35,12 +35,18 @@ import { WishlistPage } from './pages/WishlistPage';
 import { AccountPage } from './pages/AccountPage';
 import { PolicyPage } from './pages/PolicyPage';
 
-// Scroll to top helper on every route change
+// Scroll to top helper strictly on genuine route changes
 function ScrollToTop() {
   const { pathname } = useLocation();
+  const prevPathRef = useRef(pathname);
+
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (prevPathRef.current !== pathname) {
+      prevPathRef.current = pathname;
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }, [pathname]);
+
   return null;
 }
 
