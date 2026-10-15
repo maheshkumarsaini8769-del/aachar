@@ -230,40 +230,24 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
               </span>
             </div>
 
-            {/* Available Coupons & Offers Strip */}
-            <div className="bg-[#FAF5EC]/90 border border-[#E8DDCD] rounded-2xl p-3 space-y-2">
-              <div className="flex items-center justify-between text-xs font-extrabold text-[#78350F]">
-                <span className="flex items-center gap-1.5">
-                  <Tag className="w-3.5 h-3.5 text-[#D97706]" />
-                  Available Coupons (Apply in Cart):
-                </span>
-                <span className="text-[10px] text-emerald-800 bg-emerald-100 font-bold px-1.5 py-0.5 rounded">
-                  Instant Savings
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px]">
-                <div className="bg-white border border-amber-200/90 rounded-xl p-2 flex flex-col justify-between shadow-2xs">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono font-black text-[#2D1810]">DESI10</span>
-                    <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-50 px-1 rounded">10% OFF</span>
-                  </div>
-                  <span className="text-[10px] text-stone-600 mt-1">Min order ₹300</span>
-                </div>
-                <div className="bg-white border border-amber-200/90 rounded-xl p-2 flex flex-col justify-between shadow-2xs">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono font-black text-[#2D1810]">FESTIVE15</span>
-                    <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-50 px-1 rounded">15% OFF</span>
-                  </div>
-                  <span className="text-[10px] text-stone-600 mt-1">Min order ₹500</span>
-                </div>
-                <div className="bg-white border border-emerald-200/90 rounded-xl p-2 flex flex-col justify-between shadow-2xs col-span-2 sm:col-span-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono font-black text-[#064E3B]">FREESHIP</span>
-                    <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-50 px-1 rounded">FREE SHIP</span>
-                  </div>
-                  <span className="text-[10px] text-stone-600 mt-1">Min order ₹299</span>
-                </div>
-              </div>
+            {/* Minimal Luxury Coupons Strip */}
+            <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+              <span className="text-[11px] font-bold text-[#78350F] flex items-center gap-1">
+                <Tag className="w-3 h-3 text-[#D97706]" />
+                Offers:
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FAF5EC] border border-[#E5D7C3] text-[10px]">
+                <strong className="font-mono text-[#92400E]">DESI10</strong>
+                <span className="text-stone-600">10% Off (₹300+)</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FAF5EC] border border-[#E5D7C3] text-[10px]">
+                <strong className="font-mono text-[#92400E]">FESTIVE15</strong>
+                <span className="text-stone-600">15% Off (₹500+)</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[10px]">
+                <strong className="font-mono text-emerald-800">FREESHIP</strong>
+                <span className="text-emerald-700">Free Ship (₹299+)</span>
+              </span>
             </div>
 
             {/* Packaging Presentation Mode (Single Jar vs Box Hampers) */}

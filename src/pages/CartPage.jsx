@@ -248,94 +248,66 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
                     Apply Coupon Code:
                   </label>
                   {appliedCoupon ? (
-                    <div className="flex items-center justify-between bg-emerald-50 border border-emerald-300 rounded-xl p-2.5 text-xs">
-                      <div className="flex items-center gap-1.5 text-emerald-800 font-bold">
-                        <Check className="w-4 h-4 text-emerald-600" />
-                        <span><strong>{appliedCoupon.code}</strong> Applied</span>
+                    <div className="flex items-center justify-between px-3 py-1.5 bg-emerald-50 border border-emerald-300 rounded-full text-xs shadow-2xs">
+                      <div className="flex items-center gap-1.5 text-emerald-900 font-bold">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                        <span className="font-mono bg-emerald-200/80 px-1.5 py-0.2 rounded text-[11px]">{appliedCoupon.code}</span>
+                        <span className="text-[11px]">Applied ({appliedCoupon.desc})</span>
                       </div>
                       <button
                         onClick={removeCoupon}
-                        className="text-xs text-brand-red font-bold underline"
+                        className="text-xs text-red-600 hover:text-red-800 font-bold underline cursor-pointer ml-2"
                       >
                         Remove
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleApply} className="flex gap-2">
-                      <div className="relative flex-1">
-                        <Tag className="w-4 h-4 text-brand-brownMuted absolute left-3 top-1/2 -translate-y-1/2" />
+                    <>
+                      <form onSubmit={handleApply} className="relative flex items-center">
+                        <Tag className="w-3.5 h-3.5 text-brand-brownMuted absolute left-3 pointer-events-none" />
                         <input
                           type="text"
                           value={couponCode}
                           onChange={(e) => setCouponCode(e.target.value)}
-                          placeholder="e.g. DESI10"
-                          className="w-full bg-brand-bg border border-brand-border rounded-xl pl-9 pr-3 py-2 text-xs font-bold uppercase text-brand-brown focus:outline-none focus:ring-1 focus:ring-brand-green"
+                          placeholder="Coupon code (e.g. DESI10)"
+                          className="w-full bg-brand-bg hover:bg-white focus:bg-white border border-brand-border focus:border-brand-yellow rounded-full pl-8.5 pr-20 py-2 text-xs font-bold uppercase text-brand-brown focus:outline-none focus:ring-1 focus:ring-brand-yellow/30 transition-all shadow-2xs"
                         />
+                        <button
+                          type="submit"
+                          disabled={!couponCode.trim()}
+                          className="absolute right-1 px-3.5 py-1 bg-[#2D1810] hover:bg-[#43251A] disabled:opacity-40 disabled:hover:bg-[#2D1810] text-white rounded-full text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                        >
+                          Apply
+                        </button>
+                      </form>
+
+                      {/* Smooth Micro-Pills */}
+                      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1">
+                        <span className="text-[10px] font-bold text-[#8C6542] shrink-0">Offers:</span>
+                        {[
+                          { code: 'DESI10', label: '10% OFF' },
+                          { code: 'FESTIVE15', label: '15% OFF' },
+                          { code: 'FREESHIP', label: 'Free Ship' },
+                          { code: 'BUY3GET1', label: '25% OFF' }
+                        ].map((c) => (
+                          <button
+                            key={c.code}
+                            type="button"
+                            onClick={() => {
+                              setCouponCode(c.code);
+                              applyCoupon(c.code);
+                            }}
+                            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FAF5EC] hover:bg-[#F3E8D3] border border-[#E5D7C3] hover:border-[#B45309] text-[10px] text-[#2D1810] transition-all cursor-pointer shrink-0 active:scale-95 group shadow-2xs"
+                          >
+                            <span className="font-mono font-extrabold text-[#92400E] group-hover:text-[#B45309]">{c.code}</span>
+                            <span className="text-[#6D5344] font-medium">({c.label})</span>
+                          </button>
+                        ))}
                       </div>
-                      <button
-                        type="submit"
-                        className="bg-[#2D1810] text-white hover:bg-[#43251A] px-4 py-2 rounded-xl text-xs font-bold transition-colors"
-                      >
-                        Apply
-                      </button>
-                    </form>
+                    </>
                   )}
                   {couponError && (
-                    <p className="text-[11px] text-brand-red font-semibold">{couponError}</p>
-                  )}
-
-                  {/* Available Coupons List */}
-                  {!appliedCoupon && (
-                    <div className="space-y-1.5 pt-1">
-                      <div className="flex items-center gap-1 text-[11px] font-bold text-[#78350F]">
-                        <Sparkles className="w-3 h-3 text-[#D97706]" />
-                        <span>Available Coupons (Tap to Apply):</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 text-[10px]">
-                        {[
-                          { code: 'DESI10', label: '10% OFF', minOrder: 300, desc: 'Min order ₹300' },
-                          { code: 'FESTIVE15', label: '15% OFF', minOrder: 500, desc: 'Min order ₹500' },
-                          { code: 'FREESHIP', label: 'FREE SHIP', minOrder: 299, desc: 'Min order ₹299' },
-                          { code: 'BUY3GET1', label: '25% OFF', minOrder: 600, desc: 'Min order ₹600' }
-                        ].map((c) => {
-                          const isEligible = subtotal >= c.minOrder;
-                          return (
-                            <button
-                              key={c.code}
-                              type="button"
-                              onClick={() => {
-                                setCouponCode(c.code);
-                                applyCoupon(c.code);
-                              }}
-                              className={`p-1.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                                isEligible
-                                  ? 'bg-amber-50 hover:bg-amber-100 border-amber-300 hover:border-amber-400 shadow-2xs'
-                                  : 'bg-stone-50 border-stone-200 opacity-75 hover:opacity-100'
-                              }`}
-                            >
-                              <div className="flex items-center justify-between gap-1">
-                                <span className="font-mono font-black text-[11px] text-[#2D1810]">
-                                  {c.code}
-                                </span>
-                                <span className="text-[9px] font-bold text-emerald-800 bg-emerald-100 px-1 py-0.2 rounded">
-                                  {c.label}
-                                </span>
-                              </div>
-                              <div className="text-[10px] text-stone-600 font-medium mt-0.5 leading-tight">
-                                {c.desc}
-                              </div>
-                              <div className="text-[9px] font-bold mt-1">
-                                {isEligible ? (
-                                  <span className="text-[#B45309]">Tap to Apply →</span>
-                                ) : (
-                                  <span className="text-stone-500">Add ₹{c.minOrder - subtotal} more</span>
-                                )}
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
+                    <p className="text-[10px] text-brand-red font-semibold px-2 pt-0.5">{couponError}</p>
                   )}
                 </div>
 
