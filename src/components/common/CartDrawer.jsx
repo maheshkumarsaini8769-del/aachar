@@ -68,14 +68,14 @@ export const CartDrawer = ({ onNavigate }) => {
         className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity" 
       />
 
-      {/* Drawer Panel with Royal Jaali Architectural Embossed Texture */}
+      {/* Drawer Panel with Luxury Champagne Arch Tile Texture */}
       <div 
         className="relative w-full max-w-md bg-[#FDFBF7] h-full shadow-2xl flex flex-col z-10 border-l border-[#E5D9C5] animate-slide-left overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(rgba(253, 251, 247, 0.92), rgba(250, 246, 238, 0.96)), url('/images/wallpapers/wallpaper-2-jaali.jpg')`,
+          backgroundImage: `linear-gradient(rgba(255, 252, 245, 0.35), rgba(253, 248, 238, 0.45)), url('/images/wallpapers/wallpaper-10-champagne-tile.jpg')`,
           backgroundRepeat: 'repeat',
-          backgroundSize: '320px auto',
-          backgroundPosition: 'center top'
+          backgroundSize: '240px auto',
+          backgroundPosition: 'top center'
         }}
       >
         

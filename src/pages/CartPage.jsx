@@ -62,7 +62,16 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
   const upsellProducts = products.filter(p => !cartItems.some(i => i.productId === p.id)).slice(0, 4);
 
   return (
-    <div className="bg-transparent min-h-screen py-8">
+    <div 
+      className="min-h-screen py-8"
+      style={{
+        backgroundImage: `linear-gradient(rgba(255, 252, 245, 0.40), rgba(253, 248, 238, 0.50)), url('/images/wallpapers/wallpaper-10-champagne-tile.jpg')`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '260px auto',
+        backgroundPosition: 'top center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}
