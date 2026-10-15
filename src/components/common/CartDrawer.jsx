@@ -68,14 +68,14 @@ export const CartDrawer = ({ onNavigate }) => {
         className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity" 
       />
 
-      {/* Drawer Panel with Ceramic Barni Wallpaper Background */}
+      {/* Drawer Panel with Royal Jaali Architectural Embossed Texture */}
       <div 
         className="relative w-full max-w-md bg-[#FDFBF7] h-full shadow-2xl flex flex-col z-10 border-l border-[#E5D9C5] animate-slide-left overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(rgba(253, 251, 247, 0.88), rgba(250, 246, 238, 0.93)), url('/images/wallpapers/wallpaper-4-barni.jpg')`,
+          backgroundImage: `linear-gradient(rgba(253, 251, 247, 0.92), rgba(250, 246, 238, 0.96)), url('/images/wallpapers/wallpaper-2-jaali.jpg')`,
           backgroundRepeat: 'repeat',
-          backgroundSize: '220px auto',
-          backgroundPosition: 'top left'
+          backgroundSize: '320px auto',
+          backgroundPosition: 'center top'
         }}
       >
         
