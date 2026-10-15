@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, 
   Check, 
@@ -188,11 +188,17 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
   const initialPack = (viewParams?.preselectedPack && COMBO_PACK_OPTIONS.find(p => p.id === viewParams.preselectedPack)) || COMBO_PACK_OPTIONS[1];
   const [selectedPack, setSelectedPack] = useState(initialPack);
   
-  const [selectedFlavours, setSelectedFlavours] = useState([
-    'mango-classic',
-    'nimbu-khatta-meetha',
-    'stuffed-red-chilli'
-  ]);
+  // Start with empty slots so customer selects their own jars without confusion
+  const [selectedFlavours, setSelectedFlavours] = useState([]);
+
+  useEffect(() => {
+    if (viewParams?.preselectedPack) {
+      const pack = COMBO_PACK_OPTIONS.find(p => p.id === viewParams.preselectedPack);
+      if (pack) {
+        setSelectedPack(pack);
+      }
+    }
+  }, [viewParams?.preselectedPack]);
 
   const [filterCategory, setFilterCategory] = useState('all');
 

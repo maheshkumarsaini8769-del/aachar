@@ -126,11 +126,7 @@ export const ComboPacksSection = ({ onNavigate }) => {
   const { isLoggedIn, openAuthModal } = useAuth();
 
   const [selectedPack, setSelectedPack] = useState(COMBO_PACKS[1]); // Default 3-Jar Family Combo
-  const [selectedFlavours, setSelectedFlavours] = useState([
-    'mango-classic',
-    'red-chilli',
-    'nimbu-khatta-meetha'
-  ]);
+  const [selectedFlavours, setSelectedFlavours] = useState([]);
   const [addedSuccess, setAddedSuccess] = useState(false);
 
   const handlePackChange = (pack) => {

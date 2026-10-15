@@ -4,6 +4,7 @@ import { Sparkles, ArrowRight, Package, Check, Star } from 'lucide-react';
 export const ComboBuilderBanner = ({ onNavigate }) => {
   const comboTiers = [
     {
+      id: 'pack-2',
       size: '2 Jars',
       title: 'Starter Pair Box',
       price: '₹449',
@@ -14,6 +15,7 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
       popular: false
     },
     {
+      id: 'pack-3',
       size: '3 Jars',
       title: 'Family Feast Box',
       price: '₹649',
@@ -24,6 +26,7 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
       popular: true
     },
     {
+      id: 'pack-4',
       size: '4 Jars',
       title: 'Royal Crate Box',
       price: '₹849',
@@ -68,7 +71,7 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
           {comboTiers.map((tier, idx) => (
             <div
               key={idx}
-              onClick={() => onNavigate('combo-builder')}
+              onClick={() => onNavigate('combo-builder', { preselectedPack: tier.id })}
               className={`rounded-2xl p-4 sm:p-5 border-2 transition-all cursor-pointer flex flex-col justify-between group hover:shadow-lg ${
                 tier.popular
                   ? 'bg-[#FFF9EE] border-[#D97706] ring-2 ring-[#F5A623]/30'
