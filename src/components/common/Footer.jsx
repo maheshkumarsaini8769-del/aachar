@@ -6,7 +6,10 @@ import {
   Clock, 
   Sparkles,
   ChevronDown,
-  CheckCircle2
+  CheckCircle2,
+  Briefcase,
+  Gift,
+  HelpCircle
 } from 'lucide-react';
 
 export const Footer = ({ onNavigate }) => {
@@ -500,65 +503,133 @@ export const Footer = ({ onNavigate }) => {
       </div>
 
       {/* ========================================================================= */}
-      {/* 4. SOLID JET BLACK PAYMENT & COPYRIGHT STRIP */}
+      {/* 4. FLIPKART-STYLE BOTTOM UTILITY & PAYMENT BAR */}
       {/* ========================================================================= */}
-      <div className="bg-[#0B0704] text-[#E0D5C7] py-4 sm:py-5 px-4 sm:px-6 lg:px-8 border-t border-black">
-        <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="bg-[#121212] text-[#E0E0E0] py-4 sm:py-5 px-4 sm:px-6 lg:px-8 border-t border-[#262626]">
+        <div className="max-w-[1360px] mx-auto flex flex-col xl:flex-row items-center justify-between gap-4 sm:gap-6 text-xs sm:text-[13px]">
           
-          {/* 100% Secure Payments Label */}
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>100% Secure Payments</span>
+          {/* Quick Utility Links (Flipkart style with amber/gold icons) */}
+          <div className="flex items-center flex-wrap justify-center gap-x-6 sm:gap-x-8 gap-y-3 font-medium text-white/90">
+            {/* Become a Seller */}
+            <button 
+              onClick={() => onNavigate('contact')}
+              className="inline-flex items-center gap-2 hover:text-[#FFB800] transition-colors group cursor-pointer"
+            >
+              <Briefcase className="w-4 h-4 text-[#FFB800] shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Become a Seller</span>
+            </button>
+
+            {/* Advertise */}
+            <button 
+              onClick={() => onNavigate('contact')}
+              className="inline-flex items-center gap-2 hover:text-[#FFB800] transition-colors group cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-[#FFB800] shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Advertise</span>
+            </button>
+
+            {/* Gift Cards */}
+            <button 
+              onClick={() => onNavigate('festive')}
+              className="inline-flex items-center gap-2 hover:text-[#FFB800] transition-colors group cursor-pointer"
+            >
+              <Gift className="w-4 h-4 text-[#FFB800] shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Gift Cards</span>
+            </button>
+
+            {/* Help Center */}
+            <button 
+              onClick={() => onNavigate('contact')}
+              className="inline-flex items-center gap-2 hover:text-[#FFB800] transition-colors group cursor-pointer"
+            >
+              <HelpCircle className="w-4 h-4 text-[#FFB800] shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Help Center</span>
+            </button>
           </div>
 
-          {/* Payment Badges (Clean White Cards: VISA, UPI, MasterCard, PayPal) */}
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap justify-center">
-            
+          {/* Copyright notice (Flipkart style) */}
+          <div className="text-stone-300 text-xs text-center xl:text-left whitespace-nowrap">
+            © 2007-{new Date().getFullYear()} Marusthali.com
+          </div>
+
+          {/* Payment Partner Logos (Flipkart Card Strip Style) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center">
             {/* VISA */}
-            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
-              <span className="font-sans font-black italic tracking-tighter text-[#1A1F71] text-xs sm:text-sm">
+            <div className="bg-white px-2 py-1 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[36px]">
+              <span className="font-sans font-black italic tracking-tighter text-[#1A1F71] text-[11px] sm:text-xs leading-none">
                 VISA
               </span>
             </div>
 
-            {/* UPI */}
-            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center gap-1 h-6 sm:h-7">
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
-                <path d="M12 2L3 8l9 6 9-6-9-6z" fill="#097939" />
-                <path d="M3 16l9 6 9-6" stroke="#ED7524" strokeWidth="3" fill="none" strokeLinecap="round" />
-              </svg>
-              <span className="font-sans font-black tracking-tight text-[#2D2D2D] text-[10px] sm:text-xs">
-                UPI
-              </span>
-            </div>
-
             {/* MasterCard */}
-            <div className="bg-white px-2 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
+            <div className="bg-white px-1.5 py-1 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[34px]">
               <div className="flex items-center -space-x-1.5">
                 <div className="w-3.5 h-3.5 rounded-full bg-[#EB001B]" />
                 <div className="w-3.5 h-3.5 rounded-full bg-[#F79E1B] opacity-90" />
               </div>
             </div>
 
-            {/* PayPal */}
-            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
-              <span className="font-sans font-black italic tracking-tight text-[#003087] text-[11px] sm:text-xs">
-                Pay<span className="text-[#0079C1]">Pal</span>
+            {/* Maestro */}
+            <div className="bg-white px-1.5 py-1 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[34px]">
+              <div className="flex items-center -space-x-1.5">
+                <div className="w-3.5 h-3.5 rounded-full bg-[#EB001B]" />
+                <div className="w-3.5 h-3.5 rounded-full bg-[#0099DF] opacity-90" />
+              </div>
+            </div>
+
+            {/* American Express */}
+            <div className="bg-[#007AC1] px-1.5 py-0.5 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[36px]">
+              <span className="font-sans font-black text-white text-[8px] sm:text-[9px] tracking-tight uppercase leading-none">
+                AMEX
+              </span>
+            </div>
+
+            {/* Diners Club */}
+            <div className="bg-white px-1.5 py-1 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[34px]">
+              <div className="w-3.5 h-3.5 rounded-full border border-[#004B87] flex items-center justify-center">
+                <div className="w-1.5 h-2 bg-[#004B87] rounded-xs" />
+              </div>
+            </div>
+
+            {/* Discover */}
+            <div className="bg-white px-1.5 py-0.5 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[38px]">
+              <span className="font-sans font-black text-[#1F1F1F] text-[8px] sm:text-[9px] tracking-tighter leading-none flex items-center">
+                DISC<span className="w-1.5 h-1.5 rounded-full bg-[#FF6000] inline-block mx-0.5"></span>VER
               </span>
             </div>
 
             {/* RuPay */}
-            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
-              <span className="font-sans font-black tracking-tighter text-[#1C3E8A] text-[10px] sm:text-xs">
+            <div className="bg-white px-2 py-0.5 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6 min-w-[38px]">
+              <span className="font-sans font-black tracking-tighter text-[#1C3E8A] text-[9px] sm:text-[10px] leading-none">
                 Ru<span className="text-[#F15A24]">Pay</span>
               </span>
             </div>
 
-          </div>
+            {/* Net Banking */}
+            <div className="bg-white px-1.5 py-0.5 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6">
+              <span className="font-sans font-bold text-stone-700 text-[8px] sm:text-[9px] tracking-tight uppercase leading-none">
+                Net Banking
+              </span>
+            </div>
 
-          {/* Copyright text */}
-          <div className="text-[10px] sm:text-[11px] text-[#8C7A6B] text-center md:text-right">
-            <span>© {new Date().getFullYear()} Marusthali Achar. All Rights Reserved.</span>
+            {/* Cash on Delivery */}
+            <div className="bg-white px-1.5 py-0.5 rounded-xs shadow-xs flex items-center justify-center h-5 sm:h-6">
+              <span className="font-sans font-bold text-stone-700 text-[8px] sm:text-[9px] tracking-tight uppercase leading-none">
+                COD
+              </span>
+            </div>
+
+            {/* UPI */}
+            <div className="bg-white px-2 py-0.5 rounded-xs shadow-xs flex items-center gap-0.5 h-5 sm:h-6 min-w-[34px]">
+              <svg className="w-2.5 h-2.5 shrink-0" viewBox="0 0 24 24">
+                <path d="M12 2L3 8l9 6 9-6-9-6z" fill="#097939" />
+                <path d="M3 16l9 6 9-6" stroke="#ED7524" strokeWidth="3" fill="none" strokeLinecap="round" />
+              </svg>
+              <span className="font-sans font-black tracking-tight text-[#2D2D2D] text-[9px] leading-none">
+                UPI
+              </span>
+            </div>
+
           </div>
 
         </div>
