@@ -68,60 +68,80 @@ export const CartDrawer = ({ onNavigate }) => {
         className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity" 
       />
 
-      {/* Drawer Panel */}
-      <div className="relative w-full max-w-md bg-brand-bg h-full shadow-2xl flex flex-col z-10 border-l border-brand-border animate-slide-left">
+      {/* Drawer Panel with Ceramic Barni Wallpaper Background */}
+      <div 
+        className="relative w-full max-w-md bg-[#FDFBF7] h-full shadow-2xl flex flex-col z-10 border-l border-[#E5D9C5] animate-slide-left overflow-hidden"
+        style={{
+          backgroundImage: `linear-gradient(rgba(253, 251, 247, 0.88), rgba(250, 246, 238, 0.93)), url('/images/wallpapers/wallpaper-4-barni.jpg')`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '220px auto',
+          backgroundPosition: 'top left'
+        }}
+      >
         
-        {/* Header */}
-        <div className="p-4 bg-brand-cream border-b border-brand-border flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-brand-green" />
-            <h3 className="font-serif text-lg font-bold text-brand-brown">
-              Your Cart <span className="text-sm font-sans font-normal text-brand-brownMuted">({cartItems.length} items)</span>
-            </h3>
+        {/* Header with Warm Heritage Border & Logo */}
+        <div className="p-4 bg-white/90 backdrop-blur-md border-b border-[#E8DDCD] flex items-center justify-between z-10 shadow-xs">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-[#FAF5EC] border border-[#E5D9C5] flex items-center justify-center text-[#B45309] shadow-xs shrink-0">
+              <ShoppingBag className="w-4 h-4 text-[#B45309]" />
+            </div>
+            <div>
+              <h3 className="font-serif text-lg font-black text-[#1F110B] leading-tight">
+                Your Achar Basket
+              </h3>
+              <span className="text-xs font-sans font-bold text-[#8C6542]">
+                {cartItems.length} {cartItems.length === 1 ? 'handcrafted item' : 'handcrafted items'}
+              </span>
+            </div>
           </div>
           <button 
             onClick={closeCart}
-            className="p-1.5 text-brand-brown hover:bg-brand-border/40 rounded-full transition-colors"
+            className="p-1.5 text-[#5C3D2E] hover:bg-[#FAF5EC] hover:text-[#1F110B] rounded-full transition-colors cursor-pointer"
+            aria-label="Close Cart"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Free Shipping Progress Indicator */}
-        <div className="bg-[#FFF8E7] px-4 py-2.5 border-b border-amber-200">
-          <div className="flex items-center justify-between text-xs font-semibold text-amber-900 mb-1.5">
+        <div className="bg-[#FFFDF9]/95 backdrop-blur-xs px-4 py-2.5 border-b border-[#F0E6D2] z-10 shadow-xs">
+          <div className="flex items-center justify-between text-xs font-bold text-[#78350F] mb-1.5">
             <span className="flex items-center gap-1.5">
-              <Truck className="w-4 h-4 text-brand-yellow" />
+              <Truck className="w-4 h-4 text-[#D97706]" />
               {isFreeShipping ? (
-                <span className="text-brand-green font-bold">🎉 You have unlocked FREE Pan-India Delivery!</span>
+                <span className="text-[#15803D] font-black">🎉 You unlocked FREE Pan-India Delivery!</span>
               ) : (
-                <span>Add <strong>₹{remainingForFreeShipping}</strong> more for <strong>FREE Delivery</strong></span>
+                <span>Add <strong className="text-[#B45309]">₹{remainingForFreeShipping}</strong> more for <strong className="text-[#15803D]">FREE Delivery</strong></span>
               )}
             </span>
-            <span>{freeShippingProgress}%</span>
+            <span className="font-extrabold text-[#B45309]">{freeShippingProgress}%</span>
           </div>
-          <div className="w-full bg-amber-100 rounded-full h-2 overflow-hidden">
+          <div className="w-full bg-[#F3EAD9] rounded-full h-2 overflow-hidden shadow-inner">
             <div 
-              className="bg-brand-green h-full rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-[#D97706] to-[#15803D] h-full rounded-full transition-all duration-300"
               style={{ width: `${freeShippingProgress}%` }}
             />
           </div>
         </div>
 
         {/* Items List */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3.5">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3.5 relative z-10">
           {cartItems.length === 0 ? (
-            <div className="text-center py-16 space-y-4">
-              <div className="w-20 h-20 bg-brand-cream rounded-full mx-auto flex items-center justify-center text-3xl">
-                🏺
+            <div className="text-center py-14 space-y-4 bg-white/85 backdrop-blur-xs rounded-2xl p-6 border border-[#E8DDCD] shadow-sm my-4">
+              <div className="w-20 h-20 rounded-full mx-auto flex items-center justify-center shadow-inner overflow-hidden border-2 border-[#D97706]/30 bg-[#FFFDF9]">
+                <img 
+                  src="/images/marusthali-logo.svg" 
+                  alt="Marusthali Achar Logo" 
+                  className="w-14 h-14 object-contain"
+                />
               </div>
-              <h4 className="font-serif text-xl font-bold text-brand-brown">Your cart is empty</h4>
-              <p className="text-sm text-brand-brownMuted max-w-xs mx-auto">
-                Explore our pure homemade achar selection and fill your basket with tradition!
+              <h4 className="font-serif text-xl font-black text-[#1F110B]">Your basket is empty</h4>
+              <p className="text-xs sm:text-sm text-[#785E4F] max-w-xs mx-auto font-medium leading-relaxed">
+                Explore our sun-cured traditional achar and bring the authentic taste of Dadi's kitchen home!
               </p>
               <button
                 onClick={() => { closeCart(); onNavigate('all-products'); }}
-                className="px-6 py-2.5 bg-brand-green text-white rounded-full font-bold text-sm hover:bg-brand-greenHover transition-colors shadow-sm"
+                className="px-6 py-2.5 bg-[#1F110B] hover:bg-[#B45309] text-white rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:scale-105 cursor-pointer"
               >
                 Browse All Achar
               </button>
@@ -130,31 +150,31 @@ export const CartDrawer = ({ onNavigate }) => {
             cartItems.map((item) => (
               <div 
                 key={item.id}
-                className="bg-white rounded-xl p-3 border border-brand-border flex gap-3 shadow-xs hover:border-brand-yellow/60 transition-colors"
+                className="bg-white/95 backdrop-blur-xs rounded-xl p-3 border border-[#E8DDCD] flex gap-3 shadow-xs hover:border-[#D97706]/60 hover:shadow-md transition-all group"
               >
                 {/* Image */}
                 <img 
                   src={item.image} 
                   alt={item.name} 
-                  className="w-18 h-18 sm:w-20 sm:h-20 object-cover rounded-lg border border-brand-border bg-brand-cream shrink-0" 
+                  className="w-18 h-18 sm:w-20 sm:h-20 object-cover rounded-lg border border-[#E8DDCD] bg-[#FAF5EC] shrink-0 group-hover:scale-102 transition-transform" 
                 />
 
                 {/* Info */}
                 <div className="flex-1 min-w-0 flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between gap-1">
-                      <h4 className="text-xs sm:text-sm font-bold text-brand-brown line-clamp-1 leading-snug">
+                      <h4 className="text-xs sm:text-sm font-bold text-[#1F110B] line-clamp-1 leading-snug">
                         {item.name}
                       </h4>
                       <button 
                         onClick={() => removeFromCart(item.id)}
-                        className="text-gray-400 hover:text-brand-red p-1 transition-colors"
+                        className="text-stone-400 hover:text-red-600 p-1 transition-colors cursor-pointer"
                         title="Remove item"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                    <span className="inline-block text-[11px] font-semibold text-brand-brownMuted bg-brand-cream px-2 py-0.5 rounded mt-1">
+                    <span className="inline-block text-[11px] font-semibold text-[#8C6542] bg-[#FAF5EC] border border-[#EBDCC8] px-2 py-0.5 rounded mt-1">
                       Pack: {item.size}
                     </span>
                     {item.customNote && (
@@ -166,30 +186,30 @@ export const CartDrawer = ({ onNavigate }) => {
 
                   {/* Quantity & Price */}
                   <div className="flex items-center justify-between mt-2">
-                    <div className="flex items-center border border-brand-border rounded-lg bg-brand-bg">
+                    <div className="flex items-center border border-[#E0D2BF] rounded-lg bg-[#FAF5EC]">
                       <button 
                         onClick={() => updateQuantity(item.id, -1)}
-                        className="p-1 hover:bg-brand-cream text-brand-brown rounded-l-lg transition-colors"
+                        className="p-1 hover:bg-[#EADBCC] text-[#1F110B] rounded-l-lg transition-colors cursor-pointer"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="px-2.5 text-xs font-bold text-brand-brown min-w-[24px] text-center">
+                      <span className="px-2.5 text-xs font-bold text-[#1F110B] min-w-[24px] text-center">
                         {item.quantity}
                       </span>
                       <button 
                         onClick={() => updateQuantity(item.id, 1)}
-                        className="p-1 hover:bg-brand-cream text-brand-brown rounded-r-lg transition-colors"
+                        className="p-1 hover:bg-[#EADBCC] text-[#1F110B] rounded-r-lg transition-colors cursor-pointer"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
                     <div className="text-right">
-                      <span className="text-xs sm:text-sm font-extrabold text-brand-green">
+                      <span className="text-xs sm:text-sm font-extrabold text-[#15803D]">
                         ₹{item.price * item.quantity}
                       </span>
                       {item.mrp && item.mrp > item.price && (
-                        <span className="block text-[10px] text-gray-400 line-through">
+                        <span className="block text-[10px] text-stone-400 line-through">
                           ₹{item.mrp * item.quantity}
                         </span>
                       )}
@@ -203,7 +223,7 @@ export const CartDrawer = ({ onNavigate }) => {
 
         {/* Footer Summary & Checkout */}
         {cartItems.length > 0 && (
-          <div className="p-4 bg-brand-cream border-t border-brand-border space-y-3">
+          <div className="p-4 bg-white/95 backdrop-blur-md border-t border-[#E8DDCD] space-y-3 z-10 shadow-xl">
             
             {/* Coupon Code Input */}
             <div className="space-y-1">
@@ -215,7 +235,7 @@ export const CartDrawer = ({ onNavigate }) => {
                   </div>
                   <button 
                     onClick={removeCoupon}
-                    className="text-emerald-700 hover:text-brand-red font-bold underline text-[11px]"
+                    className="text-emerald-700 hover:text-red-600 font-bold underline text-[11px] cursor-pointer"
                   >
                     Remove
                   </button>
@@ -223,49 +243,49 @@ export const CartDrawer = ({ onNavigate }) => {
               ) : (
                 <form onSubmit={handleApplyCoupon} className="flex gap-2">
                   <div className="relative flex-1">
-                    <Tag className="w-3.5 h-3.5 text-brand-brownMuted absolute left-2.5 top-1/2 -translate-y-1/2" />
+                    <Tag className="w-3.5 h-3.5 text-[#8C6542] absolute left-2.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={couponInput}
                       onChange={(e) => setCouponInput(e.target.value)}
                       placeholder="Coupon: DESI10 or FESTIVE15"
-                      className="w-full bg-white border border-brand-border rounded-lg pl-8 pr-2 py-1.5 text-xs text-brand-brown uppercase font-semibold focus:outline-none focus:ring-1 focus:ring-brand-green"
+                      className="w-full bg-[#FAF5EC] border border-[#E0D2BF] rounded-lg pl-8 pr-2 py-1.5 text-xs text-[#1F110B] uppercase font-semibold focus:outline-none focus:ring-1 focus:ring-[#D97706]"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="bg-[#2D1810] text-white hover:bg-[#45271A] text-xs font-bold px-3 py-1.5 rounded-lg transition-colors"
+                    className="bg-[#1F110B] text-white hover:bg-[#B45309] text-xs font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
                   >
                     Apply
                   </button>
                 </form>
               )}
               {couponError && (
-                <p className="text-[11px] text-brand-red font-medium">{couponError}</p>
+                <p className="text-[11px] text-red-600 font-medium">{couponError}</p>
               )}
             </div>
 
             {/* Calculations Breakdown */}
-            <div className="space-y-1 text-xs text-brand-brown pt-1">
+            <div className="space-y-1 text-xs text-[#5C3D2E] pt-1">
               <div className="flex justify-between">
-                <span className="text-brand-brownMuted">Subtotal</span>
-                <span className="font-semibold">₹{subtotal}</span>
+                <span className="text-[#8C6542]">Subtotal</span>
+                <span className="font-semibold text-[#1F110B]">₹{subtotal}</span>
               </div>
               {discountAmount > 0 && (
-                <div className="flex justify-between text-brand-green font-semibold">
+                <div className="flex justify-between text-[#15803D] font-semibold">
                   <span>Coupon Discount</span>
                   <span>-₹{discountAmount}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-brand-brownMuted">Shipping</span>
-                <span className="font-semibold">
-                  {shippingFee === 0 ? <span className="text-brand-green font-bold">FREE</span> : `₹${shippingFee}`}
+                <span className="text-[#8C6542]">Shipping</span>
+                <span className="font-semibold text-[#1F110B]">
+                  {shippingFee === 0 ? <span className="text-[#15803D] font-bold">FREE</span> : `₹${shippingFee}`}
                 </span>
               </div>
-              <div className="border-t border-brand-border/80 pt-2 flex justify-between text-sm font-bold text-brand-brown">
+              <div className="border-t border-[#E8DDCD] pt-2 flex justify-between text-sm font-bold text-[#1F110B]">
                 <span>Total Amount</span>
-                <span className="text-base text-brand-green">₹{finalTotal}</span>
+                <span className="text-base font-extrabold text-[#15803D]">₹{finalTotal}</span>
               </div>
             </div>
 
@@ -273,7 +293,7 @@ export const CartDrawer = ({ onNavigate }) => {
             <div className="space-y-2 pt-1">
               <button
                 onClick={handleProceedCheckout}
-                className="w-full bg-brand-yellow hover:bg-brand-yellowHover text-brand-brown py-3 rounded-full font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm transition-all"
+                className="w-full bg-gradient-to-r from-[#D97706] to-[#B45309] hover:from-[#B45309] hover:to-[#92400E] text-white py-3 rounded-full font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"
               >
                 <span>Proceed to Checkout</span>
                 <ArrowRight className="w-4 h-4" />
@@ -281,7 +301,7 @@ export const CartDrawer = ({ onNavigate }) => {
 
               <button
                 onClick={() => { closeCart(); onNavigate('cart'); }}
-                className="w-full bg-white border border-brand-border hover:bg-brand-ivory text-brand-brown py-2 rounded-full font-bold text-xs transition-colors"
+                className="w-full bg-[#FAF5EC] border border-[#E0D2BF] hover:bg-[#F0E6D2] text-[#1F110B] py-2 rounded-full font-bold text-xs transition-colors cursor-pointer"
               >
                 View Full Cart Details
               </button>
