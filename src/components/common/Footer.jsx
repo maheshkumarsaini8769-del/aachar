@@ -60,7 +60,7 @@ export const Footer = ({ onNavigate }) => {
       {/* ========================================================================= */}
       {/* 1. TOP ILLUSTRATED RIBBON BANNER (Signature FarmDidi Feature Layout) */}
       {/* ========================================================================= */}
-      <div className="relative bg-[#FAF6EE] pt-8 sm:pt-12 pb-20 sm:pb-28 lg:pb-36 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
+      <div className="relative bg-[#FAF6EE] pt-8 sm:pt-12 pb-28 sm:pb-40 lg:pb-52 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
         
         {/* Subtle Decorative Background Arches / Sun Ray Texture */}
         <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
@@ -135,10 +135,13 @@ export const Footer = ({ onNavigate }) => {
 
         </div>
 
-        {/* Continuous Smooth Wave / Slide Transition across Full Width - Increased Height & Prominent Slide Slope */}
+        {/* Continuous Smooth Deep Wave / Slope Transition across Full Width - High Amplitude & Cinematic Depth */}
         <div className="absolute -bottom-1 inset-x-0 overflow-hidden leading-none z-10 pointer-events-none">
-          <svg className="w-full h-16 sm:h-24 lg:h-32 text-[#1C120C] fill-current block" viewBox="0 0 1440 140" preserveAspectRatio="none">
-            <path d="M0,45 C280,125 460,10 740,55 C1020,115 1220,15 1440,45 L1440,140 L0,140 Z" />
+          <svg className="w-full h-24 sm:h-36 lg:h-48 xl:h-56 text-[#1C120C] fill-current block" viewBox="0 0 1440 220" preserveAspectRatio="none">
+            {/* Ambient Shadow Depth Layer */}
+            <path d="M0,85 C280,215 480,25 740,95 C1000,210 1200,25 1440,85 L1440,220 L0,220 Z" fill="#29150B" opacity="0.45" />
+            {/* Primary Deep Rolling Wave / Slope */}
+            <path d="M0,60 C260,200 440,15 720,70 C1000,195 1200,15 1440,60 L1440,220 L0,220 Z" fill="currentColor" />
           </svg>
         </div>
 
