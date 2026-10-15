@@ -1,12 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { Filter, SlidersHorizontal, ChevronRight, X, Tag } from 'lucide-react';
-import { useProducts } from '../context/ProductContext';
+import { products } from '../data/products';
 import { categories } from '../data/categories';
 import { ProductCard } from '../components/product/ProductCard';
 import { ProductFilters } from '../components/category/ProductFilters';
 
 export const AllProductsPage = ({ onNavigate, onQuickView }) => {
-  const { products } = useProducts();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1500);
@@ -14,10 +13,7 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
   const [selectedSpices, setSelectedSpices] = useState([]);
   const [selectedAvailability, setSelectedAvailability] = useState(['in-stock']);
   const [sortBy, setSortBy] = useState('popularity');
-  const [currentPage, setCurrentPage] = useState(1);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
-
-  const itemsPerPage = 9;
 
   const quickPriceRanges = [
     { label: 'All Prices', min: 0, max: 1500 },
@@ -63,13 +59,6 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
     });
   }, [selectedCategories, minPrice, maxPrice, selectedSizes, selectedSpices, selectedAvailability, sortBy]);
 
-  // Pagination calculation
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) || 1;
-  const currentProducts = filteredProducts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
   const handleResetFilters = () => {
     setSelectedCategories([]);
     setMinPrice(0);
@@ -78,7 +67,6 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
     setSelectedSpices([]);
     setSelectedAvailability(['in-stock']);
     setSortBy('popularity');
-    setCurrentPage(1);
   };
 
   const isPriceFiltered = minPrice > 0 || maxPrice < 1500;
@@ -233,9 +221,9 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
                 selectedCategories={selectedCategories}
                 setSelectedCategories={setSelectedCategories}
                 minPrice={minPrice}
-                setMinPrice={(v) => { setMinPrice(v); setCurrentPage(1); }}
+                setMinPrice={setMinPrice}
                 maxPrice={maxPrice}
-                setMaxPrice={(v) => { setMaxPrice(v); setCurrentPage(1); }}
+                setMaxPrice={setMaxPrice}
                 selectedSizes={selectedSizes}
                 setSelectedSizes={setSelectedSizes}
                 selectedSpices={selectedSpices}
@@ -249,7 +237,7 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
 
           {/* Product Grid Area (Col 3) */}
           <div className="lg:col-span-3 space-y-8">
-            {currentProducts.length === 0 ? (
+            {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-3xl p-12 text-center border border-brand-border space-y-4 shadow-xs">
                 <div className="text-4xl">🏺</div>
                 <h3 className="font-serif text-xl font-bold text-brand-brown">
@@ -268,7 +256,7 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
             ) : (
               <>
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
-                  {currentProducts.map(product => (
+                  {filteredProducts.map(product => (
                     <ProductCard
                       key={product.id}
                       product={product}
@@ -279,38 +267,18 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
-                {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-2 pt-6 border-t border-brand-border">
-                    <button
-                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                      disabled={currentPage === 1}
-                      className="px-3 py-1.5 rounded-lg border border-brand-border bg-white text-xs font-bold text-brand-brown disabled:opacity-40"
-                    >
-                      Previous
-                    </button>
-                    {[...Array(totalPages)].map((_, i) => (
-                      <button
-                        key={i + 1}
-                        onClick={() => setCurrentPage(i + 1)}
-                        className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                          currentPage === i + 1
-                            ? 'bg-brand-brown text-white shadow-xs'
-                            : 'bg-white border border-brand-border text-brand-brown hover:bg-brand-cream'
-                        }`}
-                      >
-                        {i + 1}
-                      </button>
-                    ))}
-                    <button
-                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                      disabled={currentPage === totalPages}
-                      className="px-3 py-1.5 rounded-lg border border-brand-border bg-white text-xs font-bold text-brand-brown disabled:opacity-40"
-                    >
-                      Next
-                    </button>
-                  </div>
-                )}
+                {/* All Products Viewed Footer Note */}
+                <div className="text-center pt-8 pb-4 border-t border-brand-border/60 mt-6">
+                  <p className="text-xs font-semibold text-brand-brownMuted">
+                    ✓ You've viewed all {filteredProducts.length} handcrafted achar varieties
+                  </p>
+                  <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="mt-2 text-xs font-bold text-[#B45309] hover:text-[#92400E] underline cursor-pointer"
+                  >
+                    Back to Top ↑
+                  </button>
+                </div>
               </>
             )}
           </div>
@@ -340,9 +308,9 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
               selectedCategories={selectedCategories}
               setSelectedCategories={setSelectedCategories}
               minPrice={minPrice}
-              setMinPrice={(v) => { setMinPrice(v); setCurrentPage(1); }}
+              setMinPrice={setMinPrice}
               maxPrice={maxPrice}
-              setMaxPrice={(v) => { setMaxPrice(v); setCurrentPage(1); }}
+              setMaxPrice={setMaxPrice}
               selectedSizes={selectedSizes}
               setSelectedSizes={setSelectedSizes}
               selectedSpices={selectedSpices}
