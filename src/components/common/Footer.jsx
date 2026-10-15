@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
 import { 
-  ShieldCheck, 
-  Truck, 
-  Heart, 
   MapPin, 
-  Phone, 
   Mail, 
+  Phone, 
   Clock, 
-  ArrowRight,
   Sparkles,
   ChevronDown,
-  Award,
-  Users,
-  MessageCircle,
-  CreditCard,
-  CheckCircle2,
-  PackageCheck,
-  Leaf
+  CheckCircle2
 } from 'lucide-react';
 
 export const Footer = ({ onNavigate }) => {
@@ -24,8 +14,7 @@ export const Footer = ({ onNavigate }) => {
   const [openSections, setOpenSections] = useState({
     shop: false,
     policies: false,
-    company: false,
-    help: false
+    company: false
   });
 
   const toggleSection = (section) => {
@@ -62,435 +51,516 @@ export const Footer = ({ onNavigate }) => {
   ];
 
   return (
-    <footer id="footer2" className="relative bg-[#1A1009] text-[#F3E8DB] pt-12 pb-24 lg:pb-8 font-sans overflow-hidden">
+    <footer id="main-footer" className="relative font-sans overflow-hidden">
       
-      {/* Decorative Traditional Rajasthani Arch Pattern Top Border Strip */}
-      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#D97706] via-[#FBBF24] via-[#F59E0B] to-[#D97706]" />
-      
-      {/* Subtle Warm Background Glow Accents */}
-      <div className="absolute -top-32 left-1/4 w-96 h-96 bg-[#C88214]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -right-32 w-96 h-96 bg-[#D97706]/10 rounded-full blur-3xl pointer-events-none" />
+      {/* ========================================================================= */}
+      {/* 1. TOP ILLUSTRATED RIBBON BANNER (Signature FarmDidi Feature Layout) */}
+      {/* ========================================================================= */}
+      <div className="relative bg-[#FAF6EE] pt-8 sm:pt-12 pb-14 sm:pb-18 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
+        
+        {/* Subtle Decorative Background Arches / Sun Ray Texture */}
+        <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
+          <svg className="w-full h-full text-[#E5D5C0]" viewBox="0 0 1440 240" fill="none" preserveAspectRatio="none">
+            <path d="M-50,80 Q250,180 600,100 T1300,140 Q1450,110 1500,80" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 6" />
+            <path d="M-50,110 Q280,210 650,130 T1350,170" stroke="currentColor" strokeWidth="2.5" />
+          </svg>
+        </div>
 
-      {/* ========================================================================= */}
-      {/* 4 TRUST BADGES STRIP (With Golden Accent Border & Glassmorphism Card Design) */}
-      {/* ========================================================================= */}
-      <div className="max-w-[1280px] mx-auto px-4 pb-10 mb-10 border-b border-[#352115] relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4 text-left">
+        <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 relative z-10">
           
-          {/* Card 1 */}
-          <div className="group relative flex items-center gap-3.5 bg-gradient-to-br from-[#27170F] to-[#1E120A] p-3.5 sm:p-4 rounded-2xl border border-[#482D1D] hover:border-[#D97706] shadow-md hover:shadow-lg transition-all duration-300">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-[#3D2213] to-[#55301A] border border-[#C88214]/40 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform">
-              <Leaf className="w-5 h-5 text-[#FBBF24]" />
+          {/* Left: Joyful Curving Header with Stitched Arch Wave */}
+          <div className="text-center lg:text-left space-y-2 max-w-2xl">
+            <div className="relative inline-block">
+              {/* Warm decorative curved swoosh underline */}
+              <svg className="absolute -top-3 sm:-top-5 -left-4 sm:-left-6 w-16 sm:w-24 h-10 sm:h-14 text-[#C88214]/30 pointer-events-none" viewBox="0 0 100 60" fill="none">
+                <path d="M10,45 Q50,5 90,30" stroke="currentColor" strokeWidth="3" strokeDasharray="4 4" />
+              </svg>
+
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-black text-[#2D1810] tracking-tight leading-tight drop-shadow-xs">
+                Food that makes <br className="hidden sm:inline" />
+                <span className="italic font-normal text-[#9C4E15]">you feel loved</span>
+              </h2>
             </div>
-            <div>
-              <h5 className="font-extrabold text-xs sm:text-sm text-[#FFFDF9] tracking-tight group-hover:text-[#FBBF24] transition-colors">
-                100% Homemade
-              </h5>
-              <p className="text-[11px] text-[#B8A796] leading-tight mt-0.5">
-                Cold-pressed mustard oil
-              </p>
-            </div>
+            
+            <p className="text-xs sm:text-sm md:text-base font-semibold text-[#6E5444] max-w-xl">
+              Authentic Rajasthani pickles sun-cured in glazed ceramic barnis for 21–40 days. Handcrafted with traditional stone-ground spices & 100% cold-pressed mustard oil.
+            </p>
           </div>
 
-          {/* Card 2 */}
-          <div className="group relative flex items-center gap-3.5 bg-gradient-to-br from-[#27170F] to-[#1E120A] p-3.5 sm:p-4 rounded-2xl border border-[#482D1D] hover:border-[#D97706] shadow-md hover:shadow-lg transition-all duration-300">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-[#3D2213] to-[#55301A] border border-[#C88214]/40 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-5 h-5 text-[#FBBF24]" />
-            </div>
-            <div>
-              <h5 className="font-extrabold text-xs sm:text-sm text-[#FFFDF9] tracking-tight group-hover:text-[#FBBF24] transition-colors">
-                No Chemicals
-              </h5>
-              <p className="text-[11px] text-[#B8A796] leading-tight mt-0.5">
-                Zero synthetic vinegar
-              </p>
-            </div>
-          </div>
+          {/* Right: Signature Framed Polaroid Card ("Made with love in Dadi's Rasoi") */}
+          <div className="shrink-0 relative group">
+            {/* Cute wooden tape / pin at top */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 w-16 h-5 bg-[#D2B48C]/90 rounded-sm shadow-xs border border-[#B38F6A] rotate-[-2deg]" />
 
-          {/* Card 3 */}
-          <div className="group relative flex items-center gap-3.5 bg-gradient-to-br from-[#27170F] to-[#1E120A] p-3.5 sm:p-4 rounded-2xl border border-[#482D1D] hover:border-[#D97706] shadow-md hover:shadow-lg transition-all duration-300">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-[#3D2213] to-[#55301A] border border-[#C88214]/40 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform">
-              <Users className="w-5 h-5 text-[#FBBF24]" />
-            </div>
-            <div>
-              <h5 className="font-extrabold text-xs sm:text-sm text-[#FFFDF9] tracking-tight group-hover:text-[#FBBF24] transition-colors">
-                Rural Women Made
-              </h5>
-              <p className="text-[11px] text-[#B8A796] leading-tight mt-0.5">
-                45+ mothers in Sikar
-              </p>
-            </div>
-          </div>
+            {/* Polaroid Photo Frame */}
+            <div className="bg-white p-3 sm:p-3.5 pb-4 rounded-sm shadow-xl border border-stone-200 rotate-1 sm:rotate-2 group-hover:rotate-0 transition-transform duration-300 w-[240px] sm:w-[270px]">
+              
+              {/* Yellow Title Strip on Polaroid */}
+              <div className="bg-[#B45309] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider py-1.5 px-3 text-center rounded-xs shadow-xs mb-2">
+                Made with love in Dadi's Kitchen
+              </div>
 
-          {/* Card 4 */}
-          <div className="group relative flex items-center gap-3.5 bg-gradient-to-br from-[#27170F] to-[#1E120A] p-3.5 sm:p-4 rounded-2xl border border-[#482D1D] hover:border-[#D97706] shadow-md hover:shadow-lg transition-all duration-300">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-[#3D2213] to-[#55301A] border border-[#C88214]/40 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform">
-              <Truck className="w-5 h-5 text-[#FBBF24]" />
-            </div>
-            <div>
-              <h5 className="font-extrabold text-xs sm:text-sm text-[#FFFDF9] tracking-tight group-hover:text-[#FBBF24] transition-colors">
-                Pan-India Shipping
-              </h5>
-              <p className="text-[11px] text-[#B8A796] leading-tight mt-0.5">
-                Cushioned safe glass jars
+              {/* Handcrafted Illustration Sketch inside frame */}
+              <div className="aspect-4/3 bg-[#FBF8F1] rounded-xs border border-stone-200 overflow-hidden relative flex items-center justify-center p-2">
+                
+                {/* Vector Heritage Kitchen Sketch with Ceramic Barnis & Rural Mother */}
+                <svg className="w-full h-full text-[#3D2517]" viewBox="0 0 200 140" fill="none">
+                  {/* Kitchen Shelf */}
+                  <line x1="15" y1="95" x2="185" y2="95" stroke="#B8A18B" strokeWidth="3" strokeLinecap="round" />
+                  <line x1="25" y1="98" x2="25" y2="135" stroke="#B8A18B" strokeWidth="2" />
+                  <line x1="175" y1="98" x2="175" y2="135" stroke="#B8A18B" strokeWidth="2" />
+
+                  {/* Ceramic Barni 1 (Small Left) */}
+                  <rect x="24" y="55" width="28" height="38" rx="7" fill="#E8D5B7" stroke="#8C6542" strokeWidth="2" />
+                  <path d="M22 65 Q38 52 54 65" stroke="#8C6542" strokeWidth="1.5" />
+                  <rect x="27" y="52" width="22" height="6" rx="2" fill="#8C4A20" />
+                  {/* Cotton cloth tied top */}
+                  <path d="M26 50 Q38 46 50 50 L48 54 L28 54 Z" fill="#FFFDF9" stroke="#8C6542" strokeWidth="1.2" />
+                  <circle cx="38" cy="53" r="2.5" fill="#8C4A20" />
+
+                  {/* Ceramic Barni 2 (Center Big) */}
+                  <rect x="58" y="42" width="36" height="51" rx="9" fill="#FFFDF9" stroke="#663B19" strokeWidth="2.2" />
+                  {/* Glazed ochre top */}
+                  <path d="M58 55 Q76 42 94 55 L94 42 L58 42 Z" fill="#C88214" />
+                  <rect x="62" y="38" width="28" height="7" rx="2" fill="#8C4A20" stroke="#663B19" strokeWidth="1.5" />
+                  {/* Cotton cloth lid with string */}
+                  <path d="M60 36 Q76 30 92 36 L90 41 L62 41 Z" fill="#FAF6EE" stroke="#663B19" strokeWidth="1.2" />
+                  <line x1="61" y1="40" x2="91" y2="40" stroke="#C88214" strokeWidth="1.5" />
+                  <text x="76" y="74" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#663B19" fontFamily="serif">ACHAR</text>
+
+                  {/* Ceramic Barni 3 (Medium) */}
+                  <rect x="100" y="50" width="30" height="43" rx="8" fill="#E8D5B7" stroke="#8C6542" strokeWidth="2" />
+                  <path d="M98 62 Q115 50 132 62" stroke="#8C6542" strokeWidth="1.5" />
+                  <rect x="103" y="47" width="24" height="6" rx="2" fill="#8C4A20" />
+                  <path d="M102 45 Q115 41 128 45 L126 49 L104 49 Z" fill="#FFFDF9" stroke="#8C6542" strokeWidth="1.2" />
+
+                  {/* Smiling Rural Woman Artisan (Right side of sketch) */}
+                  <g transform="translate(136, 32)">
+                    {/* Odhni / Veil */}
+                    <path d="M12 16 Q28 6 44 18 Q48 42 42 66 Q28 68 14 66 Z" fill="#9C4E15" opacity="0.9" />
+                    {/* Face */}
+                    <ellipse cx="28" cy="28" rx="10" ry="12" fill="#FCE4D6" stroke="#8C4A20" strokeWidth="1.5" />
+                    {/* Hair */}
+                    <path d="M19 24 Q28 17 37 24 Z" fill="#2D1810" />
+                    {/* Bindi */}
+                    <circle cx="28" cy="24" r="1.5" fill="#C00" />
+                    {/* Eyes smiling */}
+                    <path d="M22 28 Q25 30 27 28" stroke="#2D1810" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+                    <path d="M29 28 Q31 30 34 28" stroke="#2D1810" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+                    {/* Smile */}
+                    <path d="M25 34 Q28 37 31 34" stroke="#8C4A20" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+                    {/* Traditional Kurti */}
+                    <path d="M17 40 L39 40 L44 65 L12 65 Z" fill="#E59400" stroke="#8C4A20" strokeWidth="1.5" />
+                    {/* Bangles / Hand holding wooden spoon */}
+                    <path d="M12 50 Q6 56 16 60" stroke="#8C4A20" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                    <line x1="16" y1="62" x2="8" y2="40" stroke="#8C6542" strokeWidth="2.5" strokeLinecap="round" />
+                    <circle cx="8" cy="38" r="4" fill="#B8860B" />
+                  </g>
+                </svg>
+
+                {/* Subtle Stamp in bottom corner */}
+                <div className="absolute bottom-1 right-1.5 text-[8px] font-mono text-stone-500 font-bold uppercase tracking-widest opacity-75">
+                  SIKAR • RAJASTHAN
+                </div>
+              </div>
+
+              {/* Hand-written style caption below sketch */}
+              <p className="text-center font-serif text-[11px] text-[#5A4031] font-bold italic mt-2">
+                Slow Sun-Fermented in Ceramic Jars
               </p>
             </div>
           </div>
 
         </div>
+
+        {/* Torn Paper / Wave Divider Transition into the Main Dark Footer */}
+        <div className="absolute -bottom-1 inset-x-0 overflow-hidden leading-none z-10 pointer-events-none">
+          <svg className="w-full h-8 sm:h-12 text-[#1C120C] fill-current" viewBox="0 0 1200 48" preserveAspectRatio="none">
+            <path d="M0,0 Q60,35 120,12 T240,28 T360,8 T480,32 T600,14 T720,38 T840,16 T960,34 T1080,10 T1200,28 L1200,48 L0,48 Z" />
+          </svg>
+        </div>
+
       </div>
 
       {/* ========================================================================= */}
-      {/* MAIN FOOTER GRID (With Styled Boxes, Clear Contrast & No Overflow) */}
+      {/* 2. MAIN FOOTER CONTENT (NO YELLOW - Deep Royal Heritage Brown Background) */}
       {/* ========================================================================= */}
-      <div className="max-w-[1280px] mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
+      <div className="relative bg-[#1C120C] text-[#FAF6EE] pt-10 sm:pt-14 pb-12 px-4 sm:px-6 lg:px-8">
+        
+        {/* Subtle Ambient Radial Glow */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C88214]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-[1280px] mx-auto relative z-10">
           
-          {/* Col 1: Brand Logo, Reg Address & Highlighted Social Bar (5 cols) */}
-          <div className="lg:col-span-4 space-y-4 bg-[#23140D]/70 p-5 rounded-3xl border border-[#3A2215] shadow-sm">
-            {/* Website Logo */}
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#C88214] via-[#F59E0B] to-[#FBBF24] text-[#1C120C] flex items-center justify-center font-serif font-black text-2xl shadow-lg ring-2 ring-amber-400/30">
-                M
-              </div>
-              <div>
-                <span className="font-serif text-2xl font-black tracking-tight text-[#FFFDF9]">
-                  Marusthali <span className="text-[#FBBF24]">Achar</span>
+          {/* Main 4-Column Grid (Mirroring FarmDidi Layout Structure) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            
+            {/* ------------------------------------------------------------- */}
+            {/* Col 1: Brand Circular Logo, Reg Address & Solid Round Socials */}
+            {/* ------------------------------------------------------------- */}
+            <div className="lg:col-span-4 space-y-5">
+              
+              {/* White Circular Badge with Marusthali Achar Logo */}
+              <div 
+                onClick={() => onNavigate('home')}
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-xl border-4 border-[#3D2517] flex flex-col items-center justify-center p-2 text-center cursor-pointer group hover:scale-105 transition-transform"
+                title="Marusthali Achar - Return to Home"
+              >
+                {/* Traditional Jar & Leaf Emblem */}
+                <div className="flex items-center justify-center text-[#1E5631] -mb-1">
+                  <svg className="w-5 h-5 fill-current text-[#1E5631]" viewBox="0 0 24 24">
+                    <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+                  </svg>
+                </div>
+                <span className="font-serif text-sm sm:text-base font-black tracking-tight text-[#1F110B] leading-tight">
+                  MARUSTHALI
                 </span>
-                <p className="text-[10px] font-bold tracking-widest text-[#D4B996] uppercase">
-                  Artisanal Village Pickles • Sikar
+                <span className="font-sans text-[10px] font-black uppercase tracking-widest text-[#B45309]">
+                  ACHAR
+                </span>
+                <span className="text-[7px] font-bold text-[#8C6542] tracking-wider uppercase mt-0.5">
+                  Est. 1994 • Sikar
+                </span>
+              </div>
+
+              {/* Reg Address */}
+              <div className="space-y-1 text-xs text-[#D9C8B4] leading-relaxed pt-1">
+                <p className="font-bold text-[#FFFDF9] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#E5A855] shrink-0" />
+                  <span>Reg Address :</span>
+                </p>
+                <p className="font-medium text-[#C2B29F] pl-5 leading-normal">
+                  Marusthali Rural Foods Private Limited<br />
+                  Plot No. 84, Shekhawati Heritage Zone, Sector 5,<br />
+                  Near Old Sikar Highway, Piprali Road,<br />
+                  Sikar, Rajasthan, 332001
                 </p>
               </div>
-            </div>
 
-            {/* Reg Address */}
-            <div className="text-xs text-[#C2B29F] leading-relaxed pt-1">
-              <p className="font-bold text-[#F3E8DB] mb-1 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#F59E0B]" />
-                <span>Registered Address :</span>
-              </p>
-              <p className="font-medium text-[#B8A796] pl-5 leading-normal">
-                Marusthali Rural Foods & Crafts Private Limited<br />
-                Plot No. 84, Shekhawati Heritage Complex,<br />
-                Near Old Bus Stand, Ward No. 5,<br />
-                Sikar, Rajasthan, 332001
-              </p>
-            </div>
-
-            {/* Social Media Follow Box - Highlighted & Styled Pill Container */}
-            <div className="pt-3 border-t border-[#3A2215]">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse" />
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#FBBF24]">
+              {/* Social Media Section: Title + 5 Circular Black Buttons */}
+              <div className="space-y-2.5 pt-2">
+                <h4 className="text-[11px] font-black uppercase tracking-widest text-[#FFFDF9]">
                   FOLLOW MARUSTHALI ACHAR
                 </h4>
+
+                {/* 5 Solid Round Black Discs with Crisp White Icons (Exact FarmDidi Style) */}
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  {/* Instagram */}
+                  <a 
+                    href="https://www.instagram.com" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    aria-label="Instagram"
+                    title="Follow Marusthali Achar on Instagram"
+                  >
+                    <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                  </a>
+
+                  {/* Pinterest / Threads */}
+                  <a 
+                    href="https://www.pinterest.com" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    aria-label="Pinterest"
+                    title="Follow Marusthali Achar on Pinterest"
+                  >
+                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+                    </svg>
+                  </a>
+
+                  {/* Facebook */}
+                  <a 
+                    href="https://www.facebook.com" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    aria-label="Facebook"
+                    title="Follow Marusthali Achar on Facebook"
+                  >
+                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    </svg>
+                  </a>
+
+                  {/* Twitter / X */}
+                  <a 
+                    href="https://twitter.com" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    aria-label="Twitter / X"
+                    title="Follow Marusthali Achar on X"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+
+                  {/* YouTube */}
+                  <a 
+                    href="https://www.youtube.com" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    aria-label="YouTube"
+                    title="Subscribe to Marusthali Achar on YouTube"
+                  >
+                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#1C120C"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2.5 flex-wrap">
-                {/* Instagram */}
-                <a 
-                  href="https://www.instagram.com" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white flex items-center justify-center transition-all hover:scale-115 active:scale-95 shadow-md ring-2 ring-white/10 hover:ring-[#DD2A7B]"
-                  aria-label="Instagram"
-                  title="Follow Marusthali Achar on Instagram"
-                >
-                  <svg className="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                  </svg>
-                </a>
-
-                {/* Facebook */}
-                <a 
-                  href="https://www.facebook.com" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="w-10 h-10 rounded-xl bg-[#1877F2] hover:bg-[#0C63D4] text-white flex items-center justify-center transition-all hover:scale-115 active:scale-95 shadow-md ring-2 ring-white/10 hover:ring-[#1877F2]"
-                  aria-label="Facebook"
-                  title="Follow Marusthali Achar on Facebook"
-                >
-                  <svg className="w-5 h-5 fill-currentColor" viewBox="0 0 24 24">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                  </svg>
-                </a>
-
-                {/* YouTube */}
-                <a 
-                  href="https://www.youtube.com" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="w-10 h-10 rounded-xl bg-[#FF0000] hover:bg-[#CC0000] text-white flex items-center justify-center transition-all hover:scale-115 active:scale-95 shadow-md ring-2 ring-white/10 hover:ring-[#FF0000]"
-                  aria-label="YouTube"
-                  title="Subscribe to Marusthali Achar on YouTube"
-                >
-                  <svg className="w-5 h-5 fill-currentColor" viewBox="0 0 24 24">
-                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
-                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/>
-                  </svg>
-                </a>
-
-                {/* Twitter / X */}
-                <a 
-                  href="https://twitter.com" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="w-10 h-10 rounded-xl bg-black hover:bg-neutral-900 text-white border border-[#442C1E] flex items-center justify-center transition-all hover:scale-115 active:scale-95 shadow-md ring-2 ring-white/10"
-                  aria-label="Twitter / X"
-                  title="Follow Marusthali Achar on X"
-                >
-                  <svg className="w-5 h-5 fill-currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-
-                {/* WhatsApp */}
-                <a 
-                  href="https://wa.me/919876543210" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="w-10 h-10 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white flex items-center justify-center transition-all hover:scale-115 active:scale-95 shadow-md ring-2 ring-white/10 hover:ring-[#25D366]"
-                  aria-label="WhatsApp"
-                  title="Chat with Marusthali Achar on WhatsApp"
-                >
-                  <MessageCircle className="w-5 h-5 fill-current" />
-                </a>
-              </div>
             </div>
 
-          </div>
-
-          {/* Col 2: Shop Menu (Desktop + Mobile Accordion) (2.5 cols) */}
-          <div className="lg:col-span-2 space-y-3 bg-[#23140D]/40 p-5 rounded-3xl border border-[#3A2215]/80">
-            <button 
-              onClick={() => toggleSection('shop')}
-              className="w-full flex items-center justify-between text-left md:pointer-events-none pb-2 border-b md:border-b-0 border-[#3D281C]"
-            >
-              <h3 className="font-bold text-xs uppercase tracking-widest text-[#FBBF24]">
-                Shop Flavours
-              </h3>
-              <ChevronDown className={`w-4 h-4 md:hidden text-[#C88214] transition-transform ${openSections.shop ? 'rotate-180' : ''}`} />
-            </button>
-            <ul className={`space-y-2.5 text-xs text-[#C2B29F] ${openSections.shop ? 'block' : 'hidden md:block'}`}>
-              <li>
-                <button onClick={() => onNavigate('all-products')} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Homemade Pickles (All)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('category', { categoryId: 'mango' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Mango Pickles (Aam Ka Achar)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('category', { categoryId: 'mirchi' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Spicy Red & Green Chillies
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('category', { categoryId: 'nimbu' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Tangy Lemon Pickles (Nimbu)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('product-detail', { productId: 'nimbu-khatta-meetha' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Sweet & Tangy Pickles
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('category', { categoryId: 'garlic' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Mustard Oil Garlic Pickles
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('category', { categoryId: 'heritage' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Rajasthani Heritage Pickles
-                </button>
-              </li>
-              <li className="pt-1">
-                <button onClick={() => onNavigate('combo-builder')} className="hover:text-[#FBBF24] hover:underline transition-colors font-bold text-[#F59E0B] flex items-center gap-1">
-                  <span>Build Custom Combo</span>
-                  <span>→</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Customer Policies (2.5 cols) */}
-          <div className="lg:col-span-3 space-y-3 bg-[#23140D]/40 p-5 rounded-3xl border border-[#3A2215]/80">
-            <button 
-              onClick={() => toggleSection('policies')}
-              className="w-full flex items-center justify-between text-left md:pointer-events-none pb-2 border-b md:border-b-0 border-[#3D281C]"
-            >
-              <h3 className="font-bold text-xs uppercase tracking-widest text-[#FBBF24]">
-                Customer Policies
-              </h3>
-              <ChevronDown className={`w-4 h-4 md:hidden text-[#C88214] transition-transform ${openSections.policies ? 'rotate-180' : ''}`} />
-            </button>
-            <ul className={`space-y-2.5 text-xs text-[#C2B29F] ${openSections.policies ? 'block' : 'hidden md:block'}`}>
-              <li>
-                <button onClick={() => onNavigate('policy', { policyType: 'privacy' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Terms and Conditions
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('policy', { policyType: 'privacy' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Privacy Policies
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('policy', { policyType: 'returns' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Cancellation & 100% Refund
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('policy', { policyType: 'shipping' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Shipping & Pan-India Delivery
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('policy', { policyType: 'food-safety' })} className="hover:text-[#FFFDF9] hover:underline transition-colors text-left">
-                  Food Safety & FSSAI Standards
-                </button>
-              </li>
-              <li className="pt-1">
-                <button onClick={() => onNavigate('account', { tab: 'orders' })} className="hover:text-[#FBBF24] hover:underline transition-colors font-bold text-[#F59E0B] flex items-center gap-1">
-                  <span>Track My Order</span>
-                  <span>→</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Need Help? & Support Desk (3 cols) */}
-          <div className="lg:col-span-3 space-y-3 bg-[#23140D]/40 p-5 rounded-3xl border border-[#3A2215]/80">
-            <button 
-              onClick={() => toggleSection('company')}
-              className="w-full flex items-center justify-between text-left md:pointer-events-none pb-2 border-b md:border-b-0 border-[#3D281C]"
-            >
-              <h3 className="font-bold text-xs uppercase tracking-widest text-[#FBBF24]">
-                Need Help?
-              </h3>
-              <ChevronDown className={`w-4 h-4 md:hidden text-[#C88214] transition-transform ${openSections.company ? 'rotate-180' : ''}`} />
-            </button>
-            
-            <div className={`space-y-3 text-xs text-[#C2B29F] ${openSections.company ? 'block' : 'hidden md:block'}`}>
-              <div>
-                <a 
-                  href="mailto:customercare@marusthaliachar.com" 
-                  className="hover:text-[#FFFDF9] hover:underline flex items-start gap-2 break-all group"
-                >
-                  <Mail className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                  <span className="leading-snug">customercare@marusthaliachar.com</span>
-                </a>
-              </div>
-              <div>
-                <a 
-                  href="mailto:careers@marusthaliachar.com" 
-                  className="hover:text-[#FFFDF9] hover:underline flex items-start gap-2 break-all group"
-                >
-                  <Mail className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                  <span className="leading-snug">careers@marusthaliachar.com</span>
-                </a>
-              </div>
-              <div>
-                <a 
-                  href="https://wa.me/919876543210" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="hover:text-[#FFFDF9] hover:underline flex items-center gap-2 font-bold text-[#25D366] group"
-                >
-                  <Phone className="w-4 h-4 text-[#25D366] shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>+91 9876543210</span>
-                </a>
-              </div>
-              <div className="pt-0.5 text-[11px] text-[#A89885] leading-relaxed flex items-start gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#C88214] shrink-0 mt-0.5" />
-                <span>Monday–Saturday: 10:00 AM – 6:00 PM</span>
-              </div>
-
-              <div className="pt-2.5 border-t border-[#3A2215] space-y-1.5">
-                <button 
-                  onClick={() => onNavigate('our-story')} 
-                  className="hover:text-[#FBBF24] hover:underline block font-bold text-[#F3E8DB] text-left"
-                >
-                  Our Rural Story & Impact
-                </button>
-                <button 
-                  onClick={() => onNavigate('faq')} 
-                  className="hover:text-[#FBBF24] hover:underline block text-[#C2B29F] text-left"
-                >
-                  Frequently Asked Questions
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* POPULAR SEARCHES (Neat Tag Cloud Design with Gold Dividers) */}
-      {/* ========================================================================= */}
-      <div className="max-w-[1280px] mx-auto px-4 mt-12 pt-8 border-t border-[#352115] relative z-10">
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
-          <h4 className="text-[11px] font-extrabold uppercase tracking-widest text-[#FBBF24]">
-            POPULAR SEARCHES
-          </h4>
-        </div>
-        <div className="text-[12px] leading-relaxed text-[#A89885]">
-          {popularSearches.map((item, idx) => (
-            <React.Fragment key={idx}>
-              <button
-                onClick={item.action}
-                className="hover:text-[#FFFDF9] hover:text-[#FBBF24] hover:underline inline-block transition-colors cursor-pointer py-0.5"
+            {/* ------------------------------------------------------------- */}
+            {/* Col 2: SHOP (Clean List of Flavours) */}
+            {/* ------------------------------------------------------------- */}
+            <div className="lg:col-span-2 space-y-3">
+              <button 
+                onClick={() => toggleSection('shop')}
+                className="w-full flex items-center justify-between text-left md:pointer-events-none pb-2 border-b md:border-b-0 border-[#382316]"
               >
-                {item.label}
+                <h3 className="font-extrabold text-xs sm:text-sm uppercase tracking-widest text-[#FFFDF9]">
+                  SHOP
+                </h3>
+                <ChevronDown className={`w-4 h-4 md:hidden text-[#E5A855] transition-transform ${openSections.shop ? 'rotate-180' : ''}`} />
               </button>
-              {idx < popularSearches.length - 1 && (
-                <span className="mx-2 text-[#4A3223]">|</span>
-              )}
-            </React.Fragment>
-          ))}
+              
+              <ul className={`space-y-2.5 text-xs sm:text-[13px] text-[#D9C8B4] ${openSections.shop ? 'block' : 'hidden md:block'}`}>
+                <li>
+                  <button onClick={() => onNavigate('all-products')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Homemade Pickles
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('all-products')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Mustard Oil Pickles
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('category', { categoryId: 'mirchi' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Spicy Pickles
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('category', { categoryId: 'nimbu' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Tangy Pickles
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('product-detail', { productId: 'meethi-aam' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Sweet Pickles
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('category', { categoryId: 'mango' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Mango Pickles
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('category', { categoryId: 'garlic' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Oil Free & Garlic
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* ------------------------------------------------------------- */}
+            {/* Col 3: POLICIES */}
+            {/* ------------------------------------------------------------- */}
+            <div className="lg:col-span-3 space-y-3">
+              <button 
+                onClick={() => toggleSection('policies')}
+                className="w-full flex items-center justify-between text-left md:pointer-events-none pb-2 border-b md:border-b-0 border-[#382316]"
+              >
+                <h3 className="font-extrabold text-xs sm:text-sm uppercase tracking-widest text-[#FFFDF9]">
+                  POLICIES
+                </h3>
+                <ChevronDown className={`w-4 h-4 md:hidden text-[#E5A855] transition-transform ${openSections.policies ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <ul className={`space-y-2.5 text-xs sm:text-[13px] text-[#D9C8B4] ${openSections.policies ? 'block' : 'hidden md:block'}`}>
+                <li>
+                  <button onClick={() => onNavigate('policy', { policyType: 'terms' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Terms and Conditions
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('policy', { policyType: 'privacy' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Privacy Policies
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('policy', { policyType: 'returns' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Cancellation and Refund
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => onNavigate('policy', { policyType: 'shipping' })} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                    Shipping and Exchange
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* ------------------------------------------------------------- */}
+            {/* Col 4: COMPANY & NEED HELP? */}
+            {/* ------------------------------------------------------------- */}
+            <div className="lg:col-span-3 space-y-5">
+              
+              {/* Company Links */}
+              <div className="space-y-2.5">
+                <h3 className="font-extrabold text-xs sm:text-sm uppercase tracking-widest text-[#FFFDF9]">
+                  COMPANY
+                </h3>
+                <ul className="space-y-2 text-xs sm:text-[13px] text-[#D9C8B4]">
+                  <li>
+                    <button onClick={() => onNavigate('our-story')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                      Our Story
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => onNavigate('our-story')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                      Blogs and Recipe
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Need Help? Block */}
+              <div className="space-y-2 pt-2 border-t border-[#382316]/70">
+                <h4 className="font-bold text-xs sm:text-sm text-[#FFFDF9]">
+                  Need Help?
+                </h4>
+                
+                <div className="space-y-1.5 text-xs text-[#D9C8B4]">
+                  <p>
+                    <a href="mailto:customercare@marusthaliachar.com" className="hover:text-white hover:underline break-all">
+                      customercare@marusthaliachar.com
+                    </a>
+                  </p>
+                  <p>
+                    <a href="mailto:careers@marusthaliachar.com" className="hover:text-white hover:underline break-all">
+                      careers@marusthaliachar.com
+                    </a>
+                  </p>
+                  <p className="font-semibold text-[#FFFDF9]">
+                    <a href="tel:+919829012345" className="hover:underline">
+                      +91 98290 12345
+                    </a>
+                  </p>
+                  <p className="text-[11px] text-[#B8A796] pt-0.5 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-[#E5A855] shrink-0" />
+                    <span>Working hours: Monday–Saturday | 10 AM – 6 PM</span>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* ========================================================================= */}
+          {/* 3. POPULAR SEARCHES (Dense Keyword Cloud Separated by Pipes |) */}
+          {/* ========================================================================= */}
+          <div className="mt-12 pt-8 border-t border-[#382316] space-y-3">
+            <h4 className="text-[11px] font-black uppercase tracking-widest text-[#FFFDF9] flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#E5A855]" />
+              <span>POPULAR SEARCHES</span>
+            </h4>
+
+            <div className="text-[11px] sm:text-xs leading-relaxed text-[#B8A796]">
+              {popularSearches.map((item, idx) => (
+                <React.Fragment key={idx}>
+                  <button
+                    onClick={item.action}
+                    className="hover:text-white hover:underline inline-block transition-colors cursor-pointer py-0.5"
+                  >
+                    {item.label}
+                  </button>
+                  {idx < popularSearches.length - 1 && (
+                    <span className="mx-2 text-[#4E3424]">|</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* BOTTOM PAYMENT STRIP (Rich Black Strip with Gold Highlights & Badges) */}
+      {/* 4. SOLID JET BLACK PAYMENT & COPYRIGHT STRIP */}
       {/* ========================================================================= */}
-      <div className="bg-[#0D0805] text-white mt-12 py-6 px-4 border-t border-[#26160D] relative z-10">
-        <div className="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs font-bold text-gray-300 flex items-center gap-2">
+      <div className="bg-[#0B0704] text-[#E0D5C7] py-4 sm:py-5 px-4 sm:px-6 lg:px-8 border-t border-black">
+        <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          
+          {/* 100% Secure Payments Label */}
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>100% Secure Payments • Safe Honeycomb Glass Packaging</span>
-          </p>
-
-          {/* Secure Payment Badges */}
-          <div className="flex items-center gap-2 flex-wrap justify-center text-[11px]">
-            <span className="bg-[#1C120C] text-gray-200 border border-[#3D281C] px-3 py-1 rounded-md font-semibold tracking-wider shadow-2xs">
-              UPI
-            </span>
-            <span className="bg-[#1C120C] text-gray-200 border border-[#3D281C] px-3 py-1 rounded-md font-semibold tracking-wider shadow-2xs">
-              VISA
-            </span>
-            <span className="bg-[#1C120C] text-gray-200 border border-[#3D281C] px-3 py-1 rounded-md font-semibold tracking-wider shadow-2xs">
-              MASTERCARD
-            </span>
-            <span className="bg-[#1C120C] text-gray-200 border border-[#3D281C] px-3 py-1 rounded-md font-semibold tracking-wider shadow-2xs">
-              RUPAY
-            </span>
-            <span className="bg-[#1C120C] text-[#FBBF24] border border-[#C88214]/60 px-3 py-1 rounded-md font-bold tracking-wider shadow-2xs">
-              CASH ON DELIVERY
-            </span>
+            <span>100% Secure Payments</span>
           </div>
-        </div>
 
-        <div className="max-w-[1280px] mx-auto mt-4 pt-4 border-t border-[#1C120C] text-[11px] text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <span>© {new Date().getFullYear()} Marusthali Achar. All Rights Reserved.</span>
-          <span>Crafted with love by 45+ rural women artisans in Sikar, Rajasthan</span>
+          {/* Payment Badges (Clean White Cards: VISA, UPI, MasterCard, PayPal) */}
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap justify-center">
+            
+            {/* VISA */}
+            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
+              <span className="font-sans font-black italic tracking-tighter text-[#1A1F71] text-xs sm:text-sm">
+                VISA
+              </span>
+            </div>
+
+            {/* UPI */}
+            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center gap-1 h-6 sm:h-7">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                <path d="M12 2L3 8l9 6 9-6-9-6z" fill="#097939" />
+                <path d="M3 16l9 6 9-6" stroke="#ED7524" strokeWidth="3" fill="none" strokeLinecap="round" />
+              </svg>
+              <span className="font-sans font-black tracking-tight text-[#2D2D2D] text-[10px] sm:text-xs">
+                UPI
+              </span>
+            </div>
+
+            {/* MasterCard */}
+            <div className="bg-white px-2 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
+              <div className="flex items-center -space-x-1.5">
+                <div className="w-3.5 h-3.5 rounded-full bg-[#EB001B]" />
+                <div className="w-3.5 h-3.5 rounded-full bg-[#F79E1B] opacity-90" />
+              </div>
+            </div>
+
+            {/* PayPal */}
+            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
+              <span className="font-sans font-black italic tracking-tight text-[#003087] text-[11px] sm:text-xs">
+                Pay<span className="text-[#0079C1]">Pal</span>
+              </span>
+            </div>
+
+            {/* RuPay */}
+            <div className="bg-white px-2.5 py-1 rounded shadow-xs flex items-center justify-center h-6 sm:h-7">
+              <span className="font-sans font-black tracking-tighter text-[#1C3E8A] text-[10px] sm:text-xs">
+                Ru<span className="text-[#F15A24]">Pay</span>
+              </span>
+            </div>
+
+          </div>
+
+          {/* Copyright text */}
+          <div className="text-[10px] sm:text-[11px] text-[#8C7A6B] text-center md:text-right">
+            <span>© {new Date().getFullYear()} Marusthali Achar. All Rights Reserved.</span>
+          </div>
+
         </div>
       </div>
 
