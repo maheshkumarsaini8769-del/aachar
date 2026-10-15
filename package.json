@@ -1,0 +1,26 @@
+{
+  "name": "omniva-saas-platform",
+  "version": "1.0.0",
+  "description": "Omniva - Multi-Business Order & Booking Management SaaS",
+  "scripts": {
+    "start": "node backend/src/server.js",
+    "build": "npm --prefix frontend run build",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "lint:frontend": "npm --prefix frontend run lint",
+    "test:health": "node backend/src/server.js",
+    "test:phase2": "npm --prefix backend run test:phase2",
+    "test:phase3": "npm --prefix backend run test:phase3",
+    "test:phase4": "npm --prefix backend run test:phase4",
+    "test:phase5": "npm --prefix backend run test:phase5",
+    "test:phase6": "npm --prefix backend run test:phase6",
+    "test:phase7": "npm --prefix backend run test:phase7",
+    "test:phase8": "npm --prefix backend run test:phase8",
+    "test:all": "npm run test:phase2 && npm run test:phase3 && npm run test:phase4 && npm run test:phase5 && npm run test:phase6 && npm run test:phase7 && npm run test:phase8"
+  },
+  "keywords": ["saas", "multi-tenant", "ecommerce", "booking"],
+  "author": "Omniva",
+  "license": "ISC"
+}

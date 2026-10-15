@@ -1,0 +1,250 @@
+const http = require('http');
+const { startServer } = require('../src/server.js');
+
+const request = (options, data) => {
+  return new Promise((resolve, reject) => {
+    const req = http.request(options, (res) => {
+      let body = '';
+      res.on('data', (chunk) => (body += chunk));
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(body) });
+        } catch {
+          resolve({ status: res.statusCode, raw: body });
+        }
+      });
+    });
+    req.on('error', reject);
+    if (data) req.write(JSON.stringify(data));
+    req.end();
+  });
+};
+
+async function runPhase3Tests() {
+  await startServer();
+  await new Promise((r) => setTimeout(r, 1000));
+
+  console.log('=== ULTRA-DEEP PHASE 3: META LEAD ADS & CAPI TEST SUITE ===\n');
+
+  // 1. Meta Webhook Verification Handshake (GET)
+  const verifyRes = await request({
+    hostname: '127.0.0.1',
+    port: 5000,
+    path: '/api/webhooks/meta?hub.mode=subscribe&hub.verify_token=omniva_meta_verify_token_2026&hub.challenge=challenge_token_8877',
+    method: 'GET',
+  });
+  console.log(
+    'Test 1: Meta Webhook Subscription Handshake -> Status:',
+    verifyRes.status,
+    'Challenge Returned:',
+    verifyRes.raw === 'challenge_token_8877' ? '✅ MATCHED' : '❌ MISMATCH'
+  );
+
+  // 2. Meta Webhook Rejection with Invalid Token
+  const badTokenRes = await request({
+    hostname: '127.0.0.1',
+    port: 5000,
+    path: '/api/webhooks/meta?hub.mode=subscribe&hub.verify_token=wrong_token&hub.challenge=123',
+    method: 'GET',
+  });
+  console.log(
+    'Test 2: Meta Webhook Invalid Token Rejection -> Status:',
+    badTokenRes.status,
+    '(Expected 403 Forbidden)'
+  );
+
+  // 3. Login Merchant A (Achar) & Merchant B (Films)
+  const loginA = await request(
+    {
+      hostname: '127.0.0.1',
+      port: 5000,
+      path: '/api/auth/login',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    },
+    { email: 'rahul@desirasoi.com', password: 'password123' }
+  );
+  const tokenA = loginA.data.token;
+  const slugA = loginA.data.tenant?.slug;
+
+  const loginB = await request(
+    {
+      hostname: '127.0.0.1',
+      port: 5000,
+      path: '/api/auth/login',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    },
+    { email: 'vikram@royalfilms.com', password: 'password123' }
+  );
+  const tokenB = loginB.data.token;
+
+  // 4. Ingest Meta Lead Ad Webhook (POST)
+  const webhookPostRes = await request(
+    {
+      hostname: '127.0.0.1',
+      port: 5000,
+      path: `/api/webhooks/meta?tenantSlug=${slugA}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    },
+    {
+      entry: [
+        {
+          changes: [
+            {
+              field: 'leadgen',
+              value: {
+                leadgen_id: '4488992211',
+                form_id: '99887766',
+                ad_id: '11223344',
+                full_name: 'Pooja Agarwal',
+                phone_number: '9844556677',
+                email: 'pooja.agarwal@example.com',
+                campaign_name: 'Instagram Reel Ad - Organic Achar Launch',
+                ad_name: 'Video Reel Creative 15s',
+                budget: 3200,
+              },
+            },
+          ],
+        },
+      ],
+    }
+  );
+  console.log(
+    'Test 3: Ingest Meta Lead Ad Webhook -> Status:',
+    webhookPostRes.status,
+    webhookPostRes.data.message
+  );
+
+  // 5. Verify Ingested Lead in Merchant A's CRM
+  const leadsA = await request({
+    hostname: '127.0.0.1',
+    port: 5000,
+    path: '/api/crm/leads?search=Pooja',
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + tokenA },
+  });
+  const ingestedLead = leadsA.data.leads?.[0];
+  console.log(
+    'Test 4: Ingested Lead Present in CRM -> Name:',
+    ingestedLead?.name,
+    'Source:',
+    ingestedLead?.source,
+    'Campaign:',
+    ingestedLead?.campaignName
+  );
+
+  // 6. Cross-Tenant Check: Merchant B must NOT see this Meta lead
+  const leadsB = await request({
+    hostname: '127.0.0.1',
+    port: 5000,
+    path: '/api/crm/leads?search=Pooja%20Agarwal',
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + tokenB },
+  });
+  console.log(
+    'Test 5 [ISOLATION]: Merchant B search for Meta Lead -> Count:',
+    leadsB.data.totalCount,
+    '(Expected 0)'
+  );
+
+  // 7. Update Meta Tracking Settings (Pixel ID + CAPI Token)
+  const updateSettingsRes = await request(
+    {
+      hostname: '127.0.0.1',
+      port: 5000,
+      path: '/api/meta/settings',
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + tokenA,
+      },
+    },
+    {
+      metaPixelId: '987654321098765',
+      metaCapiToken: 'mock_eaab_token_1234567890',
+    }
+  );
+  console.log(
+    'Test 6: Update Meta Tracking Settings -> Status:',
+    updateSettingsRes.status,
+    'Pixel ID Saved:',
+    updateSettingsRes.data.settings?.metaPixelId
+  );
+
+  // 8. Test Server-Side Conversions API (CAPI) Dispatch
+  const capiTestRes = await request(
+    {
+      hostname: '127.0.0.1',
+      port: 5000,
+      path: '/api/meta/test-capi',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + tokenA,
+      },
+    },
+    {
+      eventName: 'Lead',
+      testEmail: 'pooja.agarwal@example.com',
+      testPhone: '9844556677',
+      value: 3200,
+    }
+  );
+  console.log(
+    'Test 7: CAPI Server-Side Event Dispatch -> Status:',
+    capiTestRes.status,
+    'Mode:',
+    capiTestRes.data.result?.mode,
+    'Event ID:',
+    capiTestRes.data.result?.eventId
+  );
+
+  // 9. Regression Check: Phase 1 & 2
+  const regMe = await request({
+    hostname: '127.0.0.1',
+    port: 5000,
+    path: '/api/auth/me',
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + tokenA },
+  });
+  const regCRM = await request({
+    hostname: '127.0.0.1',
+    port: 5000,
+    path: '/api/crm/stats',
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + tokenA },
+  });
+  console.log(
+    'Test 8 [REGRESSION]: Phase 1 Profile Check ->',
+    regMe.status === 200 ? '✅ PASS' : '❌ FAIL'
+  );
+  console.log(
+    'Test 9 [REGRESSION]: Phase 2 CRM Stats Check ->',
+    regCRM.status === 200 ? '✅ PASS' : '❌ FAIL'
+  );
+
+  if (
+    verifyRes.raw === 'challenge_token_8877' &&
+    badTokenRes.status === 403 &&
+    webhookPostRes.status === 200 &&
+    ingestedLead?.source === 'META_ADS' &&
+    leadsB.data.totalCount === 0 &&
+    updateSettingsRes.status === 200 &&
+    capiTestRes.data.success === true &&
+    regMe.status === 200 &&
+    regCRM.status === 200
+  ) {
+    console.log('\n🌟 ALL 9 ULTRA-DEEP META ADS & CAPI TESTS PASSED 100%! 🌟');
+    process.exit(0);
+  } else {
+    console.error('Phase 3 tests failed!');
+    process.exit(1);
+  }
+}
+
+runPhase3Tests().catch((err) => {
+  console.error('Test execution error:', err);
+  process.exit(1);
+});
