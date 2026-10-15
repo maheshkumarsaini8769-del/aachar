@@ -10,21 +10,20 @@ import {
   LayoutGrid,
   MoreHorizontal,
   Settings,
-  MapPin,
-  Boxes
+  MapPin
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useAuth } from '../../context/AuthContext';
 import { useLocation } from '../../context/LocationContext';
-import { useProducts } from '../../context/ProductContext';
+import { products } from '../../data/products';
+import { BrandLogo } from './BrandLogo';
 
 export const Header = ({ currentView, onNavigate }) => {
   const { totalItemsCount, openCart } = useCart();
   const { wishlistCount } = useWishlist();
   const { isLoggedIn, openAuthModal } = useAuth();
   const { currentLocation, openLocationModal } = useLocation();
-  const { products } = useProducts();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -170,25 +169,11 @@ export const Header = ({ currentView, onNavigate }) => {
               <Menu className="w-6 h-6 stroke-[2.2]" />
             </button>
 
-            {/* Brand Logo with Leaf */}
-            <button 
-              onClick={() => onNavigate('home')}
-              className="flex flex-col items-center md:items-start group text-left transition-transform shrink-0 cursor-pointer"
-            >
-              <div className="flex items-center gap-1.5 relative">
-                <span className="text-[#1E5631] transform -translate-y-1.5 -mr-1">
-                  <svg className="w-5 h-5 fill-current text-[#1E5631]" viewBox="0 0 24 24">
-                    <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-                  </svg>
-                </span>
-                <span className="font-serif text-2xl sm:text-3xl font-black tracking-tight text-[#1F110B]">
-                  Marusthali <span className="text-[#B45309]">Achar</span>
-                </span>
-              </div>
-              <span className="text-[11px] sm:text-xs text-[#2D1810] font-bold tracking-wide leading-none mt-1">
-                Traditional Taste, Delivered to Every Home
-              </span>
-            </button>
+            {/* Handcrafted Brand Logo */}
+            <BrandLogo 
+              variant="full" 
+              onClick={() => onNavigate('home')} 
+            />
 
             {/* Desktop Search Bar (High Contrast Input & Placeholder) */}
             <div ref={searchRef} className="hidden md:flex flex-1 max-w-xl mx-4 relative">
@@ -245,23 +230,8 @@ export const Header = ({ currentView, onNavigate }) => {
               )}
             </div>
 
-            {/* Desktop Right Actions (Admin, Settings/Account, Wishlist, Cart) */}
+            {/* Desktop Right Actions (Settings/Account, Wishlist, Cart) */}
             <div className="hidden md:flex items-center space-x-6 shrink-0">
-              {/* Admin Panel Button */}
-              <button 
-                onClick={() => onNavigate('admin')}
-                className="flex flex-col items-center group text-[#1F110B] hover:text-[#B45309] transition-colors cursor-pointer"
-                title="Store Admin Panel (Products & Box Pricing)"
-              >
-                <div className="relative">
-                  <Boxes className="w-5 h-5 stroke-[2.2] group-hover:scale-110 transition-transform text-[#B45309]" />
-                  <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1 py-0.2 rounded-full">
-                    Admin
-                  </span>
-                </div>
-                <span className="text-xs font-extrabold text-[#B45309] mt-0.5">Admin</span>
-              </button>
-
               {/* Single Clean Account & Settings Button */}
               <button 
                 onClick={() => onNavigate('account', { tab: 'menu' })}
@@ -305,16 +275,8 @@ export const Header = ({ currentView, onNavigate }) => {
               </button>
             </div>
 
-            {/* Mobile Right Icons (Admin, Settings, Wishlist & Cart) */}
+            {/* Mobile Right Icons (Settings, Wishlist & Cart) */}
             <div className="flex md:hidden items-center space-x-1.5">
-              <button 
-                onClick={() => onNavigate('admin')}
-                className="p-1.5 text-[#B45309] relative"
-                aria-label="Admin"
-                title="Admin Panel"
-              >
-                <Boxes className="w-5 h-5 stroke-[2.2]" />
-              </button>
               <button 
                 onClick={() => onNavigate('account', { tab: 'menu' })}
                 className="p-1.5 text-[#1F110B] relative"
@@ -460,9 +422,10 @@ export const Header = ({ currentView, onNavigate }) => {
           <div className="relative w-4/5 max-w-sm bg-white h-full shadow-2xl p-6 flex flex-col justify-between overflow-y-auto">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-[#E8DDCD]">
-                <div className="font-serif text-xl font-black text-[#1F110B]">
-                  Marusthali<span className="text-[#B45309]">Achar</span>
-                </div>
+                <BrandLogo 
+                  variant="full" 
+                  onClick={() => { setIsMobileMenuOpen(false); onNavigate('home'); }} 
+                />
                 <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 rounded-lg hover:bg-gray-100">
                   <X className="w-5 h-5 text-[#2D1810]" />
                 </button>

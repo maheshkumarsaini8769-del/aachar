@@ -11,6 +11,7 @@ import {
   Gift,
   HelpCircle
 } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 export const Footer = ({ onNavigate }) => {
   // Mobile accordion state for sections
@@ -203,28 +204,12 @@ export const Footer = ({ onNavigate }) => {
             {/* ------------------------------------------------------------- */}
             <div className="lg:col-span-4 space-y-5">
               
-              {/* White Circular Badge with Marusthali Achar Logo */}
-              <div 
-                onClick={() => onNavigate('home')}
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shadow-xl border-4 border-[#3D2517] flex flex-col items-center justify-center p-2 text-center cursor-pointer group hover:scale-105 transition-transform"
-                title="Marusthali Achar - Return to Home"
-              >
-                {/* Traditional Jar & Leaf Emblem */}
-                <div className="flex items-center justify-center text-[#1E5631] -mb-1">
-                  <svg className="w-5 h-5 fill-current text-[#1E5631]" viewBox="0 0 24 24">
-                    <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-                  </svg>
-                </div>
-                <span className="font-serif text-sm sm:text-base font-black tracking-tight text-[#1F110B] leading-tight">
-                  MARUSTHALI
-                </span>
-                <span className="font-sans text-[10px] font-black uppercase tracking-widest text-[#B45309]">
-                  ACHAR
-                </span>
-                <span className="text-[7px] font-bold text-[#8C6542] tracking-wider uppercase mt-0.5">
-                  Est. 1994 • Sikar
-                </span>
-              </div>
+              {/* Brand Circular Heritage Seal Badge */}
+              <BrandLogo 
+                variant="badge" 
+                size="lg" 
+                onClick={() => onNavigate('home')} 
+              />
 
               {/* Reg Address */}
               <div className="space-y-1 text-xs text-[#D9C8B4] leading-relaxed pt-1">
