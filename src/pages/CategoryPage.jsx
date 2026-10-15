@@ -2,11 +2,12 @@ import React, { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tag } from 'lucide-react';
 import { categories } from '../data/categories';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import { CategoryHero } from '../components/category/CategoryHero';
 import { ProductCard } from '../components/product/ProductCard';
 
 export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickView }) => {
+  const { products } = useProducts();
   const { categoryId: paramCategoryId } = useParams();
   const categoryId = propCategoryId || paramCategoryId || 'mango';
   const currentCategory = categories.find(c => c.id === categoryId) || categories[1];

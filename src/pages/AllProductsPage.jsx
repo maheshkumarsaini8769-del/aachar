@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { Filter, SlidersHorizontal, ChevronRight, X, Tag } from 'lucide-react';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import { categories } from '../data/categories';
 import { ProductCard } from '../components/product/ProductCard';
 import { ProductFilters } from '../components/category/ProductFilters';
 
 export const AllProductsPage = ({ onNavigate, onQuickView }) => {
+  const { products } = useProducts();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1500);

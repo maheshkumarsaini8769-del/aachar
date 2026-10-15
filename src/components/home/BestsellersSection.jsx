@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowRight, Flame, Sparkles, Filter } from 'lucide-react';
 import { ProductCard } from '../product/ProductCard';
-import { products } from '../../data/products';
+import { useProducts } from '../../context/ProductContext';
 
 export const BestsellersSection = ({ onNavigate, onQuickView }) => {
+  const { products } = useProducts();
   const [activeCategory, setActiveCategory] = useState('all');
 
   const categories = [

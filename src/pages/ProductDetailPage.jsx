@@ -15,7 +15,7 @@ import {
   Camera,
   CheckCircle
 } from 'lucide-react';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import { initialReviews, reviewStats } from '../data/reviews';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
@@ -28,10 +28,18 @@ import { ProductTrustBadges } from '../components/product/ProductTrustBadges';
 export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuickView }) => {
   const { productId: paramProductId } = useParams();
   const productId = propProductId || paramProductId || 'aam-classic';
-  const product = products.find(p => p.id === productId) || products[0];
+  const { products, getProductByIdOrSlug } = useProducts();
+  const product = getProductByIdOrSlug(productId) || products.find(p => p.id === productId || p.slug === productId) || products[0];
 
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
+
+  const [packagingMode, setPackagingMode] = useState('jar'); // 'jar' or 'box'
+  const [selectedBoxType, setSelectedBoxType] = useState(() => {
+    return product.boxPricing && product.boxPricing.length > 0
+      ? product.boxPricing[0].boxType
+      : null;
+  });
 
   const [selectedSize, setSelectedSize] = useState(() => {
     return product.packSizes && product.packSizes.length > 0 
@@ -65,22 +73,29 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
     );
   };
 
-  // Determine variant price
-  const currentVariant = product.packSizes?.find(s => s.size === selectedSize) || {
-    price: product.price,
-    mrp: product.mrp
-  };
+  // Determine variant price based on packaging mode (jar vs box)
+  const selectedBox = packagingMode === 'box' && Array.isArray(product.boxPricing) && product.boxPricing.length > 0
+    ? (product.boxPricing.find(b => b.boxType === selectedBoxType) || product.boxPricing[0])
+    : null;
+
+  const currentVariant = selectedBox
+    ? { price: selectedBox.price, mrp: selectedBox.mrp, size: selectedBox.boxType, isBox: true }
+    : product.packSizes?.find(s => s.size === selectedSize) || {
+        price: product.price,
+        mrp: product.mrp
+      };
 
   const getCombinedNote = () => {
     return [
       `Spice: ${selectedSpice}`,
+      selectedBox ? `Box: ${selectedBox.boxType}` : null,
       ...selectedCustomTags,
       customNoteInput.trim()
     ].filter(Boolean).join(', ');
   };
 
   const handleAddToCart = () => {
-    addToCart(product, selectedSize, quantity, getCombinedNote());
+    addToCart(product, selectedSize, quantity, getCombinedNote(), selectedBox);
     setAddedToast(true);
     setTimeout(() => setAddedToast(false), 2000);
   };
@@ -88,7 +103,7 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
   const { isLoggedIn, openAuthModal } = useAuth();
 
   const handleBuyNow = () => {
-    addToCart(product, selectedSize, quantity, getCombinedNote());
+    addToCart(product, selectedSize, quantity, getCombinedNote(), selectedBox);
     if (!isLoggedIn) {
       openAuthModal(() => {
         onNavigate('checkout');
@@ -215,8 +230,36 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
               </span>
             </div>
 
-            {/* Pack Size Selector */}
-            {product.packSizes && product.packSizes.length > 0 && (
+            {/* Packaging Presentation Mode (Single Jar vs Box Hampers) */}
+            {product.boxPricing && product.boxPricing.length > 0 && (
+              <div className="flex items-center gap-1.5 p-1 bg-[#FAF6EE] rounded-xl border border-[#E8DDCD] max-w-sm">
+                <button
+                  type="button"
+                  onClick={() => setPackagingMode('jar')}
+                  className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    packagingMode === 'jar'
+                      ? 'bg-[#B45309] text-white shadow-xs'
+                      : 'text-gray-700 hover:text-black'
+                  }`}
+                >
+                  Individual Jar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPackagingMode('box')}
+                  className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    packagingMode === 'box'
+                      ? 'bg-[#B45309] text-white shadow-xs'
+                      : 'text-gray-700 hover:text-black'
+                  }`}
+                >
+                  Gift &amp; Family Boxes
+                </button>
+              </div>
+            )}
+
+            {/* Pack Size Selector (When in Jar mode) */}
+            {packagingMode === 'jar' && product.packSizes && product.packSizes.length > 0 && (
               <div className="space-y-1.5 sm:space-y-2">
                 <label className="block text-[11px] sm:text-xs font-bold text-brand-brown uppercase tracking-wider">
                   Select Pack Size:
@@ -237,6 +280,37 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
                       <div className="text-[10px] sm:text-xs font-semibold mt-0.5 opacity-90">
                         ₹{variant.price}
                       </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Box Pricing Selector (When in Box mode) */}
+            {packagingMode === 'box' && product.boxPricing && product.boxPricing.length > 0 && (
+              <div className="space-y-2">
+                <label className="block text-[11px] sm:text-xs font-bold text-brand-brown uppercase tracking-wider">
+                  Select Box Hamper Presentation:
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {product.boxPricing.map(box => (
+                    <button
+                      key={box.boxType}
+                      type="button"
+                      onClick={() => setSelectedBoxType(box.boxType)}
+                      className={`p-2.5 rounded-xl border-2 text-left transition-all cursor-pointer ${
+                        selectedBoxType === box.boxType
+                          ? 'border-[#B45309] bg-amber-50/60 shadow-xs'
+                          : 'border-[#E8DDCD] bg-white hover:bg-[#FAF6EE]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs text-[#1F110B]">{box.boxType}</span>
+                        <span className="font-black text-xs text-[#B45309]">₹{box.price}</span>
+                      </div>
+                      {box.description && (
+                        <div className="text-[10px] text-gray-500 mt-0.5 line-clamp-1">{box.description}</div>
+                      )}
                     </button>
                   ))}
                 </div>

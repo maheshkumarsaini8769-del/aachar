@@ -56,11 +56,19 @@ export const CartProvider = ({ children }) => {
     }
   }, [cartItems]);
 
-  const addToCart = (product, selectedSize = '500 g', qty = 1, customNote = '') => {
-    // Determine price based on selected size
+  const addToCart = (product, selectedSize = '500 g', qty = 1, customNote = '', selectedBox = null) => {
+    // Determine price based on selected box or selected size
     let price = product.price;
     let mrp = product.mrp;
-    if (product.packSizes && product.packSizes.length > 0) {
+    let displaySize = selectedSize;
+    let boxType = null;
+
+    if (selectedBox) {
+      price = selectedBox.price;
+      mrp = selectedBox.mrp || Math.round(selectedBox.price * 1.2);
+      displaySize = `${selectedBox.boxType} (${selectedBox.packCount} Jars)`;
+      boxType = selectedBox.boxType;
+    } else if (product.packSizes && product.packSizes.length > 0) {
       const match = product.packSizes.find(s => s.size === selectedSize);
       if (match) {
         price = match.price;
@@ -69,7 +77,9 @@ export const CartProvider = ({ children }) => {
     }
 
     const cleanedNote = (customNote || '').trim();
-    const itemKey = cleanedNote ? `${product.id}-${selectedSize}-${cleanedNote}` : `${product.id}-${selectedSize}`;
+    const itemKey = boxType
+      ? `${product.id}-box-${boxType}-${cleanedNote}`
+      : cleanedNote ? `${product.id}-${displaySize}-${cleanedNote}` : `${product.id}-${displaySize}`;
 
     setCartItems(prev => {
       const existing = prev.find(item => item.id === itemKey);
@@ -86,13 +96,14 @@ export const CartProvider = ({ children }) => {
             id: itemKey,
             productId: product.id,
             name: product.name,
-            size: selectedSize,
+            size: displaySize,
+            boxType: boxType,
             price: price,
             mrp: mrp,
             quantity: qty,
             image: product.image,
             customNote: cleanedNote || null,
-            isCombo: product.isCombo || false,
+            isCombo: product.isCombo || !!boxType,
             comboItems: product.comboItems || null
           }
         ];

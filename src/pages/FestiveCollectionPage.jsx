@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import { Gift, Sparkles, ChevronRight, Check } from 'lucide-react';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import { ProductCard } from '../components/product/ProductCard';
 
 export const FestiveCollectionPage = ({ onNavigate, onQuickView }) => {
+  const { products } = useProducts();
   const [selectedOccasion, setSelectedOccasion] = useState('all');
 
   const festiveProducts = products.filter(p => p.category === 'festive');

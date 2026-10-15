@@ -10,19 +10,21 @@ import {
   LayoutGrid,
   MoreHorizontal,
   Settings,
-  MapPin
+  MapPin,
+  Boxes
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useAuth } from '../../context/AuthContext';
 import { useLocation } from '../../context/LocationContext';
-import { products } from '../../data/products';
+import { useProducts } from '../../context/ProductContext';
 
 export const Header = ({ currentView, onNavigate }) => {
   const { totalItemsCount, openCart } = useCart();
   const { wishlistCount } = useWishlist();
   const { isLoggedIn, openAuthModal } = useAuth();
   const { currentLocation, openLocationModal } = useLocation();
+  const { products } = useProducts();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -243,8 +245,23 @@ export const Header = ({ currentView, onNavigate }) => {
               )}
             </div>
 
-            {/* Desktop Right Actions (Settings/Account, Wishlist, Cart) */}
+            {/* Desktop Right Actions (Admin, Settings/Account, Wishlist, Cart) */}
             <div className="hidden md:flex items-center space-x-6 shrink-0">
+              {/* Admin Panel Button */}
+              <button 
+                onClick={() => onNavigate('admin')}
+                className="flex flex-col items-center group text-[#1F110B] hover:text-[#B45309] transition-colors cursor-pointer"
+                title="Store Admin Panel (Products & Box Pricing)"
+              >
+                <div className="relative">
+                  <Boxes className="w-5 h-5 stroke-[2.2] group-hover:scale-110 transition-transform text-[#B45309]" />
+                  <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1 py-0.2 rounded-full">
+                    Admin
+                  </span>
+                </div>
+                <span className="text-xs font-extrabold text-[#B45309] mt-0.5">Admin</span>
+              </button>
+
               {/* Single Clean Account & Settings Button */}
               <button 
                 onClick={() => onNavigate('account', { tab: 'menu' })}
@@ -288,8 +305,16 @@ export const Header = ({ currentView, onNavigate }) => {
               </button>
             </div>
 
-            {/* Mobile Right Icons (Settings, Wishlist & Cart) */}
+            {/* Mobile Right Icons (Admin, Settings, Wishlist & Cart) */}
             <div className="flex md:hidden items-center space-x-1.5">
+              <button 
+                onClick={() => onNavigate('admin')}
+                className="p-1.5 text-[#B45309] relative"
+                aria-label="Admin"
+                title="Admin Panel"
+              >
+                <Boxes className="w-5 h-5 stroke-[2.2]" />
+              </button>
               <button 
                 onClick={() => onNavigate('account', { tab: 'menu' })}
                 className="p-1.5 text-[#1F110B] relative"

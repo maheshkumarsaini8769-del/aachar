@@ -4,6 +4,7 @@ import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { LocationProvider } from './context/LocationContext';
 import { AuthProvider } from './context/AuthContext';
+import { ProductProvider } from './context/ProductContext';
 
 // Common Components
 import { AnnouncementBar } from './components/common/AnnouncementBar';
@@ -34,6 +35,7 @@ import { OurStoryPage } from './pages/OurStoryPage';
 import { WishlistPage } from './pages/WishlistPage';
 import { AccountPage } from './pages/AccountPage';
 import { PolicyPage } from './pages/PolicyPage';
+import { ProductsAdminPage } from './pages/ProductsAdminPage';
 
 // Scroll to top helper strictly on genuine route changes
 function ScrollToTop() {
@@ -85,6 +87,7 @@ export function App() {
     if (path.startsWith('/account')) return 'account';
     if (path.startsWith('/policy')) return 'policy';
     if (path.startsWith('/faq')) return 'faq';
+    if (path.startsWith('/admin')) return 'admin';
     return 'home';
   }, [location.pathname]);
 
@@ -154,6 +157,10 @@ export function App() {
       case 'faq':
         navigate('/faq');
         break;
+      case 'admin':
+      case 'products-admin':
+        navigate('/admin');
+        break;
       default:
         navigate('/');
         break;
@@ -174,10 +181,11 @@ export function App() {
   };
 
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <WishlistProvider>
-          <CartProvider>
+    <ProductProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <WishlistProvider>
+            <CartProvider>
             <ScrollToTop />
             <div className="flex flex-col min-h-screen bg-transparent text-brand-brown">
               {/* Top Announcement Strip */}
@@ -320,6 +328,16 @@ export function App() {
                     element={<PolicyPage policyType="shipping" onNavigate={navigateTo} />} 
                   />
 
+                  {/* Store Admin & Box Pricing Routes */}
+                  <Route 
+                    path="/admin" 
+                    element={<ProductsAdminPage onNavigate={navigateTo} />} 
+                  />
+                  <Route 
+                    path="/admin/products" 
+                    element={<ProductsAdminPage onNavigate={navigateTo} />} 
+                  />
+
                   {/* Catch-all redirect to Home */}
                   <Route 
                     path="*" 
@@ -359,6 +377,7 @@ export function App() {
         </WishlistProvider>
       </AuthProvider>
     </LocationProvider>
+  </ProductProvider>
   );
 }
 
