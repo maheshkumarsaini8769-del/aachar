@@ -20,7 +20,14 @@
     "test:phase8": "npm --prefix backend run test:phase8",
     "test:all": "npm run test:phase2 && npm run test:phase3 && npm run test:phase4 && npm run test:phase5 && npm run test:phase6 && npm run test:phase7 && npm run test:phase8"
   },
-  "keywords": ["saas", "multi-tenant", "ecommerce", "booking"],
+  "keywords": [
+    "saas",
+    "multi-tenant",
+    "ecommerce",
+    "booking",
+    "meta-ads",
+    "crm"
+  ],
   "author": "Omniva",
   "license": "ISC"
 }
