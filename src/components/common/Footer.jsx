@@ -60,7 +60,7 @@ export const Footer = ({ onNavigate }) => {
       {/* ========================================================================= */}
       {/* 1. TOP ILLUSTRATED RIBBON BANNER (Signature FarmDidi Feature Layout) */}
       {/* ========================================================================= */}
-      <div className="relative bg-[#FAF6EE] pt-8 sm:pt-12 pb-14 sm:pb-18 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
+      <div className="relative bg-[#FAF6EE] pt-8 sm:pt-12 pb-20 sm:pb-28 lg:pb-36 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
         
         {/* Subtle Decorative Background Arches / Sun Ray Texture */}
         <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
@@ -104,72 +104,30 @@ export const Footer = ({ onNavigate }) => {
                 Made with love in Dadi's Kitchen
               </div>
 
-              {/* Handcrafted Illustration Sketch inside frame */}
-              <div className="aspect-4/3 bg-[#FBF8F1] rounded-xs border border-stone-200 overflow-hidden relative flex items-center justify-center p-2">
+              {/* Authentic Kachi Kairi & Ceramic Barni Photo inside frame */}
+              <div className="aspect-4/3 bg-[#FBF8F1] rounded-xs border border-stone-200 overflow-hidden relative group/img">
+                <img 
+                  src="/images/products/mango-ceramic-barni.jpg" 
+                  alt="Authentic Kachi Kairi in Terracotta Bowl & Glazed Ceramic Barni"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+                />
                 
-                {/* Vector Heritage Kitchen Sketch with Ceramic Barnis & Rural Mother */}
-                <svg className="w-full h-full text-[#3D2517]" viewBox="0 0 200 140" fill="none">
-                  {/* Kitchen Shelf */}
-                  <line x1="15" y1="95" x2="185" y2="95" stroke="#B8A18B" strokeWidth="3" strokeLinecap="round" />
-                  <line x1="25" y1="98" x2="25" y2="135" stroke="#B8A18B" strokeWidth="2" />
-                  <line x1="175" y1="98" x2="175" y2="135" stroke="#B8A18B" strokeWidth="2" />
+                {/* Subtle Sun-Cured Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
 
-                  {/* Ceramic Barni 1 (Small Left) */}
-                  <rect x="24" y="55" width="28" height="38" rx="7" fill="#E8D5B7" stroke="#8C6542" strokeWidth="2" />
-                  <path d="M22 65 Q38 52 54 65" stroke="#8C6542" strokeWidth="1.5" />
-                  <rect x="27" y="52" width="22" height="6" rx="2" fill="#8C4A20" />
-                  {/* Cotton cloth tied top */}
-                  <path d="M26 50 Q38 46 50 50 L48 54 L28 54 Z" fill="#FFFDF9" stroke="#8C6542" strokeWidth="1.2" />
-                  <circle cx="38" cy="53" r="2.5" fill="#8C4A20" />
-
-                  {/* Ceramic Barni 2 (Center Big) */}
-                  <rect x="58" y="42" width="36" height="51" rx="9" fill="#FFFDF9" stroke="#663B19" strokeWidth="2.2" />
-                  {/* Glazed ochre top */}
-                  <path d="M58 55 Q76 42 94 55 L94 42 L58 42 Z" fill="#C88214" />
-                  <rect x="62" y="38" width="28" height="7" rx="2" fill="#8C4A20" stroke="#663B19" strokeWidth="1.5" />
-                  {/* Cotton cloth lid with string */}
-                  <path d="M60 36 Q76 30 92 36 L90 41 L62 41 Z" fill="#FAF6EE" stroke="#663B19" strokeWidth="1.2" />
-                  <line x1="61" y1="40" x2="91" y2="40" stroke="#C88214" strokeWidth="1.5" />
-                  <text x="76" y="74" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#663B19" fontFamily="serif">ACHAR</text>
-
-                  {/* Ceramic Barni 3 (Medium) */}
-                  <rect x="100" y="50" width="30" height="43" rx="8" fill="#E8D5B7" stroke="#8C6542" strokeWidth="2" />
-                  <path d="M98 62 Q115 50 132 62" stroke="#8C6542" strokeWidth="1.5" />
-                  <rect x="103" y="47" width="24" height="6" rx="2" fill="#8C4A20" />
-                  <path d="M102 45 Q115 41 128 45 L126 49 L104 49 Z" fill="#FFFDF9" stroke="#8C6542" strokeWidth="1.2" />
-
-                  {/* Smiling Rural Woman Artisan (Right side of sketch) */}
-                  <g transform="translate(136, 32)">
-                    {/* Odhni / Veil */}
-                    <path d="M12 16 Q28 6 44 18 Q48 42 42 66 Q28 68 14 66 Z" fill="#9C4E15" opacity="0.9" />
-                    {/* Face */}
-                    <ellipse cx="28" cy="28" rx="10" ry="12" fill="#FCE4D6" stroke="#8C4A20" strokeWidth="1.5" />
-                    {/* Hair */}
-                    <path d="M19 24 Q28 17 37 24 Z" fill="#2D1810" />
-                    {/* Bindi */}
-                    <circle cx="28" cy="24" r="1.5" fill="#C00" />
-                    {/* Eyes smiling */}
-                    <path d="M22 28 Q25 30 27 28" stroke="#2D1810" strokeWidth="1.2" strokeLinecap="round" fill="none" />
-                    <path d="M29 28 Q31 30 34 28" stroke="#2D1810" strokeWidth="1.2" strokeLinecap="round" fill="none" />
-                    {/* Smile */}
-                    <path d="M25 34 Q28 37 31 34" stroke="#8C4A20" strokeWidth="1.2" strokeLinecap="round" fill="none" />
-                    {/* Traditional Kurti */}
-                    <path d="M17 40 L39 40 L44 65 L12 65 Z" fill="#E59400" stroke="#8C4A20" strokeWidth="1.5" />
-                    {/* Bangles / Hand holding wooden spoon */}
-                    <path d="M12 50 Q6 56 16 60" stroke="#8C4A20" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-                    <line x1="16" y1="62" x2="8" y2="40" stroke="#8C6542" strokeWidth="2.5" strokeLinecap="round" />
-                    <circle cx="8" cy="38" r="4" fill="#B8860B" />
-                  </g>
-                </svg>
+                {/* Kachi Kairi Authentic Tag */}
+                <div className="absolute top-2 left-2 bg-[#15803D]/95 backdrop-blur-xs text-white text-[9px] font-black uppercase tracking-wider py-0.5 px-2 rounded-xs shadow-xs">
+                  Kachi Kairi
+                </div>
 
                 {/* Subtle Stamp in bottom corner */}
-                <div className="absolute bottom-1 right-1.5 text-[8px] font-mono text-stone-500 font-bold uppercase tracking-widest opacity-75">
+                <div className="absolute bottom-1.5 right-2 text-[9px] font-mono text-white/90 font-bold uppercase tracking-widest drop-shadow-sm">
                   SIKAR • RAJASTHAN
                 </div>
               </div>
 
-              {/* Hand-written style caption below sketch */}
-              <p className="text-center font-serif text-[11px] text-[#5A4031] font-bold italic mt-2">
+              {/* Hand-written style caption below photo */}
+              <p className="text-center font-serif text-[11px] sm:text-xs text-[#5A4031] font-bold italic mt-2.5">
                 Slow Sun-Fermented in Ceramic Jars
               </p>
             </div>
@@ -177,10 +135,10 @@ export const Footer = ({ onNavigate }) => {
 
         </div>
 
-        {/* Continuous Smooth Wave / Slide Transition across Full Width */}
+        {/* Continuous Smooth Wave / Slide Transition across Full Width - Increased Height & Prominent Slide Slope */}
         <div className="absolute -bottom-1 inset-x-0 overflow-hidden leading-none z-10 pointer-events-none">
-          <svg className="w-full h-10 sm:h-14 lg:h-16 text-[#1C120C] fill-current block" viewBox="0 0 1440 80" preserveAspectRatio="none">
-            <path d="M0,28 C280,68 480,12 740,36 C1000,60 1200,12 1440,28 L1440,80 L0,80 Z" />
+          <svg className="w-full h-16 sm:h-24 lg:h-32 text-[#1C120C] fill-current block" viewBox="0 0 1440 140" preserveAspectRatio="none">
+            <path d="M0,45 C280,125 460,10 740,55 C1020,115 1220,15 1440,45 L1440,140 L0,140 Z" />
           </svg>
         </div>
 
