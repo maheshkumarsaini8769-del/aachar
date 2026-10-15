@@ -190,33 +190,33 @@ export const Footer = ({ onNavigate }) => {
                 </h4>
 
                 {/* 5 Solid Round Black Discs with Crisp White Icons (Exact FarmDidi Style) */}
-                <div className="flex items-center gap-2.5 flex-wrap">
+                <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
                   {/* Instagram */}
                   <a 
                     href="https://www.instagram.com" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Instagram"
                     title="Follow Marusthali Achar on Instagram"
                   >
-                    <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
                     </svg>
                   </a>
 
-                  {/* Pinterest / Threads */}
+                  {/* Pinterest */}
                   <a 
                     href="https://www.pinterest.com" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Pinterest"
                     title="Follow Marusthali Achar on Pinterest"
                   >
-                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="#FFFFFF">
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
                     </svg>
                   </a>
@@ -226,11 +226,11 @@ export const Footer = ({ onNavigate }) => {
                     href="https://www.facebook.com" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Facebook"
                     title="Follow Marusthali Achar on Facebook"
                   >
-                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="#FFFFFF">
                       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                     </svg>
                   </a>
@@ -240,11 +240,11 @@ export const Footer = ({ onNavigate }) => {
                     href="https://twitter.com" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Twitter / X"
                     title="Follow Marusthali Achar on X"
                   >
-                    <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="#FFFFFF">
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                     </svg>
                   </a>
@@ -254,13 +254,15 @@ export const Footer = ({ onNavigate }) => {
                     href="https://www.youtube.com" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black hover:bg-[#333] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border border-white/10"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="YouTube"
                     title="Subscribe to Marusthali Achar on YouTube"
                   >
-                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
-                      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
-                      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#1C120C"/>
+                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                      {/* White YouTube Screen Shape */}
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" fill="#FFFFFF"/>
+                      {/* Dark Play Triangle Cutout */}
+                      <polygon points="9.5 15.5 15.8 12 9.5 8.5 9.5 15.5" fill="#120B07" />
                     </svg>
                   </a>
                 </div>
