@@ -18,14 +18,6 @@ export const ProductFilters = ({
   setSelectedAvailability,
   onReset
 }) => {
-  const pricePresets = [
-    { label: 'All Prices', min: 0, max: 1500 },
-    { label: 'Under ₹200 (250g)', min: 0, max: 200 },
-    { label: '₹200 – ₹300 (500g)', min: 200, max: 300 },
-    { label: '₹300 – ₹500 (1kg)', min: 300, max: 500 },
-    { label: '₹500+ (Gift Boxes)', min: 500, max: 1500 },
-  ];
-
   const handleMinChange = (val) => {
     const num = Math.max(0, Math.min(Number(val) || 0, maxPrice - 50));
     setMinPrice(num);
@@ -92,30 +84,6 @@ export const ProductFilters = ({
           <span className="font-extrabold text-brand-green bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
             ₹{minPrice} – ₹{maxPrice}
           </span>
-        </div>
-
-        {/* 1-Click Price Range Presets (100-300, 200-300, etc.) */}
-        <div className="grid grid-cols-2 gap-1.5">
-          {pricePresets.map((preset) => {
-            const isSelected = minPrice === preset.min && maxPrice === preset.max;
-            return (
-              <button
-                key={preset.label}
-                type="button"
-                onClick={() => {
-                  setMinPrice(preset.min);
-                  setMaxPrice(preset.max);
-                }}
-                className={`px-2.5 py-1.5 rounded-lg text-[11px] font-extrabold border transition-all text-center cursor-pointer ${
-                  isSelected
-                    ? 'bg-[#1E5631] text-white border-[#1E5631] shadow-2xs'
-                    : 'bg-[#FAF6EE] text-[#2D1810] border-[#E5D9C5] hover:border-[#D97706] hover:bg-[#F3ECE0]'
-                }`}
-              >
-                {preset.label}
-              </button>
-            );
-          })}
         </div>
 
         {/* Custom Min & Max Price Number Inputs */}

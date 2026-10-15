@@ -15,14 +15,6 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
   const [sortBy, setSortBy] = useState('popularity');
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
-  const quickPriceRanges = [
-    { label: 'All Prices', min: 0, max: 1500 },
-    { label: 'Under ₹200 (250g)', min: 0, max: 200 },
-    { label: '₹200 – ₹300 (500g)', min: 200, max: 300 },
-    { label: '₹300 – ₹500 (1kg)', min: 300, max: 500 },
-    { label: '₹500+ (Gift Boxes)', min: 500, max: 1500 },
-  ];
-
   // Filter and sort products
   const filteredProducts = useMemo(() => {
     return products.filter(p => {
@@ -129,34 +121,7 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
           </div>
         </div>
 
-        {/* Quick Price Range Bar (1-Tap Filter for standard sizes) */}
-        <div className="pt-4 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-extrabold text-brand-brown mr-1 inline-flex items-center gap-1.5">
-            <Tag className="w-3.5 h-3.5 text-brand-green" />
-            <span>Price Range:</span>
-          </span>
-          {quickPriceRanges.map((range) => {
-            const isActive = minPrice === range.min && maxPrice === range.max;
-            return (
-              <button
-                key={range.label}
-                type="button"
-                onClick={() => {
-                  setMinPrice(range.min);
-                  setMaxPrice(range.max);
-                  setCurrentPage(1);
-                }}
-                className={`px-3 py-1.5 rounded-full text-xs font-extrabold border transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[#1E5631] text-white border-[#1E5631] shadow-xs'
-                    : 'bg-white text-brand-brown border-brand-border hover:border-[#D97706] hover:bg-brand-cream'
-                }`}
-              >
-                {range.label}
-              </button>
-            );
-          })}
-        </div>
+
 
         {/* Active Filter Chips */}
         {activeFiltersCount > 0 && (

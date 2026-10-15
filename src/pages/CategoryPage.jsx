@@ -2,26 +2,17 @@ import React, { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tag } from 'lucide-react';
 import { categories } from '../data/categories';
-import { useProducts } from '../context/ProductContext';
+import { products } from '../data/products';
 import { CategoryHero } from '../components/category/CategoryHero';
 import { ProductCard } from '../components/product/ProductCard';
 
 export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickView }) => {
-  const { products } = useProducts();
   const { categoryId: paramCategoryId } = useParams();
   const categoryId = propCategoryId || paramCategoryId || 'mango';
   const currentCategory = categories.find(c => c.id === categoryId) || categories[1];
   const [sortBy, setSortBy] = useState('popularity');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1500);
-
-  const quickPriceRanges = [
-    { label: 'All Prices', min: 0, max: 1500 },
-    { label: 'Under ₹200 (250g)', min: 0, max: 200 },
-    { label: '₹200 – ₹300 (500g)', min: 200, max: 300 },
-    { label: '₹300 – ₹500 (1kg)', min: 300, max: 500 },
-    { label: '₹500+ (Gift Boxes)', min: 500, max: 1500 },
-  ];
 
   // Filter products by this category and price range
   const categoryProducts = useMemo(() => {
@@ -110,32 +101,49 @@ export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickVi
           </div>
         </div>
 
-        {/* Quick Price Range Filter Bar */}
-        <div className="mb-6 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-extrabold text-brand-brown mr-1 inline-flex items-center gap-1.5">
+        {/* Numeric Price Range Filter Bar */}
+        <div className="mb-6 flex flex-wrap items-center gap-3 bg-white px-4 py-2.5 rounded-2xl border border-brand-border w-fit shadow-2xs">
+          <span className="text-xs font-bold text-brand-brown inline-flex items-center gap-1.5">
             <Tag className="w-3.5 h-3.5 text-brand-green" />
-            <span>Price Range:</span>
+            <span>Price:</span>
           </span>
-          {quickPriceRanges.map((range) => {
-            const isActive = minPrice === range.min && maxPrice === range.max;
-            return (
-              <button
-                key={range.label}
-                type="button"
-                onClick={() => {
-                  setMinPrice(range.min);
-                  setMaxPrice(range.max);
-                }}
-                className={`px-3 py-1.5 rounded-full text-xs font-extrabold border transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[#1E5631] text-white border-[#1E5631] shadow-xs'
-                    : 'bg-white text-brand-brown border-brand-border hover:border-[#D97706] hover:bg-brand-cream'
-                }`}
-              >
-                {range.label}
-              </button>
-            );
-          })}
+          <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center bg-[#FAF7F2] border border-[#E5D9C5] rounded-xl px-2.5 py-1">
+              <span className="text-[10px] text-brand-brownMuted mr-1 font-bold">₹</span>
+              <input
+                type="number"
+                min="0"
+                max={maxPrice - 50}
+                step="50"
+                value={minPrice}
+                onChange={(e) => setMinPrice(Math.max(0, Math.min(Number(e.target.value) || 0, maxPrice - 50)))}
+                className="w-16 bg-transparent text-xs font-bold text-brand-brown focus:outline-none"
+                placeholder="Min"
+              />
+            </div>
+            <span className="text-brand-brownMuted font-bold">–</span>
+            <div className="flex items-center bg-[#FAF7F2] border border-[#E5D9C5] rounded-xl px-2.5 py-1">
+              <span className="text-[10px] text-brand-brownMuted mr-1 font-bold">₹</span>
+              <input
+                type="number"
+                min={minPrice + 50}
+                max="1500"
+                step="50"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Math.min(1500, Math.max(Number(e.target.value) || 0, minPrice + 50)))}
+                className="w-16 bg-transparent text-xs font-bold text-brand-brown focus:outline-none"
+                placeholder="Max"
+              />
+            </div>
+          </div>
+          {isPriceFiltered && (
+            <button
+              onClick={() => { setMinPrice(0); setMaxPrice(1500); }}
+              className="text-xs text-brand-red font-bold hover:underline cursor-pointer ml-1"
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         {/* Product Grid */}
