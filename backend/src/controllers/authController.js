@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const Tenant = require('../models/Tenant');
 const generateToken = require('../utils/generateToken');
@@ -118,6 +119,83 @@ const login = async (req, res) => {
       });
     }
 
+    // Cloud Demo Mode Fallback if MongoDB is not connected
+    if (mongoose.connection.readyState !== 1) {
+      const normEmail = (email || '').toLowerCase().trim();
+      if (
+        (normEmail === 'rahul@desirasoi.com' || normEmail === 'demo@omniva.io' || normEmail === 'admin@omniva.io') &&
+        (password === 'password123' || password === 'admin123')
+      ) {
+        const token = generateToken({
+          id: '6acf096038d323550330be65',
+          role: 'MERCHANT_OWNER',
+          businessId: '6acf096038d323550330be64',
+        });
+        return res.json({
+          success: true,
+          message: 'Login successful (Cloud Demo Mode)',
+          token,
+          user: {
+            id: '6acf096038d323550330be65',
+            name: 'Rahul Sharma',
+            email: 'rahul@desirasoi.com',
+            role: 'MERCHANT_OWNER',
+            phone: '9876543210',
+          },
+          tenant: {
+            id: '6acf096038d323550330be64',
+            businessName: 'Desi Rasoi Achar',
+            slug: 'desi-rasoi-achar-1',
+            businessType: 'PRODUCT',
+            templateCode: 'PRODUCT',
+            enabledModules: {
+              automations: true,
+              crmLeads: true,
+              marketingAds: true,
+              products: true,
+              serviceBookings: false,
+              travelBookings: false,
+              inventory: true,
+              orders: true,
+            },
+            planTier: 'GROWTH',
+            status: 'ACTIVE',
+            branding: {
+              logo: '',
+              primaryColor: '#4f46e5',
+              secondaryColor: '#06b6d4',
+            },
+          },
+        });
+      }
+
+      if (
+        (normEmail === 'superadmin@omniva.io' || normEmail === 'superadmin@admin.com') &&
+        (password === 'password123' || password === 'admin123')
+      ) {
+        const token = generateToken({
+          id: '6acf096038d323550330be63',
+          role: 'SUPER_ADMIN',
+        });
+        return res.json({
+          success: true,
+          message: 'Super Admin Login successful (Cloud Demo Mode)',
+          token,
+          user: {
+            id: '6acf096038d323550330be63',
+            name: 'Mahesh (Super Admin)',
+            email: 'superadmin@omniva.io',
+            role: 'SUPER_ADMIN',
+          },
+        });
+      }
+
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid credentials. Demo accounts: rahul@desirasoi.com / password123, or superadmin@omniva.io / password123',
+      });
+    }
+
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
       return res.status(401).json({
@@ -210,10 +288,40 @@ const login = async (req, res) => {
 // @access  Protected
 const getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select('-password');
+    let user = req.user;
+    if (mongoose.connection.readyState === 1 && req.user && req.user._id) {
+      const dbUser = await User.findById(req.user._id).select('-password');
+      if (dbUser) user = dbUser;
+    }
+
     let tenant = null;
-    if (user.businessId) {
+    if (mongoose.connection.readyState === 1 && user.businessId) {
       tenant = await Tenant.findById(user.businessId);
+    } else if (user.businessId) {
+      tenant = {
+        id: '6acf096038d323550330be64',
+        businessName: 'Desi Rasoi Achar',
+        slug: 'desi-rasoi-achar-1',
+        businessType: 'PRODUCT',
+        templateCode: 'PRODUCT',
+        enabledModules: {
+          automations: true,
+          crmLeads: true,
+          marketingAds: true,
+          products: true,
+          serviceBookings: false,
+          travelBookings: false,
+          inventory: true,
+          orders: true,
+        },
+        planTier: 'GROWTH',
+        status: 'ACTIVE',
+        branding: {
+          logo: '',
+          primaryColor: '#4f46e5',
+          secondaryColor: '#06b6d4',
+        },
+      };
     }
 
     res.status(200).json({

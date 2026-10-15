@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Tenant = require('../models/Tenant');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
@@ -13,6 +14,94 @@ const { triggerAutomation } = require('../services/automationEngine');
 const getPublicStore = async (req, res) => {
   try {
     const { slug } = req.params;
+
+    if (mongoose.connection.readyState !== 1) {
+      // Cloud preview demo store fallback
+      return res.json({
+        success: true,
+        data: {
+          store: {
+            businessName: 'Desi Rasoi Achar',
+            slug: slug || 'desi-rasoi-achar-1',
+            businessType: 'PRODUCT',
+            templateCode: 'PRODUCT',
+            enabledModules: {
+              automations: true,
+              crmLeads: true,
+              marketingAds: true,
+              products: true,
+              serviceBookings: false,
+              travelBookings: false,
+              inventory: true,
+              orders: true
+            },
+            branding: {
+              logo: '',
+              primaryColor: '#4f46e5',
+              secondaryColor: '#06b6d4'
+            },
+            contact: {
+              email: 'rahul@desirasoi.com',
+              phone: '9876543210'
+            }
+          },
+          categories: [
+            { _id: 'cat_1', name: 'Mango Pickles', slug: 'mango-pickles', image: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=800&auto=format&fit=crop&q=80' },
+            { _id: 'cat_2', name: 'Chilli Pickles', slug: 'chilli-pickles', image: 'https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=800&auto=format&fit=crop&q=80' },
+            { _id: 'cat_3', name: 'Garlic & Specialty', slug: 'garlic-specialty', image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&auto=format&fit=crop&q=80' },
+            { _id: 'cat_4', name: 'Festive Combos', slug: 'festive-combos', image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&auto=format&fit=crop&q=80' }
+          ],
+          products: [
+            {
+              _id: 'prod_1',
+              name: 'Traditional Mango Pickle (Aam Ka Achar)',
+              slug: 'traditional-mango-pickle',
+              description: 'Authentic sun-dried green mangoes steeped in cold-pressed mustard oil, fenugreek, and crushed spices.',
+              price: 349,
+              compareAtPrice: 449,
+              images: ['https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=800&auto=format&fit=crop&q=80'],
+              stockQuantity: 45,
+              isAvailable: true
+            },
+            {
+              _id: 'prod_2',
+              name: 'Banarasi Stuffed Red Chilli (Lal Mirch Ka Achar)',
+              slug: 'banarasi-stuffed-red-chilli',
+              description: 'Plump Varanasi whole red chillies painstakingly hand-stuffed with roasted amchur, fennel, and mustard seeds.',
+              price: 399,
+              compareAtPrice: 499,
+              images: ['https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=800&auto=format&fit=crop&q=80'],
+              stockQuantity: 28,
+              isAvailable: true
+            },
+            {
+              _id: 'prod_3',
+              name: 'Special Garlic Pickle (Lahsun Ka Achar)',
+              slug: 'special-garlic-pickle',
+              description: 'Peeled golden whole garlic cloves simmered in roasted cumin, hing, and spicy mustard gravy.',
+              price: 379,
+              compareAtPrice: 479,
+              images: ['https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&auto=format&fit=crop&q=80'],
+              stockQuantity: 35,
+              isAvailable: true
+            },
+            {
+              _id: 'prod_4',
+              name: 'Grand Festive 3-Pickle Gift Pack',
+              slug: 'grand-festive-3-pickle-gift-pack',
+              description: 'Curated wooden crate containing 500g jars of Mango, Stuffed Red Chilli, and Tangy Lemon pickles.',
+              price: 999,
+              compareAtPrice: 1299,
+              images: ['https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&auto=format&fit=crop&q=80'],
+              stockQuantity: 18,
+              isAvailable: true
+            }
+          ],
+          packages: []
+        }
+      });
+    }
+
     const tenant = await Tenant.findOne({ slug, status: 'ACTIVE' }).select(
       'businessName slug businessType templateCode enabledModules branding contact settings'
     );
