@@ -31,6 +31,7 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
     isFreeShipping,
     finalTotal,
     appliedCoupon,
+    pendingCoupon,
     couponError,
     applyCoupon,
     removeCoupon
@@ -252,13 +253,32 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
                       <div className="flex items-center gap-1.5 text-emerald-900 font-bold">
                         <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
                         <span className="font-mono bg-emerald-200/80 px-1.5 py-0.2 rounded text-[11px]">{appliedCoupon.code}</span>
-                        <span className="text-[11px]">Applied ({appliedCoupon.desc})</span>
+                        <span className="text-[11px]">Applied! Saved ₹{discountAmount}</span>
                       </div>
                       <button
                         onClick={removeCoupon}
                         className="text-xs text-red-600 hover:text-red-800 font-bold underline cursor-pointer ml-2"
                       >
                         Remove
+                      </button>
+                    </div>
+                  ) : pendingCoupon ? (
+                    <div className="flex items-center justify-between px-3 py-1.5 bg-amber-50/95 border border-amber-300/80 rounded-full text-xs shadow-2xs">
+                      <div className="flex items-center gap-1.5 text-amber-950 font-semibold truncate">
+                        <Tag className="w-3.5 h-3.5 text-[#B45309] shrink-0" />
+                        <span className="font-mono font-black text-amber-950 text-[11px] bg-amber-200/70 px-1.5 py-0.2 rounded">
+                          {pendingCoupon.code}
+                        </span>
+                        <span className="text-[11px] truncate text-[#78350F]">
+                          Add ₹{pendingCoupon.minOrder - subtotal} more to auto-apply!
+                        </span>
+                      </div>
+                      <button 
+                        type="button"
+                        onClick={removeCoupon}
+                        className="text-stone-500 hover:text-red-700 font-bold text-[11px] ml-2 shrink-0 cursor-pointer hover:underline"
+                      >
+                        Cancel
                       </button>
                     </div>
                   ) : (

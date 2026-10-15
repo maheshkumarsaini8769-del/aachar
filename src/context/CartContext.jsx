@@ -44,7 +44,7 @@ export const CartProvider = ({ children }) => {
     }
   });
 
-  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [couponError, setCouponError] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -56,19 +56,11 @@ export const CartProvider = ({ children }) => {
     }
   }, [cartItems]);
 
-  const addToCart = (product, selectedSize = '500 g', qty = 1, customNote = '', selectedBox = null) => {
-    // Determine price based on selected box or selected size
+  const addToCart = (product, selectedSize = '500 g', qty = 1, customNote = '') => {
+    // Determine price based on selected size
     let price = product.price;
     let mrp = product.mrp;
-    let displaySize = selectedSize;
-    let boxType = null;
-
-    if (selectedBox) {
-      price = selectedBox.price;
-      mrp = selectedBox.mrp || Math.round(selectedBox.price * 1.2);
-      displaySize = `${selectedBox.boxType} (${selectedBox.packCount} Jars)`;
-      boxType = selectedBox.boxType;
-    } else if (product.packSizes && product.packSizes.length > 0) {
+    if (product.packSizes && product.packSizes.length > 0) {
       const match = product.packSizes.find(s => s.size === selectedSize);
       if (match) {
         price = match.price;
@@ -77,9 +69,7 @@ export const CartProvider = ({ children }) => {
     }
 
     const cleanedNote = (customNote || '').trim();
-    const itemKey = boxType
-      ? `${product.id}-box-${boxType}-${cleanedNote}`
-      : cleanedNote ? `${product.id}-${displaySize}-${cleanedNote}` : `${product.id}-${displaySize}`;
+    const itemKey = cleanedNote ? `${product.id}-${selectedSize}-${cleanedNote}` : `${product.id}-${selectedSize}`;
 
     setCartItems(prev => {
       const existing = prev.find(item => item.id === itemKey);
@@ -96,14 +86,13 @@ export const CartProvider = ({ children }) => {
             id: itemKey,
             productId: product.id,
             name: product.name,
-            size: displaySize,
-            boxType: boxType,
+            size: selectedSize,
             price: price,
             mrp: mrp,
             quantity: qty,
             image: product.image,
             customNote: cleanedNote || null,
-            isCombo: product.isCombo || !!boxType,
+            isCombo: product.isCombo || false,
             comboItems: product.comboItems || null
           }
         ];
@@ -155,7 +144,8 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCartItems([]);
-    setAppliedCoupon(null);
+    setSelectedCoupon(null);
+    setCouponError('');
   };
 
   const applyCoupon = (code) => {
@@ -165,20 +155,17 @@ export const CartProvider = ({ children }) => {
 
     if (validCoupons[upper]) {
       const rule = validCoupons[upper];
-      if (subtotal < rule.minOrder) {
-        setCouponError(`Minimum order amount of ₹${rule.minOrder} required for ${upper}`);
-        return false;
-      }
-      setAppliedCoupon({ code: upper, ...rule });
+      setSelectedCoupon({ code: upper, ...rule });
+      setCouponError('');
       return true;
     } else {
-      setCouponError('Invalid coupon code. Try DESI10 or FESTIVE15');
+      setCouponError('Invalid coupon code. Try DESI10, FESTIVE15, or FREESHIP');
       return false;
     }
   };
 
   const removeCoupon = () => {
-    setAppliedCoupon(null);
+    setSelectedCoupon(null);
     setCouponError('');
   };
 
@@ -187,12 +174,24 @@ export const CartProvider = ({ children }) => {
   const totalMrp = cartItems.reduce((acc, item) => acc + (item.mrp || item.price) * item.quantity, 0);
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  // Dynamic Auto-Validation: Coupon is only applied if subtotal meets minOrder!
+  // If subtotal drops below minOrder (e.g. user deletes an item), it turns into pendingCoupon and discount is revoked.
+  // If user adds items to reach minOrder, it auto-applies without any re-clicks needed!
+  let appliedCoupon = null;
+  let pendingCoupon = null;
+
+  if (selectedCoupon && cartItems.length > 0) {
+    if (subtotal >= (selectedCoupon.minOrder || 0)) {
+      appliedCoupon = selectedCoupon;
+    } else {
+      pendingCoupon = selectedCoupon;
+    }
+  }
+
   // Discount calculation
   let discountAmount = 0;
-  if (appliedCoupon) {
-    if (appliedCoupon.discount) {
-      discountAmount = Math.round((subtotal * appliedCoupon.discount) / 100);
-    }
+  if (appliedCoupon && appliedCoupon.discount) {
+    discountAmount = Math.round((subtotal * appliedCoupon.discount) / 100);
   }
 
   // Shipping logic: Free if subtotal >= 499 or FREESHIP coupon applied
@@ -213,6 +212,7 @@ export const CartProvider = ({ children }) => {
         isFreeShipping,
         finalTotal,
         appliedCoupon,
+        pendingCoupon,
         couponError,
         isCartOpen,
         setIsCartOpen,

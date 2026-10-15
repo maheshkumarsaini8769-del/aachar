@@ -28,6 +28,7 @@ export const CartDrawer = ({ onNavigate }) => {
     isFreeShipping, 
     finalTotal,
     appliedCoupon,
+    pendingCoupon,
     couponError,
     applyCoupon,
     removeCoupon
@@ -246,7 +247,9 @@ export const CartDrawer = ({ onNavigate }) => {
                     <span className="font-mono font-black text-emerald-950 text-[11px] bg-emerald-200/70 px-1.5 py-0.2 rounded">
                       {appliedCoupon.code}
                     </span>
-                    <span className="text-[11px] truncate">Applied ({appliedCoupon.desc})</span>
+                    <span className="text-[11px] truncate">
+                      Applied! Saved ₹{discountAmount}
+                    </span>
                   </div>
                   <button 
                     type="button"
@@ -254,6 +257,25 @@ export const CartDrawer = ({ onNavigate }) => {
                     className="text-red-600 hover:text-red-800 font-bold text-[11px] ml-2 shrink-0 cursor-pointer hover:underline"
                   >
                     Remove
+                  </button>
+                </div>
+              ) : pendingCoupon ? (
+                <div className="flex items-center justify-between px-3 py-1.5 bg-amber-50/95 border border-amber-300/80 rounded-full text-xs shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-amber-950 font-semibold truncate">
+                    <Tag className="w-3.5 h-3.5 text-[#B45309] shrink-0" />
+                    <span className="font-mono font-black text-amber-950 text-[11px] bg-amber-200/70 px-1.5 py-0.2 rounded">
+                      {pendingCoupon.code}
+                    </span>
+                    <span className="text-[11px] truncate text-[#78350F]">
+                      Add ₹{pendingCoupon.minOrder - subtotal} more to auto-apply!
+                    </span>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={removeCoupon}
+                    className="text-stone-500 hover:text-red-700 font-bold text-[11px] ml-2 shrink-0 cursor-pointer hover:underline"
+                  >
+                    Cancel
                   </button>
                 </div>
               ) : (
