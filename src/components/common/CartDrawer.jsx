@@ -36,6 +36,18 @@ export const CartDrawer = ({ onNavigate }) => {
   const { isLoggedIn, openAuthModal } = useAuth();
   const [couponInput, setCouponInput] = useState('');
 
+  const AVAILABLE_COUPONS = [
+    { code: 'DESI10', label: '10% OFF', minOrder: 300, desc: 'Min order ₹300' },
+    { code: 'FESTIVE15', label: '15% OFF', minOrder: 500, desc: 'Min order ₹500' },
+    { code: 'FREESHIP', label: 'FREE SHIP', minOrder: 299, desc: 'Min order ₹299' },
+    { code: 'BUY3GET1', label: '25% OFF', minOrder: 600, desc: 'Min order ₹600' }
+  ];
+
+  const handleQuickApply = (code) => {
+    setCouponInput(code);
+    applyCoupon(code);
+  };
+
   if (!isCartOpen) return null;
 
   const freeShippingThreshold = 499;
@@ -225,43 +237,107 @@ export const CartDrawer = ({ onNavigate }) => {
         {cartItems.length > 0 && (
           <div className="p-4 bg-white/95 backdrop-blur-md border-t border-[#E8DDCD] space-y-3 z-10 shadow-xl">
             
-            {/* Coupon Code Input */}
-            <div className="space-y-1">
+            {/* Coupon Code Section */}
+            <div className="space-y-2 bg-[#FAF5EC]/90 border border-[#E8DDCD] p-2.5 rounded-xl">
               {appliedCoupon ? (
-                <div className="flex items-center justify-between bg-emerald-50 border border-emerald-300 rounded-lg p-2 text-xs">
-                  <div className="flex items-center gap-1.5 text-emerald-800 font-semibold">
-                    <Check className="w-4 h-4 text-emerald-600" />
-                    <span>Coupon <strong>{appliedCoupon.code}</strong> applied ({appliedCoupon.desc})</span>
+                <div className="flex items-center justify-between bg-emerald-50 border border-emerald-300 rounded-lg p-2.5 text-xs shadow-2xs">
+                  <div className="flex items-center gap-2 text-emerald-900 font-semibold">
+                    <div className="w-5 h-5 rounded-full bg-emerald-200 flex items-center justify-center shrink-0">
+                      <Check className="w-3.5 h-3.5 text-emerald-800 stroke-[2.5]" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-mono font-black bg-emerald-200/80 px-1.5 py-0.5 rounded text-[11px] text-emerald-950">
+                          {appliedCoupon.code}
+                        </span>
+                        <span className="text-[11px] font-bold text-emerald-800">Applied!</span>
+                      </div>
+                      <p className="text-[10px] text-emerald-700 font-medium">{appliedCoupon.desc}</p>
+                    </div>
                   </div>
                   <button 
                     onClick={removeCoupon}
-                    className="text-emerald-700 hover:text-red-600 font-bold underline text-[11px] cursor-pointer"
+                    className="text-red-600 hover:text-red-800 font-bold underline text-[11px] cursor-pointer ml-2 shrink-0"
                   >
                     Remove
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleApplyCoupon} className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Tag className="w-3.5 h-3.5 text-[#8C6542] absolute left-2.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      value={couponInput}
-                      onChange={(e) => setCouponInput(e.target.value)}
-                      placeholder="Coupon: DESI10 or FESTIVE15"
-                      className="w-full bg-[#FAF5EC] border border-[#E0D2BF] rounded-lg pl-8 pr-2 py-1.5 text-xs text-[#1F110B] uppercase font-semibold focus:outline-none focus:ring-1 focus:ring-[#D97706]"
-                    />
+                <>
+                  <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                    <div className="relative flex-1">
+                      <Tag className="w-3.5 h-3.5 text-[#8C6542] absolute left-2.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value)}
+                        placeholder="Enter coupon code"
+                        className="w-full bg-white border border-[#E0D2BF] rounded-lg pl-8 pr-2 py-1.5 text-xs text-[#1F110B] uppercase font-bold placeholder:normal-case placeholder:font-normal placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-[#D97706]"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="bg-[#1F110B] text-white hover:bg-[#B45309] text-xs font-bold px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer shadow-2xs"
+                    >
+                      Apply
+                    </button>
+                  </form>
+
+                  {/* Available Coupons List (Tap to Apply) */}
+                  <div className="space-y-1.5 pt-0.5">
+                    <div className="flex items-center justify-between text-[11px] font-bold text-[#78350F]">
+                      <span className="flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-[#D97706]" />
+                        Available Coupons (Tap to Apply):
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {AVAILABLE_COUPONS.map((c) => {
+                        const isEligible = subtotal >= c.minOrder;
+                        return (
+                          <button
+                            key={c.code}
+                            type="button"
+                            onClick={() => handleQuickApply(c.code)}
+                            className={`p-1.5 rounded-lg border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                              isEligible
+                                ? 'bg-amber-50/90 hover:bg-amber-100 border-amber-300 hover:border-amber-400 shadow-2xs hover:scale-101'
+                                : 'bg-stone-50 border-stone-200 opacity-75 hover:opacity-100'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="font-mono font-black text-[11px] text-[#2D1810]">
+                                {c.code}
+                              </span>
+                              <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-100/90 px-1 py-0.2 rounded">
+                                {c.label}
+                              </span>
+                            </div>
+                            <div className="text-[10px] text-stone-600 font-medium mt-0.5 leading-tight">
+                              {c.desc}
+                            </div>
+                            <div className="text-[9px] font-bold mt-1">
+                              {isEligible ? (
+                                <span className="text-[#B45309] flex items-center gap-0.5">
+                                  <span>Tap to Apply</span> →
+                                </span>
+                              ) : (
+                                <span className="text-stone-500">
+                                  Add ₹{c.minOrder - subtotal} more
+                                </span>
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="bg-[#1F110B] text-white hover:bg-[#B45309] text-xs font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
-                  >
-                    Apply
-                  </button>
-                </form>
+                </>
               )}
+
               {couponError && (
-                <p className="text-[11px] text-red-600 font-medium">{couponError}</p>
+                <p className="text-[11px] text-red-600 font-bold bg-red-50 border border-red-200 rounded px-2 py-1 leading-tight">{couponError}</p>
               )}
             </div>
 

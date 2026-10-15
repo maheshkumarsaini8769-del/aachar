@@ -9,7 +9,8 @@ import {
   Check, 
   Truck, 
   ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -283,21 +284,57 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
                     <p className="text-[11px] text-brand-red font-semibold">{couponError}</p>
                   )}
 
-                  {/* Quick coupon buttons */}
+                  {/* Available Coupons List */}
                   {!appliedCoupon && (
-                    <div className="flex gap-1.5 text-[10px] pt-1">
-                      <button
-                        onClick={() => applyCoupon('DESI10')}
-                        className="px-2 py-0.5 rounded bg-amber-50 border border-amber-300 text-amber-900 font-semibold"
-                      >
-                        DESI10 (10% Off)
-                      </button>
-                      <button
-                        onClick={() => applyCoupon('FESTIVE15')}
-                        className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold"
-                      >
-                        FESTIVE15 (15% Off)
-                      </button>
+                    <div className="space-y-1.5 pt-1">
+                      <div className="flex items-center gap-1 text-[11px] font-bold text-[#78350F]">
+                        <Sparkles className="w-3 h-3 text-[#D97706]" />
+                        <span>Available Coupons (Tap to Apply):</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 text-[10px]">
+                        {[
+                          { code: 'DESI10', label: '10% OFF', minOrder: 300, desc: 'Min order ₹300' },
+                          { code: 'FESTIVE15', label: '15% OFF', minOrder: 500, desc: 'Min order ₹500' },
+                          { code: 'FREESHIP', label: 'FREE SHIP', minOrder: 299, desc: 'Min order ₹299' },
+                          { code: 'BUY3GET1', label: '25% OFF', minOrder: 600, desc: 'Min order ₹600' }
+                        ].map((c) => {
+                          const isEligible = subtotal >= c.minOrder;
+                          return (
+                            <button
+                              key={c.code}
+                              type="button"
+                              onClick={() => {
+                                setCouponCode(c.code);
+                                applyCoupon(c.code);
+                              }}
+                              className={`p-1.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                                isEligible
+                                  ? 'bg-amber-50 hover:bg-amber-100 border-amber-300 hover:border-amber-400 shadow-2xs'
+                                  : 'bg-stone-50 border-stone-200 opacity-75 hover:opacity-100'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between gap-1">
+                                <span className="font-mono font-black text-[11px] text-[#2D1810]">
+                                  {c.code}
+                                </span>
+                                <span className="text-[9px] font-bold text-emerald-800 bg-emerald-100 px-1 py-0.2 rounded">
+                                  {c.label}
+                                </span>
+                              </div>
+                              <div className="text-[10px] text-stone-600 font-medium mt-0.5 leading-tight">
+                                {c.desc}
+                              </div>
+                              <div className="text-[9px] font-bold mt-1">
+                                {isEligible ? (
+                                  <span className="text-[#B45309]">Tap to Apply →</span>
+                                ) : (
+                                  <span className="text-stone-500">Add ₹{c.minOrder - subtotal} more</span>
+                                )}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>

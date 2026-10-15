@@ -13,9 +13,10 @@ import {
   ArrowRight,
   PenTool,
   Camera,
-  CheckCircle
+  CheckCircle,
+  Tag
 } from 'lucide-react';
-import { useProducts } from '../context/ProductContext';
+import { products } from '../data/products';
 import { initialReviews, reviewStats } from '../data/reviews';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
@@ -28,8 +29,7 @@ import { ProductTrustBadges } from '../components/product/ProductTrustBadges';
 export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuickView }) => {
   const { productId: paramProductId } = useParams();
   const productId = propProductId || paramProductId || 'aam-classic';
-  const { products, getProductByIdOrSlug } = useProducts();
-  const product = getProductByIdOrSlug(productId) || products.find(p => p.id === productId || p.slug === productId) || products[0];
+  const product = products.find(p => p.id === productId || p.slug === productId) || products[0];
 
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
@@ -228,6 +228,42 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
               <span className="text-[10px] sm:text-[11px] text-brand-brownMuted ml-auto">
                 Inclusive of all taxes
               </span>
+            </div>
+
+            {/* Available Coupons & Offers Strip */}
+            <div className="bg-[#FAF5EC]/90 border border-[#E8DDCD] rounded-2xl p-3 space-y-2">
+              <div className="flex items-center justify-between text-xs font-extrabold text-[#78350F]">
+                <span className="flex items-center gap-1.5">
+                  <Tag className="w-3.5 h-3.5 text-[#D97706]" />
+                  Available Coupons (Apply in Cart):
+                </span>
+                <span className="text-[10px] text-emerald-800 bg-emerald-100 font-bold px-1.5 py-0.5 rounded">
+                  Instant Savings
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px]">
+                <div className="bg-white border border-amber-200/90 rounded-xl p-2 flex flex-col justify-between shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-black text-[#2D1810]">DESI10</span>
+                    <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-50 px-1 rounded">10% OFF</span>
+                  </div>
+                  <span className="text-[10px] text-stone-600 mt-1">Min order ₹300</span>
+                </div>
+                <div className="bg-white border border-amber-200/90 rounded-xl p-2 flex flex-col justify-between shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-black text-[#2D1810]">FESTIVE15</span>
+                    <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-50 px-1 rounded">15% OFF</span>
+                  </div>
+                  <span className="text-[10px] text-stone-600 mt-1">Min order ₹500</span>
+                </div>
+                <div className="bg-white border border-emerald-200/90 rounded-xl p-2 flex flex-col justify-between shadow-2xs col-span-2 sm:col-span-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-black text-[#064E3B]">FREESHIP</span>
+                    <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-50 px-1 rounded">FREE SHIP</span>
+                  </div>
+                  <span className="text-[10px] text-stone-600 mt-1">Min order ₹299</span>
+                </div>
+              </div>
             </div>
 
             {/* Packaging Presentation Mode (Single Jar vs Box Hampers) */}
