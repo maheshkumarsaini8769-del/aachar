@@ -80,8 +80,8 @@ export const Footer = ({ onNavigate }) => {
               </svg>
 
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-black text-[#2D1810] tracking-tight leading-tight drop-shadow-xs">
-                Food that makes <br className="hidden sm:inline" />
-                <span className="italic font-normal text-[#9C4E15]">you feel loved</span>
+                Taste that brings <br className="hidden sm:inline" />
+                <span className="italic font-normal text-[#9C4E15]">you back home</span>
               </h2>
             </div>
             
@@ -176,10 +176,10 @@ export const Footer = ({ onNavigate }) => {
 
         </div>
 
-        {/* Torn Paper / Wave Divider Transition into the Main Dark Footer */}
+        {/* Continuous Smooth Wave / Slide Transition across Full Width */}
         <div className="absolute -bottom-1 inset-x-0 overflow-hidden leading-none z-10 pointer-events-none">
-          <svg className="w-full h-8 sm:h-12 text-[#1C120C] fill-current" viewBox="0 0 1200 48" preserveAspectRatio="none">
-            <path d="M0,0 Q60,35 120,12 T240,28 T360,8 T480,32 T600,14 T720,38 T840,16 T960,34 T1080,10 T1200,28 L1200,48 L0,48 Z" />
+          <svg className="w-full h-10 sm:h-14 lg:h-16 text-[#1C120C] fill-current block" viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,28 C280,68 480,12 740,36 C1000,60 1200,12 1440,28 L1440,80 L0,80 Z" />
           </svg>
         </div>
 
