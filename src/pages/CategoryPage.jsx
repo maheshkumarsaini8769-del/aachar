@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Tag } from 'lucide-react';
 import { categories } from '../data/categories';
 import { products } from '../data/products';
 import { CategoryHero } from '../components/category/CategoryHero';
@@ -11,10 +10,8 @@ export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickVi
   const categoryId = propCategoryId || paramCategoryId || 'mango';
   const currentCategory = categories.find(c => c.id === categoryId) || categories[1];
   const [sortBy, setSortBy] = useState('popularity');
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1500);
 
-  // Filter products by this category and price range
+  // Filter products by this category
   const categoryProducts = useMemo(() => {
     let prods = [];
     if (currentCategory.id === 'jain') {
@@ -30,20 +27,11 @@ export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickVi
       prods = products.filter(p => p.category === currentCategory.id);
     }
 
-    // Apply Min-Max Price Filter
-    prods = prods.filter(p => {
-      const matchesBase = p.price >= minPrice && p.price <= maxPrice;
-      const matchesPack = p.packSizes?.some(s => s.price >= minPrice && s.price <= maxPrice);
-      return matchesBase || matchesPack;
-    });
-
     if (sortBy === 'price-low') return [...prods].sort((a, b) => a.price - b.price);
     if (sortBy === 'price-high') return [...prods].sort((a, b) => b.price - a.price);
     if (sortBy === 'rating') return [...prods].sort((a, b) => b.rating - a.rating);
     return prods;
-  }, [currentCategory.id, sortBy, minPrice, maxPrice]);
-
-  const isPriceFiltered = minPrice > 0 || maxPrice < 1500;
+  }, [currentCategory.id, sortBy]);
 
   return (
     <div className="bg-transparent min-h-screen">
@@ -82,7 +70,6 @@ export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickVi
             </h2>
             <p className="text-xs text-brand-brownMuted">
               Showing {categoryProducts.length} authentic handcrafted options
-              {isPriceFiltered && ` in ₹${minPrice} – ₹${maxPrice}`}
             </p>
           </div>
 
@@ -101,51 +88,6 @@ export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickVi
           </div>
         </div>
 
-        {/* Numeric Price Range Filter Bar */}
-        <div className="mb-6 flex flex-wrap items-center gap-3 bg-white px-4 py-2.5 rounded-2xl border border-brand-border w-fit shadow-2xs">
-          <span className="text-xs font-bold text-brand-brown inline-flex items-center gap-1.5">
-            <Tag className="w-3.5 h-3.5 text-brand-green" />
-            <span>Price:</span>
-          </span>
-          <div className="flex items-center gap-2 text-xs">
-            <div className="flex items-center bg-[#FAF7F2] border border-[#E5D9C5] rounded-xl px-2.5 py-1">
-              <span className="text-[10px] text-brand-brownMuted mr-1 font-bold">₹</span>
-              <input
-                type="number"
-                min="0"
-                max={maxPrice - 50}
-                step="50"
-                value={minPrice}
-                onChange={(e) => setMinPrice(Math.max(0, Math.min(Number(e.target.value) || 0, maxPrice - 50)))}
-                className="w-16 bg-transparent text-xs font-bold text-brand-brown focus:outline-none"
-                placeholder="Min"
-              />
-            </div>
-            <span className="text-brand-brownMuted font-bold">–</span>
-            <div className="flex items-center bg-[#FAF7F2] border border-[#E5D9C5] rounded-xl px-2.5 py-1">
-              <span className="text-[10px] text-brand-brownMuted mr-1 font-bold">₹</span>
-              <input
-                type="number"
-                min={minPrice + 50}
-                max="1500"
-                step="50"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Math.min(1500, Math.max(Number(e.target.value) || 0, minPrice + 50)))}
-                className="w-16 bg-transparent text-xs font-bold text-brand-brown focus:outline-none"
-                placeholder="Max"
-              />
-            </div>
-          </div>
-          {isPriceFiltered && (
-            <button
-              onClick={() => { setMinPrice(0); setMaxPrice(1500); }}
-              className="text-xs text-brand-red font-bold hover:underline cursor-pointer ml-1"
-            >
-              Reset
-            </button>
-          )}
-        </div>
-
         {/* Product Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {categoryProducts.map(product => (
@@ -154,7 +96,6 @@ export const CategoryPage = ({ categoryId: propCategoryId, onNavigate, onQuickVi
               product={product}
               onNavigate={onNavigate}
               onQuickView={onQuickView}
-              activePriceRange={isPriceFiltered ? { min: minPrice, max: maxPrice } : null}
             />
           ))}
         </div>

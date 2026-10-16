@@ -56,13 +56,26 @@ app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Static assets for production deployment
+const rootDist = path.resolve(__dirname, '../../dist');
 const frontendDist = path.resolve(__dirname, '../../frontend/dist');
+const targetDist = fs.existsSync(rootDist) ? rootDist : (fs.existsSync(frontendDist) ? frontendDist : null);
 
-if (fs.existsSync(frontendDist)) {
-  app.use(express.static(frontendDist));
+if (targetDist) {
+  app.use(express.static(targetDist, {
+    maxAge: '1y',
+    etag: true,
+    setHeaders: (res, filePath) => {
+      // Never cache index.html long-term so frontend code updates are picked up immediately
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+      } else if (filePath.match(/\.(js|css|webp|jpg|jpeg|png|svg|woff2|glb|gltf)$/)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      }
+    }
+  }));
   app.use((req, res, next) => {
     if ((req.method === 'GET' || req.method === 'HEAD') && !req.path.startsWith('/api')) {
-      return res.sendFile(path.join(frontendDist, 'index.html'));
+      return res.sendFile(path.join(targetDist, 'index.html'));
     }
     next();
   });

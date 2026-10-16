@@ -74,7 +74,7 @@ export const CartDrawer = ({ onNavigate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
+    <div className="fixed inset-0 z-[70] flex justify-end">
       {/* Backdrop */}
       <div 
         onClick={closeCart}

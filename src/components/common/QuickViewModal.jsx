@@ -283,14 +283,11 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
             
             {/* Main Stage Image with Auto-scroll, 2-Finger Laptop Scroll, 1-Finger Mobile Swipe & Hover Zoom */}
             <div 
-              className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-[#E8DDCD] shadow-sm group select-none cursor-crosshair touch-pan-y"
+              className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-[#E8DDCD] shadow-sm group select-none touch-pan-y"
               onWheel={handleWheel}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              onMouseEnter={() => setIsZoomed(true)}
-              onMouseLeave={() => setIsZoomed(false)}
-              onMouseMove={handleMouseMove}
             >
               {/* Product Badge Tag */}
               {product.badge && (
@@ -309,16 +306,13 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
                 </span>
               </div>
 
-              {/* Main Image with Zoom & Swipe effect */}
+              {/* Main Image without Zoom blowup */}
               <img
                 src={galleryImages[activeImageIndex]}
                 alt={`${product.name} - Angle ${activeImageIndex + 1}`}
                 draggable={false}
-                className={`w-full h-full object-cover transition-transform duration-200 ${
-                  isZoomed && !isSwiping ? 'scale-135' : 'scale-100'
-                }`}
+                className="w-full h-full object-cover transition-transform duration-200 scale-100"
                 style={{
-                  transformOrigin: isZoomed ? `${zoomPosition.x}% ${zoomPosition.y}%` : undefined,
                   transform: dragOffset ? `translateX(${dragOffset}px)` : undefined
                 }}
                 loading="eager"
@@ -344,9 +338,6 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
 
               {/* Subtle Warm Overlay at bottom of main image */}
               <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-              <div className="absolute bottom-2 left-3 z-10 text-[10px] text-white font-bold opacity-80 pointer-events-none">
-                2-finger scroll / 1-finger swipe • Auto-scrolling
-              </div>
             </div>
 
             {/* Thumbnails Gallery Strip */}

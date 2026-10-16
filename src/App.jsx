@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { LocationProvider } from './context/LocationContext';
 import { AuthProvider } from './context/AuthContext';
-import { ProductProvider } from './context/ProductContext';
 
 // Common Components
 import { AnnouncementBar } from './components/common/AnnouncementBar';
@@ -16,26 +15,28 @@ import { LocationModal } from './components/common/LocationModal';
 import { QuickViewModal } from './components/common/QuickViewModal';
 import { AuthModal } from './components/common/AuthModal';
 import { AiAssistantWidget } from './components/common/AiAssistantWidget';
+import { PageSkeletonLoader } from './components/common/SkeletonLoader';
 
-// Pages
+// Core Landing Page
 import { HomePage } from './pages/HomePage';
-import { AllProductsPage } from './pages/AllProductsPage';
-import { AllCategoriesPage } from './pages/AllCategoriesPage';
-import { CategoryPage } from './pages/CategoryPage';
-import { ProductDetailPage } from './pages/ProductDetailPage';
-import { ComboBuilderPage } from './pages/ComboBuilderPage';
-import { FestiveCollectionPage } from './pages/FestiveCollectionPage';
-import { CartPage } from './pages/CartPage';
-import { CheckoutPage } from './pages/CheckoutPage';
-import { OrderSuccessPage } from './pages/OrderSuccessPage';
-import { ReviewsPage } from './pages/ReviewsPage';
-import { StoreLocationPage } from './pages/StoreLocationPage';
-import { OffersPage } from './pages/OffersPage';
-import { OurStoryPage } from './pages/OurStoryPage';
-import { WishlistPage } from './pages/WishlistPage';
-import { AccountPage } from './pages/AccountPage';
-import { PolicyPage } from './pages/PolicyPage';
-import { ProductsAdminPage } from './pages/ProductsAdminPage';
+
+// Lazy-Loaded Sub-pages (Code-split for instant initial load and smooth transitions)
+const AllProductsPage = lazy(() => import('./pages/AllProductsPage').then(m => ({ default: m.AllProductsPage })));
+const AllCategoriesPage = lazy(() => import('./pages/AllCategoriesPage').then(m => ({ default: m.AllCategoriesPage })));
+const CategoryPage = lazy(() => import('./pages/CategoryPage').then(m => ({ default: m.CategoryPage })));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage').then(m => ({ default: m.ProductDetailPage })));
+const ComboBuilderPage = lazy(() => import('./pages/ComboBuilderPage').then(m => ({ default: m.ComboBuilderPage })));
+const FestiveCollectionPage = lazy(() => import('./pages/FestiveCollectionPage').then(m => ({ default: m.FestiveCollectionPage })));
+const CartPage = lazy(() => import('./pages/CartPage').then(m => ({ default: m.CartPage })));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage').then(m => ({ default: m.CheckoutPage })));
+const OrderSuccessPage = lazy(() => import('./pages/OrderSuccessPage').then(m => ({ default: m.OrderSuccessPage })));
+const ReviewsPage = lazy(() => import('./pages/ReviewsPage').then(m => ({ default: m.ReviewsPage })));
+const StoreLocationPage = lazy(() => import('./pages/StoreLocationPage').then(m => ({ default: m.StoreLocationPage })));
+const OffersPage = lazy(() => import('./pages/OffersPage').then(m => ({ default: m.OffersPage })));
+const OurStoryPage = lazy(() => import('./pages/OurStoryPage').then(m => ({ default: m.OurStoryPage })));
+const WishlistPage = lazy(() => import('./pages/WishlistPage').then(m => ({ default: m.WishlistPage })));
+const AccountPage = lazy(() => import('./pages/AccountPage').then(m => ({ default: m.AccountPage })));
+const PolicyPage = lazy(() => import('./pages/PolicyPage').then(m => ({ default: m.PolicyPage })));
 
 // Scroll to top helper strictly on genuine route changes
 function ScrollToTop() {
@@ -87,7 +88,6 @@ export function App() {
     if (path.startsWith('/account')) return 'account';
     if (path.startsWith('/policy')) return 'policy';
     if (path.startsWith('/faq')) return 'faq';
-    if (path.startsWith('/admin')) return 'admin';
     return 'home';
   }, [location.pathname]);
 
@@ -157,10 +157,6 @@ export function App() {
       case 'faq':
         navigate('/faq');
         break;
-      case 'admin':
-      case 'products-admin':
-        navigate('/admin');
-        break;
       default:
         navigate('/');
         break;
@@ -181,11 +177,10 @@ export function App() {
   };
 
   return (
-    <ProductProvider>
-      <LocationProvider>
-        <AuthProvider>
-          <WishlistProvider>
-            <CartProvider>
+    <LocationProvider>
+      <AuthProvider>
+        <WishlistProvider>
+          <CartProvider>
             <ScrollToTop />
             <div className="flex flex-col min-h-screen bg-transparent text-brand-brown">
               {/* Top Announcement Strip */}
@@ -196,7 +191,8 @@ export function App() {
 
               {/* Main Page Content Body routed with real URLs */}
               <main className="flex-1">
-                <Routes>
+                <Suspense fallback={<PageSkeletonLoader />}>
+                  <Routes>
                   {/* Home Route */}
                   <Route 
                     path="/" 
@@ -328,23 +324,14 @@ export function App() {
                     element={<PolicyPage policyType="shipping" onNavigate={navigateTo} />} 
                   />
 
-                  {/* Store Admin & Box Pricing Routes */}
-                  <Route 
-                    path="/admin" 
-                    element={<ProductsAdminPage onNavigate={navigateTo} />} 
-                  />
-                  <Route 
-                    path="/admin/products" 
-                    element={<ProductsAdminPage onNavigate={navigateTo} />} 
-                  />
-
                   {/* Catch-all redirect to Home */}
                   <Route 
                     path="*" 
                     element={<Navigate to="/" replace />} 
                   />
                 </Routes>
-              </main>
+              </Suspense>
+            </main>
 
               {/* Comprehensive FarmDidi-style Footer */}
               <Footer onNavigate={navigateTo} />
@@ -377,7 +364,6 @@ export function App() {
         </WishlistProvider>
       </AuthProvider>
     </LocationProvider>
-  </ProductProvider>
   );
 }
 

@@ -135,14 +135,15 @@ export const HeroSection = ({ onNavigate }) => {
     return () => clearInterval(timer);
   }, [isPlayingVideo, isSwiping, slides.length, activeSlide]);
 
-  // Laptop 2-Finger Touchpad Horizontal Scroll Support
+  // Laptop Touchpad & Horizontal Gesture Support
   const handleWheel = (e) => {
-    // Detect horizontal 2-finger trackpad gesture
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 8) {
+    const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    const delta = isHorizontal ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+    if (Math.abs(delta) > 4) {
       if (wheelLocked.current) return;
-      wheelDeltaAccum.current += e.deltaX;
+      wheelDeltaAccum.current += delta;
 
-      if (Math.abs(wheelDeltaAccum.current) > 30) {
+      if (Math.abs(wheelDeltaAccum.current) > 20) {
         if (wheelDeltaAccum.current > 0) {
           handleNextSlide();
         } else {
@@ -152,7 +153,7 @@ export const HeroSection = ({ onNavigate }) => {
         wheelLocked.current = true;
         setTimeout(() => {
           wheelLocked.current = false;
-        }, 550);
+        }, 500);
       }
     }
   };
@@ -312,6 +313,7 @@ export const HeroSection = ({ onNavigate }) => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onWheel={handleWheel}
         >
           
           {/* Dynamic Background Slider Track with Smooth Horizontal Slide */}
@@ -479,11 +481,6 @@ export const HeroSection = ({ onNavigate }) => {
                   />
                 ))}
               </div>
-
-              {/* Right: Subtle Gesture Hint */}
-              <div className="hidden lg:flex items-center gap-1.5 text-[11px] font-bold text-white/90 bg-black/35 px-3 py-1 rounded-full backdrop-blur-xs">
-                <span>Swipe with 2 fingers</span>
-              </div>
             </div>
 
           </div>
@@ -506,6 +503,7 @@ export const HeroSection = ({ onNavigate }) => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onWheel={handleWheel}
             className={`relative w-full transition-all duration-500 bg-stone-900 rounded-2xl overflow-hidden shadow-md border border-[#E8DDCD] cursor-pointer touch-pan-y select-none ${
               isPlayingVideo ? 'aspect-[4/3] sm:aspect-[16/10] ring-2 ring-[#C88214]' : 'aspect-[16/10]'
             }`}

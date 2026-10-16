@@ -17,6 +17,7 @@ import {
   ShoppingBag
 } from 'lucide-react';
 import { products } from '../../data/products';
+import { useCart } from '../../context/CartContext';
 
 const SUGGESTED_QUESTIONS = [
   {
@@ -62,6 +63,7 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 export const AiAssistantWidget = ({ onNavigate }) => {
+  const { isCartOpen } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState([
@@ -83,6 +85,13 @@ export const AiAssistantWidget = ({ onNavigate }) => {
       chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isOpen, isTyping]);
+
+  // If cart opens, auto-close the AI popover
+  useEffect(() => {
+    if (isCartOpen && isOpen) {
+      setIsOpen(false);
+    }
+  }, [isCartOpen, isOpen]);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -219,7 +228,13 @@ export const AiAssistantWidget = ({ onNavigate }) => {
   return (
     <>
       {/* ================= FLOATING ACTION BUTTON (HIGH CONTRAST & ACCESSIBLE) ================= */}
-      <div className="fixed bottom-20 lg:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-3">
+      <div 
+        className={`fixed bottom-20 lg:bottom-6 right-4 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
+          isCartOpen 
+            ? 'opacity-0 pointer-events-none scale-75 translate-y-6 invisible' 
+            : 'opacity-100 scale-100 translate-y-0 visible'
+        }`}
+      >
         
         {/* Subtle Greeting Pill (Visible when closed) */}
         {!isOpen && hasUnread && (
@@ -255,7 +270,7 @@ export const AiAssistantWidget = ({ onNavigate }) => {
       </div>
 
       {/* ================= FULL / EXPANDED AI CHAT POPOVER ================= */}
-      {isOpen && (
+      {isOpen && !isCartOpen && (
         <>
           {/* Mobile Backdrop Overlay for clarity */}
           <div 

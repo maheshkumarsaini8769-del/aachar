@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowRight, Flame, Sparkles, Filter } from 'lucide-react';
 import { ProductCard } from '../product/ProductCard';
-import { useProducts } from '../../context/ProductContext';
+import { products } from '../../data/products';
 
 export const BestsellersSection = ({ onNavigate, onQuickView }) => {
-  const { products } = useProducts();
   const [activeCategory, setActiveCategory] = useState('all');
 
   const categories = [
@@ -24,7 +23,7 @@ export const BestsellersSection = ({ onNavigate, onQuickView }) => {
   }).slice(0, 8);
 
   return (
-    <section className="py-14 sm:py-20 bg-transparent border-b border-brand-yellow/30 relative overflow-hidden">
+    <section id="bestsellers" className="py-14 sm:py-20 bg-transparent border-b border-brand-yellow/30 relative overflow-hidden">
       
       {/* Ambient glow */}
       <div className="absolute top-0 right-1/4 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />

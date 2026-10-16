@@ -1,9 +1,11 @@
 import React from 'react';
 import { Home, Grid, Tag, ShoppingBag, User, Sparkles } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 
 export const MobileBottomNav = ({ currentView, onNavigate }) => {
   const { totalItemsCount, openCart } = useCart();
+  const { isLoggedIn, openAuthModal } = useAuth();
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF6EE]/95 backdrop-blur-md border-t-2 border-brand-yellow/30 py-1.5 px-2 shadow-lg">
@@ -58,13 +60,19 @@ export const MobileBottomNav = ({ currentView, onNavigate }) => {
           <span className="text-[10px] mt-0.5">Cart</span>
         </button>
 
-        {/* Account */}
+        {/* Account / Profile */}
         <button
-          onClick={() => onNavigate('account')}
+          onClick={() => {
+            if (!isLoggedIn) {
+              openAuthModal(() => onNavigate('account'));
+            } else {
+              onNavigate('account');
+            }
+          }}
           className={`flex flex-col items-center justify-center py-1 transition-all ${currentView === 'account' ? 'text-brand-green font-bold scale-105' : 'text-brand-brownMuted hover:text-brand-brown'}`}
         >
           <User className="w-5 h-5" />
-          <span className="text-[10px] mt-0.5">Account</span>
+          <span className="text-[10px] mt-0.5">{isLoggedIn ? 'Account' : 'Profile'}</span>
         </button>
 
       </div>

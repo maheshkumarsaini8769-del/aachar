@@ -405,51 +405,51 @@ export const MakingProcessPost = ({ onNavigate }) => {
                   onClick={() => setActiveStep(idx)}
                   className={`p-4 sm:p-5 rounded-3xl border-2 transition-all cursor-pointer relative ${
                     isActive
-                      ? 'bg-white border-brand-brown shadow-xl ring-2 ring-brand-yellow transform scale-[1.01]'
-                      : 'bg-white/85 border-brand-border/80 hover:bg-white hover:border-brand-yellow/80 shadow-xs'
+                      ? 'bg-gradient-to-b from-[#FFFDF8] via-[#FFF9EE] to-[#FDF4E2] border-[#D97706] shadow-md ring-2 ring-[#F5A623]/40 transform scale-[1.01]'
+                      : 'bg-gradient-to-b from-[#FFFDF9] via-[#FAF7F0] to-[#F5ECE0] border-[#E7DCD0] hover:border-[#D97706] hover:shadow-sm'
                   }`}
                 >
                   <div className="flex items-start gap-4">
                     
                     {/* Step Thumbnail Preview */}
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-brand-border shrink-0 bg-amber-50 shadow-xs">
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[#D5C7B8] shrink-0 bg-[#EFE8DD] shadow-xs">
                       <img
                         src={step.image}
                         alt={step.title}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute top-1 left-1 bg-black/60 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md">
+                      <div className="absolute top-1 left-1 bg-black/70 backdrop-blur-xs text-[#FBBF24] text-[9px] font-black px-1.5 py-0.5 rounded-md">
                         {step.day}
                       </div>
                       {isActive && (
-                        <div className="absolute inset-0 border-2 border-brand-yellow bg-brand-yellow/15" />
+                        <div className="absolute inset-0 border-2 border-[#D97706] bg-amber-500/10" />
                       )}
                     </div>
 
                     {/* Step Info */}
                     <div className="flex-1 min-w-0 space-y-1">
                       <div className="flex flex-wrap items-center justify-between gap-1">
-                        <span className="text-[11px] font-black uppercase tracking-wider text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-amber-950 bg-amber-100/90 px-2.5 py-0.5 rounded-full border border-amber-300">
                           {step.phase}
                         </span>
-                        <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                        <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100/80 px-2 py-0.5 rounded-md border border-emerald-300">
                           {step.highlight}
                         </span>
                       </div>
 
-                      <h3 className="font-serif font-bold text-sm sm:text-base md:text-lg leading-snug text-brand-brown">
+                      <h3 className="font-serif font-black text-sm sm:text-base md:text-lg leading-snug text-[#1F110B]">
                         {step.title}
                       </h3>
 
-                      <p className="text-[11px] sm:text-xs font-semibold text-brand-green">
+                      <p className="text-[11px] sm:text-xs font-bold text-[#8C6D53]">
                         {step.subtitle}
                       </p>
 
-                      <p className="text-xs text-brand-brownMuted leading-relaxed pt-0.5">
+                      <p className="text-xs text-[#5C483A] leading-relaxed pt-0.5 font-medium">
                         {step.desc}
                       </p>
 
-                      <div className="pt-1 flex items-center gap-1.5 text-[11px] font-bold text-amber-800">
+                      <div className="pt-1 flex items-center gap-1.5 text-[11px] font-black text-[#B45309]">
                         <span>Click to view process photo</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </div>

@@ -39,7 +39,7 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
   ];
 
   return (
-    <section className="py-10 sm:py-14 bg-transparent border-y border-[#E5D9C5]/60">
+    <section id="combo-banner" className="py-10 sm:py-14 bg-transparent border-y border-[#E5D9C5]/60">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Compact Header */}
@@ -66,61 +66,88 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
           </button>
         </div>
 
-        {/* 3 Compact Cards (Quick preview that directly links to combo-builder page) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+        {/* 3 Custom Combo Pack Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 items-stretch pt-2">
           {comboTiers.map((tier, idx) => (
             <div
               key={idx}
               onClick={() => onNavigate('combo-builder', { preselectedPack: tier.id })}
-              className={`rounded-2xl p-4 sm:p-5 border-2 transition-all cursor-pointer flex flex-col justify-between group hover:shadow-lg ${
+              className={`rounded-2xl sm:rounded-3xl p-5 sm:p-6 border-2 transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-visible hover:-translate-y-1 hover:shadow-lg ${
                 tier.popular
-                  ? 'bg-[#FFF9EE] border-[#D97706] ring-2 ring-[#F5A623]/30'
-                  : 'bg-white border-[#E5D9C5] hover:border-[#D97706]'
+                  ? 'bg-gradient-to-b from-[#FFFDF8] via-[#FFF9EE] to-[#FDF4E2] border-[#D97706] ring-2 ring-[#F5A623]/35 shadow-md'
+                  : 'bg-gradient-to-b from-[#FFFDF9] via-[#FAF7F0] to-[#F5ECE0] border-[#E5D7C3] hover:border-[#D97706]'
               }`}
             >
+              {/* Crown Banner for Most Popular Tier */}
+              {tier.popular && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-600 via-[#F5A623] to-amber-600 text-[#1F110B] font-black text-[10px] sm:text-[11px] uppercase tracking-wider px-3.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 border border-amber-300 whitespace-nowrap z-10">
+                  <Star className="w-3.5 h-3.5 fill-current text-[#1F110B]" />
+                  <span>⭐ Most Loved Family Choice</span>
+                </div>
+              )}
+
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-black bg-[#2D1810] text-[#FBBF24] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                {/* Header Meta */}
+                <div className="flex items-center justify-between mb-3.5 mt-1">
+                  <span className="text-[11px] font-black bg-[#2D1810] text-[#FBBF24] px-3 py-1 rounded-full uppercase tracking-wider shadow-2xs">
                     {tier.size}
                   </span>
-                  {tier.popular ? (
-                    <span className="text-[10px] font-black bg-amber-500 text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
-                      <Star className="w-3 h-3 fill-current" /> Most Popular
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
-                      {tier.save}
-                    </span>
-                  )}
+                  <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full ${
+                    tier.popular 
+                      ? 'bg-amber-100 text-amber-900 border border-amber-300' 
+                      : 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                  }`}>
+                    {tier.save}
+                  </span>
                 </div>
 
                 {/* Box Image Preview */}
-                <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-[#E5D9C5] bg-[#FAF6EE] mb-3">
+                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border-2 border-[#E0D4C3] bg-[#EFE8DD] mb-3.5 shadow-xs">
                   <img
                     src={tier.image}
                     alt={tier.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500"
                   />
-                  <div className="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded">
-                    {tier.jars}
+                  <div className="absolute bottom-2 left-2 bg-black/75 backdrop-blur-xs text-[#FBBF24] text-[10px] font-black px-2.5 py-0.5 rounded-md border border-amber-500/30">
+                    📦 {tier.jars}
                   </div>
                 </div>
 
-                <h3 className="font-serif font-black text-base text-[#1F110B] group-hover:text-[#B45309] transition-colors">
+                <h3 className="font-serif font-black text-lg sm:text-xl text-[#1F110B] group-hover:text-[#B45309] transition-colors leading-snug">
                   {tier.title}
                 </h3>
+
+                {/* Feature Perks */}
+                <ul className="mt-2.5 space-y-1 text-[11px] font-bold text-[#5C483A]">
+                  <li className="flex items-center gap-1.5">
+                    <span className="text-emerald-700">✓</span>
+                    <span>Mix any Marusthali 400g jars</span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="text-emerald-700">✓</span>
+                    <span>Free Sheesham wooden spoon</span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="text-emerald-700">✓</span>
+                    <span>Shockproof gift box packing</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#E8DDCD] flex items-center justify-between">
+              {/* Footer Price & Action */}
+              <div className="mt-4 pt-3.5 border-t border-[#E5D7C3] flex items-center justify-between">
                 <div>
-                  <span className="text-xl font-black text-[#1F110B]">{tier.price}</span>
+                  <span className="text-2xl font-black text-[#1F110B]">{tier.price}</span>
                   <span className="text-xs text-gray-400 line-through ml-1.5 font-bold">{tier.mrp}</span>
                 </div>
 
-                <span className="text-xs font-black text-[#B45309] group-hover:underline flex items-center gap-1">
-                  <span>Customise</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+                <button
+                  type="button"
+                  className="bg-gradient-to-r from-[#F5A623] to-[#D97706] group-hover:from-[#E09415] group-hover:to-[#B45309] text-[#1F110B] font-black text-xs sm:text-[13px] px-3.5 sm:px-4 py-2 rounded-xl shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <span>Build Box</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </button>
               </div>
             </div>
           ))}

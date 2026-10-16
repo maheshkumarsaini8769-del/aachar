@@ -225,25 +225,19 @@ export const ProductGallery = ({ images = [], productName, productId }) => {
         </Suspense>
       ) : (
         <div 
-          onClick={handleMainImageTap}
           onWheel={handleWheel}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          onMouseEnter={() => setIsZoomed(true)}
-          onMouseLeave={() => setIsZoomed(false)}
-          onMouseMove={handleMouseMove}
-          className="relative flex-1 aspect-square max-h-[340px] sm:max-h-none rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-brand-border bg-brand-cream/40 shadow-warm flex items-center justify-center cursor-zoom-in group select-none touch-pan-y"
+          className="relative flex-1 aspect-square max-h-[340px] sm:max-h-none rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-brand-border bg-brand-cream/40 shadow-warm flex items-center justify-center group select-none touch-pan-y"
         >
           <img
             src={activeImage}
             alt={`${productName} - View ${activeIdx + 1}`}
             draggable={false}
-            className={`w-full h-full object-cover transition-transform duration-300 ${
-              isZoomed && !isSwiping ? 'scale-125' : 'scale-100'
-            }`}
+            decoding="async"
+            className="w-full h-full object-cover transition-transform duration-300 scale-100"
             style={{
-              transformOrigin: isZoomed ? `${zoomPos.x}% ${zoomPos.y}%` : undefined,
               transform: dragOffset ? `translateX(${dragOffset}px)` : undefined
             }}
           />
@@ -285,11 +279,6 @@ export const ProductGallery = ({ images = [], productName, productId }) => {
             </>
           )}
 
-          {/* Zoom Indicator */}
-          <div className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-xs px-2.5 py-1.5 rounded-full border border-brand-border text-brand-brown text-[11px] font-bold flex items-center gap-1 shadow-sm pointer-events-none">
-            <ZoomIn className="w-3.5 h-3.5 text-[#B45309]" />
-            <span className="hidden sm:inline">{isZoomed ? 'Zoomed' : 'Hover / Tap to Zoom'}</span>
-          </div>
 
           {/* 100% Homemade Stamp */}
           <div className="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 bg-brand-yellow/90 backdrop-blur-md text-brand-brown font-extrabold text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm pointer-events-none">

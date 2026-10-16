@@ -31,6 +31,72 @@ export const Header = ({ currentView, onNavigate }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const searchRef = useRef(null);
 
+  // Category roundels smooth swipe, finger scroll, trackpad & mouse drag support
+  const roundelsRef = useRef(null);
+  const isMouseDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftStartRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const scrollTimerRef = useRef(null);
+
+  // Wheel horizontal scrolling support for laptop trackpad and mouse wheel
+  useEffect(() => {
+    const el = roundelsRef.current;
+    if (!el) return;
+    const handleWheel = (e) => {
+      // If user is already scrolling horizontally via trackpad deltaX, let native scroll handle it
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        return;
+      }
+      // If user scrolls mouse wheel or 2-finger vertical scroll over roundels, translate to horizontal scroll
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, []);
+
+  // When scrolling (native touch, trackpad, or momentum), guard against accidental click
+  const handleScroll = () => {
+    isDraggingRef.current = true;
+    if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
+    scrollTimerRef.current = setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 150);
+  };
+
+  const handlePointerDown = (e) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    isMouseDownRef.current = true;
+    isDraggingRef.current = false;
+    setIsDragging(false);
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    startXRef.current = clientX;
+    scrollLeftStartRef.current = roundelsRef.current ? roundelsRef.current.scrollLeft : 0;
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isMouseDownRef.current || !roundelsRef.current) return;
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const diff = clientX - startXRef.current;
+    if (Math.abs(diff) > 4) {
+      isDraggingRef.current = true;
+      if (!isDragging) setIsDragging(true);
+      roundelsRef.current.scrollLeft = scrollLeftStartRef.current - diff;
+    }
+  };
+
+  const handlePointerUp = () => {
+    isMouseDownRef.current = false;
+    setIsDragging(false);
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 150);
+  };
+
   // Category roundels data
   const roundels = [
     { 
@@ -141,12 +207,23 @@ export const Header = ({ currentView, onNavigate }) => {
   };
 
   const handleRoundelClick = (item) => {
+    if (isDraggingRef.current) return;
     if (item.isAll) {
       onNavigate('all-products');
     } else if (item.isMore) {
       onNavigate('all-categories');
     } else {
       onNavigate('category', { categoryId: item.slug });
+    }
+  };
+
+  const handleProfileClick = () => {
+    if (!isLoggedIn) {
+      openAuthModal(() => {
+        onNavigate('account', { tab: 'menu' });
+      });
+    } else {
+      onNavigate('account', { tab: 'menu' });
     }
   };
 
@@ -230,60 +307,74 @@ export const Header = ({ currentView, onNavigate }) => {
               )}
             </div>
 
-            {/* Desktop Right Actions (Settings/Account, Wishlist, Cart) */}
+            {/* Desktop Right Actions (Profile/Account, Wishlist, Cart) */}
             <div className="hidden md:flex items-center space-x-6 shrink-0">
-              {/* Single Clean Account & Settings Button */}
+              {/* Single Clean Profile / Account Button */}
               <button 
-                onClick={() => onNavigate('account', { tab: 'menu' })}
-                className="flex flex-col items-center group text-[#1F110B] hover:text-[#B45309] transition-colors cursor-pointer"
-                title="Account & Settings"
+                onClick={handleProfileClick}
+                className="flex flex-col items-center group text-[#2D1810] hover:text-[#B45309] transition-colors cursor-pointer"
+                title={isLoggedIn ? "Account Profile" : "Sign In / Register"}
               >
-                <Settings className="w-5 h-5 stroke-[2.2] group-hover:rotate-45 transition-transform duration-300" />
-                <span className="text-xs font-extrabold text-[#1F110B] group-hover:text-[#B45309] mt-0.5">Settings</span>
+                <div className="relative">
+                  <User className="w-5 h-5 stroke-[1.9] group-hover:scale-105 transition-transform" />
+                  {isLoggedIn && (
+                    <span className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" />
+                  )}
+                </div>
+                <span className="text-[11px] sm:text-xs font-medium text-[#4A3B32] group-hover:text-[#B45309] tracking-tight mt-0.5 transition-colors">
+                  Profile
+                </span>
               </button>
 
               {/* Wishlist */}
               <button 
                 onClick={() => onNavigate('wishlist')}
-                className="flex flex-col items-center group text-[#1F110B] hover:text-[#B45309] transition-colors relative cursor-pointer"
+                className="flex flex-col items-center group text-[#2D1810] hover:text-[#B45309] transition-colors relative cursor-pointer"
                 title="Wishlist"
               >
                 <div className="relative">
-                  <Heart className="w-5 h-5 stroke-[2.2] group-hover:scale-110 transition-transform" />
+                  <Heart className="w-5 h-5 stroke-[1.9] group-hover:scale-105 transition-transform" />
                   {wishlistCount > 0 && (
                     <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
                       {wishlistCount}
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-extrabold text-[#1F110B] group-hover:text-[#B45309] mt-0.5">Wishlist</span>
+                <span className="text-[11px] sm:text-xs font-medium text-[#4A3B32] group-hover:text-[#B45309] tracking-tight mt-0.5 transition-colors">
+                  Wishlist
+                </span>
               </button>
 
               {/* Cart with Red Notification Badge */}
               <button 
                 onClick={openCart}
-                className="flex flex-col items-center group text-[#1F110B] hover:text-[#B45309] transition-colors relative cursor-pointer"
+                className="flex flex-col items-center group text-[#2D1810] hover:text-[#B45309] transition-colors relative cursor-pointer"
                 title="Cart"
               >
                 <div className="relative">
-                  <ShoppingBag className="w-5 h-5 stroke-[2.2] group-hover:scale-110 transition-transform" />
+                  <ShoppingBag className="w-5 h-5 stroke-[1.9] group-hover:scale-105 transition-transform" />
                   <span className="absolute -top-1.5 -right-2 bg-[#E53935] text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
                     {cartBadgeCount}
                   </span>
                 </div>
-                <span className="text-xs font-extrabold text-[#1F110B] group-hover:text-[#B45309] mt-0.5">Cart</span>
+                <span className="text-[11px] sm:text-xs font-medium text-[#4A3B32] group-hover:text-[#B45309] tracking-tight mt-0.5 transition-colors">
+                  Cart
+                </span>
               </button>
             </div>
 
-            {/* Mobile Right Icons (Settings, Wishlist & Cart) */}
+            {/* Mobile Right Icons (Profile, Wishlist & Cart) */}
             <div className="flex md:hidden items-center space-x-1.5">
               <button 
-                onClick={() => onNavigate('account', { tab: 'menu' })}
-                className="p-1.5 text-[#1F110B] relative"
-                aria-label="Settings"
-                title="Settings"
+                onClick={handleProfileClick}
+                className="p-1.5 text-[#1F110B] hover:text-[#B45309] relative cursor-pointer"
+                aria-label="Profile"
+                title={isLoggedIn ? "Account Profile" : "Sign In / Register"}
               >
-                <Settings className="w-5 h-5 stroke-[2.2]" />
+                <User className="w-5 h-5 stroke-[1.9]" />
+                {isLoggedIn && (
+                  <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" />
+                )}
               </button>
               <button 
                 onClick={() => onNavigate('wishlist')}
@@ -348,21 +439,40 @@ export const Header = ({ currentView, onNavigate }) => {
 
       {/* 2. Visual Category Roundels Strip - Rendered on Home View */}
       {(currentView === 'home' || !currentView) && (
-        <nav aria-label="Pickle Categories" className="bg-[#FAF6EE] border-b border-[#E5D9C5] shadow-xs">
+        <nav aria-label="Pickle Categories" className="bg-[#FAF6EE] border-b border-[#E5D9C5] shadow-xs select-none">
           <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-2.5 sm:py-3.5">
-            <div className="flex items-start justify-start xl:justify-between gap-2 sm:gap-3.5 lg:gap-4 overflow-x-auto no-scrollbar scroll-smooth px-1 touch-pan-x">
+            <div 
+              ref={roundelsRef}
+              onMouseDown={handlePointerDown}
+              onMouseMove={handlePointerMove}
+              onMouseUp={handlePointerUp}
+              onMouseLeave={handlePointerUp}
+              onTouchStart={handlePointerDown}
+              onTouchMove={handlePointerMove}
+              onTouchEnd={handlePointerUp}
+              onScroll={handleScroll}
+              className={`flex items-start justify-start xl:justify-between gap-2 sm:gap-3.5 lg:gap-4 overflow-x-auto no-scrollbar px-1 cursor-grab active:cursor-grabbing select-none ${
+                isDragging ? 'scroll-auto' : 'scroll-smooth'
+              }`}
+              style={{
+                touchAction: 'pan-x pan-y',
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehaviorX: 'contain'
+              }}
+            >
               {roundels.map((cat) => {
                 if (cat.isAll) {
                   return (
                     <button
                       key={cat.id}
                       onClick={() => handleRoundelClick(cat)}
+                      style={{ touchAction: 'pan-x pan-y' }}
                       className="flex flex-col items-center group shrink-0 focus:outline-none cursor-pointer min-w-[64px] sm:min-w-[88px] md:min-w-[98px] px-1 text-center active:scale-95 transition-transform"
                     >
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[76px] md:h-[76px] aspect-square shrink-0 rounded-full bg-[#FDEFD6] border-2 border-[#E6B87A] flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-[#D97706] group-hover:shadow-md transition-all">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[76px] md:h-[76px] aspect-square shrink-0 rounded-full bg-[#FDEFD6] border-2 border-[#E6B87A] flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-[#D97706] group-hover:shadow-md transition-all pointer-events-none">
                         <LayoutGrid className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#2D1810] stroke-[2.2]" />
                       </div>
-                      <span className="text-[11px] sm:text-xs md:text-[13px] font-extrabold text-[#1F110B] group-hover:text-[#B45309] text-center leading-tight mt-1.5 transition-colors">
+                      <span className="text-[11px] sm:text-xs md:text-[13px] font-extrabold text-[#1F110B] group-hover:text-[#B45309] text-center leading-tight mt-1.5 transition-colors pointer-events-none">
                         <span className="hidden sm:inline">{cat.name}</span>
                         <span className="sm:hidden">{cat.mobileName}</span>
                       </span>
@@ -375,12 +485,13 @@ export const Header = ({ currentView, onNavigate }) => {
                     <button
                       key={cat.id}
                       onClick={() => handleRoundelClick(cat)}
+                      style={{ touchAction: 'pan-x pan-y' }}
                       className="flex flex-col items-center group shrink-0 focus:outline-none cursor-pointer min-w-[64px] sm:min-w-[88px] md:min-w-[98px] px-1 text-center active:scale-95 transition-transform"
                     >
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[76px] md:h-[76px] aspect-square shrink-0 rounded-full bg-white border-2 border-[#D5C7B8] flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-[#D97706] group-hover:shadow-md transition-all">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[76px] md:h-[76px] aspect-square shrink-0 rounded-full bg-white border-2 border-[#D5C7B8] flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-[#D97706] group-hover:shadow-md transition-all pointer-events-none">
                         <MoreHorizontal className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#2D1810] stroke-[2.2]" />
                       </div>
-                      <span className="text-[11px] sm:text-xs md:text-[13px] font-extrabold text-[#1F110B] group-hover:text-[#B45309] text-center leading-tight mt-1.5 transition-colors">
+                      <span className="text-[11px] sm:text-xs md:text-[13px] font-extrabold text-[#1F110B] group-hover:text-[#B45309] text-center leading-tight mt-1.5 transition-colors pointer-events-none">
                         <span className="hidden sm:inline">{cat.name}</span>
                         <span className="sm:hidden">{cat.mobileName}</span>
                       </span>
@@ -392,18 +503,20 @@ export const Header = ({ currentView, onNavigate }) => {
                   <button
                     key={cat.id}
                     onClick={() => handleRoundelClick(cat)}
+                    style={{ touchAction: 'pan-x pan-y' }}
                     className="flex flex-col items-center group shrink-0 focus:outline-none cursor-pointer min-w-[64px] sm:min-w-[88px] md:min-w-[98px] px-1 text-center active:scale-95 transition-transform"
                   >
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[76px] md:h-[76px] aspect-square shrink-0 rounded-full overflow-hidden border-2 border-[#E6B87A] group-hover:border-[#D97706] shadow-xs group-hover:shadow-md transition-all relative bg-amber-50">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[76px] md:h-[76px] aspect-square shrink-0 rounded-full overflow-hidden border-2 border-[#E6B87A] group-hover:border-[#D97706] shadow-xs group-hover:shadow-md transition-all relative bg-amber-50 pointer-events-none">
                       <img
                         src={cat.image}
                         alt={cat.name}
                         className="w-full h-full object-cover aspect-square rounded-full block transition-transform duration-300 group-hover:scale-105"
                         loading="eager"
+                        draggable="false"
                       />
                     </div>
 
-                    <span className="text-[11px] sm:text-xs md:text-[13px] font-extrabold text-[#1F110B] group-hover:text-[#B45309] text-center leading-tight mt-1.5 transition-colors">
+                    <span className="text-[11px] sm:text-xs md:text-[13px] font-extrabold text-[#1F110B] group-hover:text-[#B45309] text-center leading-tight mt-1.5 transition-colors pointer-events-none">
                       <span className="hidden sm:inline">{cat.name}</span>
                       <span className="sm:hidden">{cat.mobileName}</span>
                     </span>

@@ -33,14 +33,12 @@ import {
   Globe,
   Headphones,
   Send,
-  Rotate3d,
-  Boxes
+  Rotate3d
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 import { MangoAchar3DAdminPanel } from '../components/admin/MangoAchar3DAdminPanel';
-import { ProductsAdminManager } from '../components/admin/ProductsAdminManager';
 
 export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavigate }) => {
   const { tab: paramTab } = useParams();
@@ -49,6 +47,8 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
   const {
     user: rawUser,
     currentUser,
+    isLoggedIn,
+    openAuthModal,
     orders: rawOrders,
     userOrders,
     addresses: rawAddresses,
@@ -310,14 +310,6 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
       iconBg: 'bg-amber-100 text-[#B45309]'
     },
     {
-      id: 'products-admin',
-      title: 'Products & Box Pricing Manager',
-      desc: 'Add, edit, price, manage box sizes, stock, SKUs, images and catalogue status',
-      badge: 'Store Admin',
-      icon: Boxes,
-      iconBg: 'bg-amber-100 text-[#B45309]'
-    },
-    {
       id: '3d-admin',
       title: 'Mango Achar 3D Experience Manager',
       desc: 'Configure 3D viewer, upload GLB/GLTF models, angles, markers and preview live',
@@ -328,6 +320,48 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
   ];
 
   const currentPageObj = settingsPages.find(p => p.id === activePage);
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-[75vh] flex items-center justify-center py-16 px-4 bg-[#FAF7F2]">
+        <div className="max-w-md w-full bg-white rounded-3xl p-8 sm:p-10 border border-[#E8DDCD] shadow-lg text-center space-y-6 animate-fade-in">
+          <div className="w-16 h-16 rounded-2xl bg-[#FAF5EC] border border-[#E5D9C5] flex items-center justify-center text-[#B45309] mx-auto shadow-xs">
+            <User className="w-8 h-8 stroke-[1.8]" />
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#B45309] bg-amber-50 px-3 py-1 rounded-full border border-amber-200/60 inline-block">
+              Marusthali Member Access
+            </span>
+            <h2 className="font-serif text-2xl font-bold text-[#1F110B]">
+              Sign In to Your Account
+            </h2>
+            <p className="text-xs sm:text-sm text-[#6D5344] font-medium leading-relaxed max-w-sm mx-auto">
+              Please log in or register with your mobile number to view your placed orders, live courier tracking, saved addresses, and Pickle Coins.
+            </p>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <button
+              onClick={() => openAuthModal?.(() => setActivePage('menu'))}
+              className="w-full bg-gradient-to-r from-[#D97706] to-[#B45309] hover:from-[#B45309] hover:to-[#92400E] text-white py-3.5 rounded-full font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              <User className="w-4 h-4" />
+              <span>Log In / Register with OTP</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('home')}
+              className="w-full bg-[#FAF5EC] hover:bg-[#F3E8D3] border border-[#E0D2BF] text-[#2D1810] py-3 rounded-full font-semibold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
+            >
+              <Home className="w-4 h-4 text-[#8C6542]" />
+              <span>← Return to Home Page</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-transparent pb-20">
@@ -386,7 +420,7 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
                   </span>
                 </div>
                 <h1 className="font-serif text-xl sm:text-2xl font-bold text-white mt-1">
-                  {activePage === 'menu' ? `Settings & Account (${activeUser.name})` : currentPageObj?.title}
+                  {activePage === 'menu' ? `Profile & Account (${activeUser.name})` : currentPageObj?.title}
                 </h1>
                 <p className="text-xs text-amber-100/90 font-medium mt-0.5">
                   +91 {activeUser.phone} • {activeUser.city || 'Sikar, Rajasthan'}
@@ -1434,35 +1468,7 @@ export const AccountPage = ({ initialTab = 'menu', initialOrderId = null, onNavi
         )}
 
         {/* ================================================================= */}
-        {/* PAGE 7A: PRODUCTS & BOX PRICING MANAGER (STORE ADMIN)             */}
-        {/* ================================================================= */}
-        {activePage === 'products-admin' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-[#E8DDCD]">
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  onClick={() => setActivePage('menu')}
-                  className="inline-flex items-center gap-1.5 bg-[#FAF6EE] hover:bg-[#F5EFE6] border border-[#D5C7B8] px-3.5 py-2 rounded-xl text-xs font-extrabold text-[#1F110B] cursor-pointer"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  <span>Back to Settings</span>
-                </button>
-                <button
-                  onClick={() => onNavigate('all-products')}
-                  className="inline-flex items-center gap-1.5 bg-[#F5A623]/20 hover:bg-[#F5A623]/35 border border-[#D97706] px-3.5 py-2 rounded-xl text-xs font-extrabold text-[#1F110B] cursor-pointer"
-                >
-                  <Package className="w-3.5 h-3.5 text-[#B45309]" />
-                  <span>View Live Public Shop →</span>
-                </button>
-              </div>
-            </div>
-
-            <ProductsAdminManager onNavigate={onNavigate} />
-          </div>
-        )}
-
-        {/* ================================================================= */}
-        {/* PAGE 7B: MANGO ACHAR 3D EXPERIENCE MANAGER (ADMIN PANEL)          */}
+        {/* PAGE 7: MANGO ACHAR 3D EXPERIENCE MANAGER (ADMIN PANEL)           */}
         {/* ================================================================= */}
         {activePage === '3d-admin' && (
           <div className="space-y-6">

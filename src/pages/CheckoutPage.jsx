@@ -20,10 +20,9 @@ import { useLocation } from '../context/LocationContext';
 import { useAuth } from '../context/AuthContext';
 
 export const CheckoutPage = ({ onNavigate, onOrderPlaced }) => {
-  const { cartItems, subtotal, discountAmount, finalTotal, shippingFee, clearCart } = useCart();
+  const { cartItems, subtotal, discountAmount, finalTotal, shippingFee } = useCart();
   const { currentLocation, checkPincode, lookupPincodeLive, updateLocation } = useLocation();
   const { currentUser, isLoggedIn, login, register, addOrder } = useAuth();
-  const [paymentError, setPaymentError] = useState('');
 
   // If not logged in, start at step 0 (Auth: Login/Register). If logged in, start at step 1 (Address).
   const [step, setStep] = useState(() => (isLoggedIn ? 1 : 0));
@@ -180,64 +179,30 @@ export const CheckoutPage = ({ onNavigate, onOrderPlaced }) => {
     setStep(3);
   };
 
-  const handleCompletePayment = async () => {
+  const handleCompletePayment = () => {
     setIsProcessing(true);
-    setPaymentError('');
-
-    try {
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customerName: addressForm.fullName,
-          customerPhone: addressForm.phone,
-          customerEmail: currentUser?.email || 'customer@marusthaliachar.com',
-          shippingAddress: addressForm,
-          items: cartItems.map(it => ({
-            productId: it.productId || it.id,
-            size: it.size,
-            boxType: it.boxType || null,
-            quantity: it.quantity || 1,
-            customNote: it.customNote || null
-          })),
-          paymentMethod: paymentMethod.toUpperCase(),
-          deliveryMethod: deliveryMethod === 'express' ? 'Express Air Dispatch' : 'Standard Delivery'
-        })
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to place order. Please review your cart.');
-      }
-
-      const generatedOrderId = data.order?.orderId || `ORD${Math.floor(100000000 + Math.random() * 900000000)}`;
+    setTimeout(() => {
+      setIsProcessing(false);
+      const generatedOrderId = `ORD${Math.floor(100000000 + Math.random() * 900000000)}`;
       const orderSummary = {
         orderId: generatedOrderId,
-        items: data.order?.items || cartItems,
-        total: data.order?.finalTotal || orderTotal,
-        subtotal: data.order?.subtotal || subtotal,
-        shippingFee: data.order?.shippingFee || shippingFee,
-        discountAmount: data.order?.discountAmount || discountAmount,
+        items: cartItems,
+        total: orderTotal,
         address: addressForm,
         deliveryMethod: deliveryMethod === 'express' ? 'Express Air Dispatch' : 'Standard Delivery',
         paymentMethod: paymentMethod.toUpperCase(),
         date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
       };
 
-      // Add to AuthContext userOrders and clear cart
+      // Add to AuthContext userOrders (so it appears automatically in Track Order without typing track ID!)
       addOrder(orderSummary);
-      if (typeof clearCart === 'function') clearCart();
 
       if (onOrderPlaced) {
         onOrderPlaced(orderSummary);
       }
 
       onNavigate('order-success', { orderId: generatedOrderId, orderSummary });
-    } catch (err) {
-      setPaymentError(err.message || 'Payment processing failed. Please try again.');
-    } finally {
-      setIsProcessing(false);
-    }
+    }, 1200);
   };
 
   // Steps definition based on whether user is logged in
@@ -870,13 +835,6 @@ export const CheckoutPage = ({ onNavigate, onOrderPlaced }) => {
                     <CreditCard className="w-5 h-5 text-gray-400" />
                   </div>
                 </div>
-
-                {paymentError && (
-                  <div className="p-3.5 bg-red-50 border-2 border-red-200 text-red-800 rounded-2xl text-xs font-bold flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
-                    <span>{paymentError}</span>
-                  </div>
-                )}
 
                 <div className="pt-4 flex items-center justify-between border-t border-brand-border">
                   <button

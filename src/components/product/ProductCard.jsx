@@ -187,33 +187,54 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
 
   const getBadgeStyle = () => {
     if (product.badge === 'Bestseller' || product.badgeType === 'bestseller') {
-      return 'bg-[#D97706] text-white';
+      return 'bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 text-amber-50 border-amber-400/60 shadow-amber-950/20';
     }
     if (product.badge === 'Spicy' || product.badgeType === 'spicy') {
-      return 'bg-[#DC2626] text-white';
+      return 'bg-gradient-to-r from-red-700 via-rose-700 to-red-800 text-rose-50 border-rose-400/60 shadow-rose-950/20';
     }
     if (product.badge === 'New' || product.badgeType === 'new') {
-      return 'bg-[#1E5631] text-white';
+      return 'bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-800 text-emerald-50 border-emerald-400/60 shadow-emerald-950/20';
     }
-    return 'bg-[#D97706] text-white';
+    return 'bg-gradient-to-r from-amber-700 to-yellow-700 text-amber-50 border-amber-300/60';
   };
+
+  const spiceDetails = {
+    Low: { label: 'Mild', icon: Leaf, color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200', chilis: '🌶️' },
+    Medium: { label: 'Medium', icon: Flame, color: 'text-amber-800', bg: 'bg-amber-50 border-amber-200', chilis: '🌶️🌶️' },
+    Spicy: { label: 'Spicy', icon: Flame, color: 'text-red-700', bg: 'bg-rose-50 border-rose-200', chilis: '🌶️🌶️🌶️' }
+  };
+
+  const handleSpiceCycle = (e) => {
+    e.stopPropagation();
+    const cycle = ['Low', 'Medium', 'Spicy'];
+    const next = cycle[(cycle.indexOf(selectedSpice) + 1) % cycle.length];
+    setSelectedSpice(next);
+  };
+
+  const currentSpice = spiceDetails[selectedSpice] || spiceDetails.Medium;
+  const SpiceIcon = currentSpice.icon;
 
   return (
     <div 
       onClick={handleCardClick}
-      className="group bg-white rounded-2xl sm:rounded-3xl border border-[#ECE4D8] overflow-hidden hover:shadow-[0_12px_32px_rgba(61,35,20,0.1)] hover:border-[#D97706]/60 transition-all duration-300 flex flex-col cursor-pointer relative"
+      className="group bg-gradient-to-b from-[#FFFDF9] via-[#FAF4E6] to-[#F5EAD6] rounded-t-[32px] sm:rounded-t-[38px] rounded-b-2xl sm:rounded-b-3xl border-2 border-[#D8BE95] hover:border-[#C59A3F] shadow-[0_8px_24px_rgba(45,24,16,0.08)] hover:shadow-[0_22px_44px_rgba(45,24,16,0.18)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col cursor-pointer relative overflow-hidden"
     >
-      {/* Product Image Carousel Area - 2-Finger Laptop Scroll + 1-Finger Mobile Swipe (No Auto-Change) */}
+      {/* Decorative Antique Corner Studs */}
+      <span className="absolute top-2 left-2 text-[9px] text-[#C59A3F]/60 select-none pointer-events-none">✦</span>
+      <span className="absolute top-2 right-2 text-[9px] text-[#C59A3F]/60 select-none pointer-events-none">✦</span>
+
+      {/* Product Image Stage with Organic Wave Line Divider at Bottom */}
       <div 
         onClick={handleImageTap}
         onWheel={handleWheel}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className="relative aspect-square w-full bg-[#FAF7F2] overflow-hidden flex items-center justify-center p-2 sm:p-2.5 select-none touch-pan-y"
+        className="relative aspect-square w-full bg-gradient-to-b from-[#EFE3CF] via-[#E5D4BC] to-[#DBC5A8] overflow-hidden flex items-center justify-center p-2.5 sm:p-3 select-none touch-pan-y rounded-t-[30px] sm:rounded-t-[36px]"
       >
+        {/* Arched Inner Picture Frame */}
         <div 
-          className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden"
+          className="w-full h-full relative rounded-t-[24px] sm:rounded-t-[28px] rounded-b-xl overflow-hidden shadow-sm border border-[#D5C2A5]/70"
           style={{
             transform: dragOffset ? `translateX(${dragOffset}px)` : undefined,
             transition: isSwiping ? 'none' : 'transform 0.3s ease-out'
@@ -222,10 +243,13 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
           <img 
             src={currentImg} 
             alt={`${product.name} - View ${activeImgIdx + 1}`} 
-            className="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-all duration-500" 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out will-change-transform" 
             loading="lazy"
+            decoding="async"
             draggable={false}
           />
+          {/* Subtle bottom gradient vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
         </div>
 
         {/* Left / Right Subtle Chevrons on Hover (Desktop) */}
@@ -235,7 +259,7 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
               type="button"
               onClick={handlePrevImg}
               aria-label="Previous image"
-              className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/85 hover:bg-white text-[#2D1810] items-center justify-center shadow-xs opacity-0 group-hover:opacity-100 transition-opacity z-10"
+              className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/95 hover:bg-white text-[#2D1810] items-center justify-center shadow-xs opacity-0 group-hover:opacity-100 transition-opacity z-10 border border-amber-300"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
@@ -243,18 +267,18 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
               type="button"
               onClick={handleNextImg}
               aria-label="Next image"
-              className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/85 hover:bg-white text-[#2D1810] items-center justify-center shadow-xs opacity-0 group-hover:opacity-100 transition-opacity z-10"
+              className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/95 hover:bg-white text-[#2D1810] items-center justify-center shadow-xs opacity-0 group-hover:opacity-100 transition-opacity z-10 border border-amber-300"
             >
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </>
         )}
 
-        {/* Top Badges */}
-        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex flex-col gap-1 z-10 pointer-events-none">
+        {/* Top Badge */}
+        <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex flex-col gap-1 z-10 pointer-events-none">
           {product.badge && (
-            <span className={`text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-md shadow-xs ${getBadgeStyle()}`}>
-              {product.badge}
+            <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-sm backdrop-blur-xs flex items-center gap-1 ${getBadgeStyle()}`}>
+              <span>★ {product.badge}</span>
             </span>
           )}
         </div>
@@ -262,21 +286,26 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
         {/* Wishlist Button */}
         <button
           onClick={handleWishlist}
-          className={`absolute top-2 sm:top-3 right-2 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all z-10 shadow-xs ${
+          className={`absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all z-10 shadow-xs backdrop-blur-xs ${
             isFavorited 
-              ? 'bg-red-50 text-red-600 border border-red-200' 
-              : 'bg-white/95 text-[#2D1810] hover:text-red-500 hover:bg-white border border-[#E5D9C5]'
+              ? 'bg-rose-50 text-rose-600 border border-rose-300 scale-105' 
+              : 'bg-white/95 text-[#2D1810] hover:text-rose-600 hover:bg-white border border-amber-300/80 hover:scale-105'
           }`}
           title={isFavorited ? 'Remove from Wishlist' : 'Add to Wishlist'}
         >
-          <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isFavorited ? 'fill-current text-red-600' : ''}`} />
+          <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isFavorited ? 'fill-current text-rose-600' : ''}`} />
         </button>
+
+        {/* Stamp Tag on Image */}
+        <div className="absolute bottom-4 left-2.5 pointer-events-none z-10 flex items-center gap-1 bg-[#1A0C06]/85 backdrop-blur-xs text-[#FBBF24] text-[9px] font-black px-2 py-0.5 rounded-full border border-amber-500/40 shadow-xs">
+          <span>🏺 100% Mustard Oil • Sun Aged</span>
+        </div>
 
         {/* Slide Indicator Dots */}
         {galleryImages.length > 1 && (
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-black/35 backdrop-blur-xs px-2 py-1 rounded-full"
+            className="absolute bottom-4 right-2.5 flex items-center gap-1 z-10 bg-black/55 backdrop-blur-xs px-2 py-1 rounded-full"
           >
             {galleryImages.map((_, idx) => (
               <button
@@ -289,7 +318,7 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
                 aria-label={`View image ${idx + 1}`}
                 className={`rounded-full transition-all ${
                   activeImgIdx === idx
-                    ? 'w-3.5 h-1.5 bg-[#FBBF24]'
+                    ? 'w-3 h-1.5 bg-[#FBBF24]'
                     : 'w-1.5 h-1.5 bg-white/75 hover:bg-white'
                 }`}
               />
@@ -301,125 +330,132 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
         {onQuickView && (
           <button
             onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
-            className="absolute bottom-9 left-1/2 -translate-x-1/2 bg-white/95 hover:bg-white text-[#2D1810] text-[11px] sm:text-xs font-bold py-1 sm:py-1.5 px-2.5 sm:px-3.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md flex items-center gap-1.5 border border-[#E5D9C5] z-10 whitespace-nowrap"
+            className="absolute bottom-9 left-1/2 -translate-x-1/2 bg-white/95 hover:bg-white text-[#2D1810] text-[11px] sm:text-xs font-black py-1.5 px-3.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md flex items-center gap-1.5 border border-amber-400 z-10 whitespace-nowrap"
           >
             <Eye className="w-3.5 h-3.5 text-[#1E5631]" /> Quick View
           </button>
         )}
+
+        {/* Signature Layered Wave Line Transition (Curved line style like the footer wave) */}
+        <div className="absolute -bottom-0.5 inset-x-0 overflow-hidden leading-none z-10 pointer-events-none">
+          <svg className="w-full h-3.5 sm:h-4 text-[#FAF4E6] fill-current block" viewBox="0 0 300 20" preserveAspectRatio="none">
+            <path d="M0,6 C75,18 150,2 225,12 C265,17 285,5 300,8 L300,20 L0,20 Z" fill="#D9C2A3" opacity="0.4" />
+            <path d="M0,9 C70,1 145,17 215,8 C260,3 285,14 300,9 L300,20 L0,20 Z" fill="currentColor" />
+          </svg>
+        </div>
       </div>
 
       {/* Product Content Details */}
-      <div className="p-2.5 sm:p-4 lg:p-5 flex-1 flex flex-col justify-between space-y-1.5 sm:space-y-2.5">
+      <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5">
         <div>
-          {/* Title */}
-          <h3 className="font-serif font-black text-xs sm:text-base lg:text-lg text-[#2D1810] group-hover:text-[#1E5631] transition-colors line-clamp-1 leading-snug">
-            {product.name}
-          </h3>
-
-          {/* Pack size indicator & Rating */}
-          <div className="flex items-center justify-between text-xs sm:text-sm mt-1 sm:mt-1.5">
-            <span className="text-[11px] sm:text-sm font-bold text-[#6B5E55]">
-              {selectedSize}
+          {/* Origin Tag & Star Rating */}
+          <div className="flex items-center justify-between gap-1 text-[11px] mb-1">
+            <span className="font-black text-[#8C5E35] uppercase tracking-widest text-[9px] sm:text-[10px] truncate">
+              ✦ {product.categoryName || 'Sikar • Sun-Cured'} ✦
             </span>
-            <div className="flex items-center gap-1 sm:gap-1.5 text-[#F59E0B] font-extrabold text-xs sm:text-sm shrink-0">
-              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+            <div className="flex items-center gap-1 text-amber-950 bg-amber-100/80 border border-amber-300/80 px-2 py-0.5 rounded-full font-black text-[10px] sm:text-[11px] shrink-0 shadow-2xs">
+              <Star className="w-3 h-3 text-amber-600 fill-current" />
               <span>{product.rating}</span>
-              <span className="hidden sm:inline text-xs text-[#78716C] font-semibold">
+              <span className="text-[10px] text-[#8C5E35] font-bold">
                 ({product.reviewCount > 999 ? `${(product.reviewCount/1000).toFixed(1)}k` : product.reviewCount})
               </span>
             </div>
           </div>
+
+          {/* Title */}
+          <h3 className="font-serif font-black text-sm sm:text-base lg:text-lg text-[#231209] group-hover:text-[#B45309] transition-colors line-clamp-1 leading-snug">
+            {product.name}
+          </h3>
         </div>
 
-        {/* Pack Size Pills */}
+        {/* Pack Size Segmented Dial */}
         {product.packSizes && product.packSizes.length > 1 && (
-          <div className="pt-0.5 sm:pt-1">
-            <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
-              {product.packSizes.map(p => (
+          <div className="bg-[#EFE2CE] p-1 rounded-xl border border-[#DFC4A2] flex items-center gap-1 shadow-inner">
+            {product.packSizes.map(p => {
+              const isSel = selectedSize === p.size;
+              return (
                 <button
                   key={p.size}
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setSelectedSize(p.size); }}
-                  className={`px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-extrabold transition-all border shrink-0 whitespace-nowrap cursor-pointer ${
-                    selectedSize === p.size
-                      ? 'bg-[#2D1810] text-white border-[#2D1810] font-black'
-                      : 'bg-[#F4ECE1] text-[#2D1810] border-[#E5D9C5] hover:bg-[#EAE0D1]'
+                  className={`flex-1 py-1 rounded-lg text-[10px] sm:text-xs font-black transition-all cursor-pointer text-center ${
+                    isSel
+                      ? 'bg-[#2A1408] text-[#FBBF24] shadow-xs'
+                      : 'text-[#5C4535] hover:text-[#2A1408]'
                   }`}
                 >
                   {p.size}
                 </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Spice Level Selector (Low / Medium / Spicy) */}
-        <div className="pt-0.5">
-          <div className="flex items-center gap-1 sm:gap-1.5">
-            {[
-              { id: 'Low', label: 'Low', icon: Leaf },
-              { id: 'Medium', label: 'Medium', icon: Flame },
-              { id: 'Spicy', label: 'Spicy', icon: Flame }
-            ].map(sp => {
-              const IconComponent = sp.icon;
-              const isSelected = selectedSpice === sp.id;
-              return (
-                <button
-                  key={sp.id}
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); setSelectedSpice(sp.id); }}
-                  className={`flex-1 py-1 px-1 sm:px-2 rounded-md sm:rounded-lg text-[9px] sm:text-[11px] font-extrabold transition-all border text-center whitespace-nowrap cursor-pointer inline-flex items-center justify-center gap-1 ${
-                    isSelected
-                      ? sp.id === 'Spicy'
-                        ? 'bg-red-700 text-white border-red-700 shadow-2xs'
-                        : sp.id === 'Low'
-                        ? 'bg-[#1E5631] text-white border-[#1E5631] shadow-2xs'
-                        : 'bg-[#D97706] text-white border-[#D97706] shadow-2xs'
-                      : 'bg-[#FAF6EE] text-[#2D1810] border-[#E5D9C5] hover:border-[#D97706]'
-                  }`}
-                >
-                  <IconComponent className={`w-3 h-3 ${isSelected ? 'text-white' : sp.id === 'Spicy' ? 'text-red-600' : sp.id === 'Low' ? 'text-emerald-700' : 'text-amber-600'}`} />
-                  <span>{sp.label}</span>
-                </button>
               );
             })}
           </div>
+        )}
+
+        {/* Interactive Single-Tap Spice Indicator */}
+        <div 
+          onClick={handleSpiceCycle}
+          className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl border cursor-pointer transition-colors shadow-2xs ${currentSpice.bg}`}
+          title="Tap to change spice intensity"
+        >
+          <div className="flex items-center gap-1.5">
+            <SpiceIcon className={`w-3.5 h-3.5 ${currentSpice.color}`} />
+            <span className="text-[10px] font-extrabold text-[#2A1408]">Spice:</span>
+            <span className={`text-[10px] font-black ${currentSpice.color}`}>
+              {currentSpice.label} {currentSpice.chilis}
+            </span>
+          </div>
+          <span className="text-[9px] text-amber-900 font-extrabold uppercase tracking-wider underline hover:text-amber-950">
+            Change ↻
+          </span>
         </div>
 
-        {/* Price & Add to Cart Button */}
-        <div className="pt-2 sm:pt-3 border-t border-[#E5D9C5]/60">
-          <div className="flex items-baseline flex-wrap gap-1 sm:gap-2.5 mb-2 sm:mb-3">
-            <span className="text-base sm:text-2xl lg:text-3xl font-black text-[#2D1810]">
-              ₹{currentVariant.price}
-            </span>
-            {currentVariant.mrp && currentVariant.mrp > currentVariant.price && (
-              <>
-                <span className="text-[11px] sm:text-sm text-gray-400 line-through">
+        {/* Price & Add to Cart Section with Decorative Curved Stitch Divider */}
+        <div className="pt-1.5 relative">
+          {/* Decorative Wave Stitch Line Divider (Inspired by Footer Curve Accent) */}
+          <div className="w-full flex items-center justify-center gap-2 mb-2">
+            <svg className="flex-1 h-2 text-[#DFC4A2]" viewBox="0 0 120 8" fill="none" preserveAspectRatio="none">
+              <path d="M0,4 Q30,8 60,4 T120,4" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 3" />
+            </svg>
+            <span className="text-[8px] text-[#B45309] select-none font-serif">✦</span>
+            <svg className="flex-1 h-2 text-[#DFC4A2]" viewBox="0 0 120 8" fill="none" preserveAspectRatio="none">
+              <path d="M0,4 Q30,0 60,4 T120,4" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 3" />
+            </svg>
+          </div>
+
+          <div className="flex items-baseline justify-between mb-2">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-xl sm:text-2xl font-black text-[#1F110B] font-serif">
+                ₹{currentVariant.price}
+              </span>
+              {currentVariant.mrp && currentVariant.mrp > currentVariant.price && (
+                <span className="text-xs text-gray-500 line-through font-bold">
                   ₹{currentVariant.mrp}
                 </span>
-                <span className="text-[9px] sm:text-xs font-bold text-[#DC2626] bg-red-50 border border-red-200 px-1 sm:px-1.5 py-0.5 rounded">
-                  {product.discount || '17% OFF'}
-                </span>
-              </>
+              )}
+            </div>
+            {currentVariant.mrp && currentVariant.mrp > currentVariant.price && (
+              <span className="text-[10px] sm:text-xs font-black text-amber-950 bg-amber-100/90 border border-amber-300 px-2 py-0.5 rounded-full">
+                {product.discount || '17% OFF'}
+              </span>
             )}
           </div>
 
           <button
             onClick={handleAddToCart}
-            className={`w-full py-2 sm:py-3.5 px-2 sm:px-4 rounded-xl sm:rounded-2xl font-black text-xs sm:text-base flex items-center justify-center gap-1.5 sm:gap-2.5 transition-all shadow-xs ${
+            className={`w-full py-2.5 sm:py-3 px-3 rounded-xl sm:rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer border ${
               addedAnim
-                ? 'bg-[#1E5631] text-white scale-98'
-                : 'bg-[#1E5631] hover:bg-[#164426] text-white hover:shadow-md'
+                ? 'bg-[#1E5631] text-white border-emerald-400'
+                : 'bg-gradient-to-r from-[#144525] via-[#1B5E33] to-[#144525] hover:from-[#0E351B] hover:to-[#174F2B] text-white border-[#FBBF24]/50 shadow-emerald-950/25 hover:shadow-lg hover:border-[#FBBF24]'
             }`}
           >
             {addedAnim ? (
               <>
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-200" />
-                <span>Added!</span>
+                <Check className="w-4 h-4 text-emerald-200 stroke-[3]" />
+                <span>Added to Cart!</span>
               </>
             ) : (
               <>
-                <ShoppingBag className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
+                <ShoppingBag className="w-4 h-4 text-[#FBBF24]" />
                 <span>Add to Cart</span>
               </>
             )}
@@ -429,3 +465,5 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
     </div>
   );
 };
+
+
