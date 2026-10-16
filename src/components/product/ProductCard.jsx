@@ -30,11 +30,8 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
     }
   }, [activePriceRange?.min, activePriceRange?.max, product.packSizes]);
 
-  const [selectedSpice, setSelectedSpice] = useState(() => {
-    if (product.spiceLevel === 'Mild' || product.spiceLevel === 'Low') return 'Low';
-    if (product.spiceLevel === 'Spicy' || product.spiceLevel === 'High' || product.spiceLevel === 'Hot') return 'Spicy';
-    return 'Medium';
-  });
+  // Default to Medium spice level initially as requested
+  const [selectedSpice, setSelectedSpice] = useState('Medium');
 
   const [addedAnim, setAddedAnim] = useState(false);
 
@@ -161,7 +158,8 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart(product, selectedSize, 1, `Spice: ${selectedSpice}`);
+    const spiceText = selectedSpice === 'Low' ? 'Mild' : selectedSpice;
+    addToCart(product, selectedSize, 1, `Spice: ${spiceText}`);
     setAddedAnim(true);
     setTimeout(() => setAddedAnim(false), 1200);
   };
@@ -199,20 +197,19 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
   };
 
   const spiceDetails = {
-    Low: { label: 'Mild', icon: Leaf, color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200', chilis: '🌶️' },
-    Medium: { label: 'Medium', icon: Flame, color: 'text-amber-800', bg: 'bg-amber-50 border-amber-200', chilis: '🌶️🌶️' },
-    Spicy: { label: 'Spicy', icon: Flame, color: 'text-red-700', bg: 'bg-rose-50 border-rose-200', chilis: '🌶️🌶️🌶️' }
+    Low: { label: 'Mild', color: 'text-[#8C5E35]', chilis: '🌶️' },
+    Medium: { label: 'Medium', color: 'text-[#8C4309]', chilis: '🌶️🌶️' },
+    Spicy: { label: 'Spicy', color: 'text-[#B91C1C]', chilis: '🌶️🌶️🌶️' }
   };
 
   const handleSpiceCycle = (e) => {
     e.stopPropagation();
-    const cycle = ['Low', 'Medium', 'Spicy'];
+    const cycle = ['Medium', 'Spicy', 'Low'];
     const next = cycle[(cycle.indexOf(selectedSpice) + 1) % cycle.length];
     setSelectedSpice(next);
   };
 
   const currentSpice = spiceDetails[selectedSpice] || spiceDetails.Medium;
-  const SpiceIcon = currentSpice.icon;
 
   return (
     <div 
@@ -391,21 +388,24 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
           </div>
         )}
 
-        {/* Interactive Single-Tap Spice Indicator */}
+        {/* Interactive Single-Tap Spice Indicator Strip (Exact design matching user reference) */}
         <div 
           onClick={handleSpiceCycle}
-          className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl border cursor-pointer transition-colors shadow-2xs ${currentSpice.bg}`}
-          title="Tap to change spice intensity"
+          className="flex items-center justify-between px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border border-[#F5D096] bg-[#FFFDF5] hover:bg-[#FFF9EA] cursor-pointer transition-all shadow-2xs active:scale-[0.98] group/spice select-none"
+          title="Click to change spice level"
         >
-          <div className="flex items-center gap-1.5">
-            <SpiceIcon className={`w-3.5 h-3.5 ${currentSpice.color}`} />
-            <span className="text-[10px] font-extrabold text-[#2A1408]">Spice:</span>
-            <span className={`text-[10px] font-black ${currentSpice.color}`}>
-              {currentSpice.label} {currentSpice.chilis}
+          <div className="flex items-center gap-1 min-w-0 flex-nowrap">
+            <Flame className="w-3.5 h-3.5 text-[#B45309] shrink-0" />
+            <span className="text-[10px] sm:text-xs font-black text-[#2A1408] whitespace-nowrap">Spice:</span>
+            <span className="text-[10px] sm:text-xs font-black text-[#8C4309] whitespace-nowrap">
+              {currentSpice.label}
+            </span>
+            <span className="text-[10px] sm:text-xs tracking-tighter whitespace-nowrap inline-flex items-center">
+              {currentSpice.chilis}
             </span>
           </div>
-          <span className="text-[9px] text-amber-900 font-extrabold uppercase tracking-wider underline hover:text-amber-950">
-            Change ↻
+          <span className="text-[9px] sm:text-[10px] font-black text-[#8C4309] uppercase tracking-wider underline hover:text-[#5C2B04] group-hover/spice:text-[#5C2B04] transition-colors shrink-0 whitespace-nowrap ml-1">
+            <span className="hidden sm:inline">CHANGE </span>↻
           </span>
         </div>
 

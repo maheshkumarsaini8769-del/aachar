@@ -47,11 +47,8 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
       : '500 g';
   });
 
-  const [selectedSpice, setSelectedSpice] = useState(() => {
-    if (product.spiceLevel === 'Mild' || product.spiceLevel === 'Low') return 'Low';
-    if (product.spiceLevel === 'Spicy' || product.spiceLevel === 'High' || product.spiceLevel === 'Hot') return 'Spicy';
-    return 'Medium';
-  });
+  // Default to Medium spice level initially as requested
+  const [selectedSpice, setSelectedSpice] = useState('Medium');
 
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
@@ -86,8 +83,9 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
       };
 
   const getCombinedNote = () => {
+    const spiceLabel = selectedSpice === 'Low' ? 'Mild' : selectedSpice;
     return [
-      `Spice: ${selectedSpice}`,
+      `Spice: ${spiceLabel}`,
       selectedBox ? `Box: ${selectedBox.boxType}` : null,
       ...selectedCustomTags,
       customNoteInput.trim()
@@ -337,16 +335,21 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
               </div>
             )}
 
-            {/* Spice Level Selector (Low / Medium / Spicy) */}
+            {/* Spice Level Selector (Mild / Medium / Spicy) - Highlighted with Clean Elegance */}
             <div className="space-y-1.5 sm:space-y-2">
-              <label className="block text-[11px] sm:text-xs font-bold text-brand-brown uppercase tracking-wider">
-                Choose Spice Level (Mirch / Masala):
-              </label>
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
+              <div className="flex items-center justify-between">
+                <label className="block text-[11px] sm:text-xs font-bold text-brand-brown uppercase tracking-wider">
+                  Choose Spice Level (Mirch / Masala):
+                </label>
+                <span className="text-[11px] font-black text-[#2A1408] bg-[#FAF4E6] px-2.5 py-0.5 rounded-full border border-[#DFC4A2]">
+                  Selected: {selectedSpice === 'Low' ? 'Mild' : selectedSpice}
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
                 {[
-                  { id: 'Low', label: '🌿 Low', sub: 'Mild / Kam Mirch', activeClass: 'border-[#1E5631] bg-[#1E5631] text-white' },
-                  { id: 'Medium', label: '🌶️ Medium', sub: 'Balanced Taste', activeClass: 'border-[#D97706] bg-[#D97706] text-white' },
-                  { id: 'Spicy', label: '🔥 Spicy', sub: 'Extra Teekha', activeClass: 'border-red-700 bg-red-700 text-white' }
+                  { id: 'Low', label: '🌿 Mild', sub: 'Low Spice / Kam Mirch' },
+                  { id: 'Medium', label: '🌶️ Medium', sub: 'Balanced Taste (Default)' },
+                  { id: 'Spicy', label: '🔥 Spicy', sub: 'Extra Teekha / Fiery' }
                 ].map(sp => {
                   const isSelected = selectedSpice === sp.id;
                   return (
@@ -354,14 +357,16 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
                       key={sp.id}
                       type="button"
                       onClick={() => setSelectedSpice(sp.id)}
-                      className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl border-2 text-center transition-all cursor-pointer ${
+                      className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border-2 text-center transition-all cursor-pointer ${
                         isSelected
-                          ? `${sp.activeClass} shadow-sm`
-                          : 'border-brand-border bg-white text-brand-brown hover:bg-brand-cream hover:border-brand-yellow'
+                          ? 'border-[#2A1408] bg-[#2A1408] text-white shadow-md ring-2 ring-[#FBBF24]/40 scale-[1.01]'
+                          : 'border-[#DFC4A2] bg-white text-[#2A1408] hover:bg-[#FAF4E6] hover:border-[#C59A3F]'
                       }`}
                     >
-                      <div className="font-extrabold text-xs sm:text-sm">{sp.label}</div>
-                      <div className={`text-[10px] sm:text-xs font-semibold mt-0.5 ${isSelected ? 'opacity-95' : 'text-brand-brownMuted'}`}>
+                      <div className={`font-black text-xs sm:text-sm ${isSelected ? 'text-[#FBBF24]' : 'text-[#2A1408]'}`}>
+                        {sp.label}
+                      </div>
+                      <div className={`text-[10px] sm:text-xs font-semibold mt-0.5 ${isSelected ? 'text-amber-100/90' : 'text-[#6E5544]'}`}>
                         {sp.sub}
                       </div>
                     </button>

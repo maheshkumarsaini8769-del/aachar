@@ -69,6 +69,8 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
       ? product.packSizes[1]?.size || product.packSizes[0].size 
       : '500 g';
   });
+  // Default to Medium spice level initially as requested
+  const [selectedSpice, setSelectedSpice] = useState('Medium');
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
@@ -213,7 +215,9 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
   };
 
   const handleAdd = () => {
+    const spiceLabel = selectedSpice === 'Low' ? 'Mild' : selectedSpice;
     const combinedNote = [
+      `Spice: ${spiceLabel}`,
       ...selectedCustomTags,
       customNoteInput.trim()
     ].filter(Boolean).join(', ');
@@ -442,13 +446,11 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
                 </p>
               </div>
 
-              {/* Spice Meter Pill */}
-              {product.spiceLevel && (
-                <div className={`px-2.5 py-1 rounded-xl border text-[11px] font-extrabold flex items-center gap-1 shrink-0 ${spiceColor}`}>
-                  <Flame className="w-3.5 h-3.5 fill-current" />
-                  <span>{product.spiceLevel} Spice</span>
-                </div>
-              )}
+              {/* Spice Meter Pill - Clean & Elegant */}
+              <div className="px-2.5 py-1 rounded-xl border border-[#DFC4A2] bg-[#FAF4E6] text-[#2D1810] text-[11px] font-black flex items-center gap-1 shrink-0">
+                <Flame className="w-3.5 h-3.5 text-[#B45309]" />
+                <span>{selectedSpice === 'Low' ? 'Mild' : selectedSpice} Spice</span>
+              </div>
             </div>
 
             {/* Short Heritage Story / Description */}
@@ -500,6 +502,42 @@ export const QuickViewModal = ({ product, onClose, onNavigate }) => {
                 </div>
               </div>
             )}
+
+            {/* Spice Level Selector (Mild / Medium / Spicy) */}
+            <div className="space-y-2 pt-2 border-t border-[#F0E8DC]">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-extrabold text-[#2D1810]">Choose Spice Level (Mirch):</span>
+                <span className="text-[11px] font-black text-[#2A1408] bg-[#FAF4E6] px-2 py-0.5 rounded-md border border-[#DFC4A2]">
+                  Selected: {selectedSpice === 'Low' ? 'Mild' : selectedSpice}
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { id: 'Low', label: '🌿 Mild', sub: 'Low Spice' },
+                  { id: 'Medium', label: '🌶️ Medium', sub: 'Balanced (Default)' },
+                  { id: 'Spicy', label: '🔥 Spicy', sub: 'Extra Teekha' }
+                ].map(sp => {
+                  const isSel = selectedSpice === sp.id;
+                  return (
+                    <button
+                      key={sp.id}
+                      type="button"
+                      onClick={() => setSelectedSpice(sp.id)}
+                      className={`p-2 rounded-2xl text-center transition-all border cursor-pointer ${
+                        isSel
+                          ? 'bg-[#2A1408] text-[#FBBF24] border-[#2A1408] shadow-md ring-2 ring-amber-400/40'
+                          : 'bg-white hover:bg-[#FAF4E6] text-[#2A1408] border-[#DFC4A2]'
+                      }`}
+                    >
+                      <div className="text-xs font-black">{sp.label}</div>
+                      <div className={`text-[10px] font-semibold mt-0.5 ${isSel ? 'text-amber-100/90' : 'text-[#6E5544]'}`}>
+                        {sp.sub}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Customize Ingredients (Add Extra / Reduce) */}
             <div className="space-y-2 pt-2.5 border-t border-[#F0E8DC]">
