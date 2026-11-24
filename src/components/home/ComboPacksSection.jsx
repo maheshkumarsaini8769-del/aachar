@@ -184,14 +184,14 @@ export const ComboPacksSection = ({ onNavigate }) => {
   };
 
   return (
-    <section className="py-14 sm:py-20 bg-gradient-to-b from-[#FAF5EC] via-[#FDFBF7] to-[#FAF5EC] border-b border-[#E5D9C5] relative overflow-hidden">
+    <section className="py-14 sm:py-20 bg-transparent border-b border-[#E5D9C5]/60 relative overflow-hidden">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 text-xs font-black text-[#1F110B] uppercase tracking-wider bg-[#FDE68A] border-2 border-[#D97706] px-4 py-1.5 rounded-full shadow-2xs mb-3">
             <Sparkles className="w-4 h-4 text-[#B45309]" />
-            <span>MARUSTHALI ACHAR • BUILD YOUR OWN COMBO</span>
+            <span>THARSWAD ACHAR • BUILD YOUR OWN COMBO</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-[#1F110B] tracking-tight">
             Build Your Own <span className="text-[#B45309]">Achar Combo Pack</span>

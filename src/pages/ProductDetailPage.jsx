@@ -14,7 +14,11 @@ import {
   PenTool,
   Camera,
   CheckCircle,
-  Tag
+  Tag,
+  Sun,
+  Gift,
+  X,
+  MapPin
 } from 'lucide-react';
 import { products } from '../data/products';
 import { initialReviews, reviewStats } from '../data/reviews';
@@ -56,6 +60,9 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
   const [copiedLink, setCopiedLink] = useState(false);
   const [selectedCustomTags, setSelectedCustomTags] = useState([]);
   const [customNoteInput, setCustomNoteInput] = useState('');
+  const [showBatchModal, setShowBatchModal] = useState(false);
+  const [isGiftBarni, setIsGiftBarni] = useState(false);
+  const [giftJarName, setGiftJarName] = useState('');
 
   const customQuickOptions = [
     '🌿 Pure Jain (No Garlic)',
@@ -87,6 +94,7 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
     return [
       `Spice: ${spiceLabel}`,
       selectedBox ? `Box: ${selectedBox.boxType}` : null,
+      isGiftBarni && giftJarName.trim() ? `🎁 Custom Gift Barni Tag: "${giftJarName.trim()}"` : null,
       ...selectedCustomTags,
       customNoteInput.trim()
     ].filter(Boolean).join(', ');
@@ -142,7 +150,7 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
           
           {/* Left Gallery (Col 6) */}
           <div className="lg:col-span-6">
-            <div className="sticky top-28 space-y-5">
+            <div className="lg:sticky lg:top-28 space-y-4 sm:space-y-5">
               <ProductGallery
                 images={product.gallery || [product.image]}
                 productName={product.name}
@@ -246,6 +254,21 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
                 <strong className="font-mono text-emerald-800">FREESHIP</strong>
                 <span className="text-emerald-700">Free Ship (₹299+)</span>
               </span>
+            </div>
+
+            {/* Live Sun-Curing Rooftop Batch Pill */}
+            <div className="flex items-center gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setShowBatchModal(true)}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-100 via-yellow-100 to-amber-100 border border-amber-300 text-[11px] font-bold text-[#532608] hover:bg-amber-200 transition-all shadow-2xs cursor-pointer group"
+              >
+                <Sun className="w-3.5 h-3.5 text-amber-600 animate-spin-slow" />
+                <span>☀️ Live Rooftop Batch #38 • Day 19 of 21 Sun-Cured in Sikar</span>
+                <span className="text-[10px] bg-[#2A1408] text-amber-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider group-hover:scale-105 transition-transform">
+                  View Batch
+                </span>
+              </button>
             </div>
 
             {/* Packaging Presentation Mode (Single Jar vs Box Hampers) */}
@@ -418,6 +441,48 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
               />
             </div>
 
+            {/* Personalized Gift Barni Customizer (Gifting & Keepsake Feature) */}
+            <div className="bg-gradient-to-r from-[#FFFDF8] via-[#FAF4E8] to-[#FFFDF8] p-3.5 rounded-2xl border-2 border-[#D8BE95] shadow-xs space-y-2.5">
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={isGiftBarni}
+                    onChange={(e) => setIsGiftBarni(e.target.checked)}
+                    className="w-4 h-4 text-amber-600 rounded border-[#C59A3F] focus:ring-amber-500 cursor-pointer"
+                  />
+                  <span className="font-extrabold text-xs text-[#251208] flex items-center gap-1.5">
+                    <Gift className="w-3.5 h-3.5 text-amber-700" />
+                    <span>Personalize Ceramic Barni (Custom Family Nameplate Tag)</span>
+                  </span>
+                </label>
+                <span className="text-[10px] font-black uppercase text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-300">
+                  FREE
+                </span>
+              </div>
+
+              {isGiftBarni && (
+                <div className="space-y-2 pt-1 animate-fadeIn">
+                  <input
+                    type="text"
+                    value={giftJarName}
+                    onChange={(e) => setGiftJarName(e.target.value)}
+                    placeholder="Enter Family or Recipient Name (e.g. Sharma Ji Ki Rasoi, Dad's Kitchen, Sneha & Rahul)..."
+                    className="w-full bg-white border border-[#C59A3F] rounded-xl px-3.5 py-2 text-xs text-[#251208] placeholder-gray-400 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    maxLength={40}
+                  />
+                  
+                  {giftJarName.trim() && (
+                    <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-200/50 border border-amber-300 text-xs text-[#251208]">
+                      <span className="text-sm">🏺</span>
+                      <span>Preview Jar Tag:</span>
+                      <strong className="font-serif italic text-amber-950 font-black">"{giftJarName.trim()}"</strong>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
             {/* Quantity Selector & Action Buttons (Streamlined Compact Row on Mobile!) */}
             <div className="pt-1">
               <div className="flex items-center gap-1.5 sm:gap-3">
@@ -443,19 +508,19 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
                 {/* Add to Cart Button */}
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-brand-yellow hover:bg-brand-yellowHover text-brand-brown font-extrabold text-xs sm:text-base py-2.5 sm:py-3.5 px-2.5 sm:px-6 rounded-xl sm:rounded-full shadow-sm flex items-center justify-center gap-1.5 transition-all transform active:scale-95"
+                  className="flex-1 bg-gradient-to-r from-[#9C4E15] via-[#D97706] to-[#9C4E15] hover:from-[#78350F] hover:via-[#B45309] hover:to-[#78350F] text-white font-extrabold text-xs sm:text-base py-2.5 sm:py-3.5 px-2.5 sm:px-6 rounded-xl sm:rounded-full shadow-md flex items-center justify-center gap-1.5 transition-all transform active:scale-95 border border-[#FDE68A]/60 cursor-pointer"
                 >
-                  <ShoppingBag className="w-4 h-4 shrink-0" />
+                  <ShoppingBag className="w-4 h-4 shrink-0 text-[#FDE68A]" />
                   <span className="truncate">{addedToast ? 'Added!' : 'Add to Cart'}</span>
                 </button>
 
                 {/* Buy Now Button Side-by-Side */}
                 <button
                   onClick={handleBuyNow}
-                  className="flex-1 bg-[#2D1810] hover:bg-[#43251A] text-white font-extrabold text-xs sm:text-base py-2.5 sm:py-3.5 px-2.5 sm:px-6 rounded-xl sm:rounded-full shadow-sm flex items-center justify-center gap-1 transition-all active:scale-95"
+                  className="flex-1 bg-gradient-to-r from-[#231209] via-[#3D1D0E] to-[#231209] hover:from-[#170B04] hover:to-[#2B1408] text-amber-50 font-extrabold text-xs sm:text-base py-2.5 sm:py-3.5 px-2.5 sm:px-6 rounded-xl sm:rounded-full shadow-md flex items-center justify-center gap-1 transition-all active:scale-95 border border-amber-500/30 cursor-pointer"
                 >
                   <span className="truncate">Buy Now</span>
-                  <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0 text-amber-300" />
                 </button>
               </div>
             </div>
@@ -492,6 +557,7 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
             {[
               { id: 'description', label: 'Description' },
               { id: 'ingredients', label: 'Ingredients' },
+              { id: 'purity', label: '✨ Traditional vs Factory' },
               { id: 'nutrition', label: 'Nutritional Info' },
               { id: 'reviews', label: `Reviews (${product.reviewCount})` }
             ].map(tab => (
@@ -511,6 +577,41 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
 
           {/* Tab Content */}
           <div className="py-6">
+            
+            {/* Traditional vs Factory Tab */}
+            {activeTab === 'purity' && (
+              <div className="space-y-4 max-w-3xl animate-fadeIn">
+                <div className="bg-[#FAF4EA] p-4 sm:p-5 rounded-2xl border-2 border-[#D8BE95] space-y-3">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-8 h-8 rounded-lg bg-amber-200 text-amber-900 flex items-center justify-center font-bold text-sm">🏺</span>
+                    <div>
+                      <h4 className="font-serif font-black text-base text-[#1F110B]">Artisanal Sun-Cured vs. Commercial Factory Pickle</h4>
+                      <p className="text-xs text-[#5C483A]">Why {product.name} is 100% natural and vastly more flavorful</p>
+                    </div>
+                  </div>
+                  
+                  <div className="rounded-xl overflow-hidden border border-amber-300 shadow-sm">
+                    <img 
+                      src="/images/banners/before_after_comparison.png" 
+                      alt="Before and After comparison" 
+                      className="w-full h-auto object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                    <div className="bg-red-50 p-3 rounded-xl border border-red-200 space-y-1">
+                      <strong className="text-red-700 block font-bold">❌ Ordinary Factory Pickles:</strong>
+                      <p className="text-red-900">Heated palm oil, synthetic acetic acid vinegar, Sodium Benzoate, single-use plastic jars.</p>
+                    </div>
+                    <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-300 space-y-1">
+                      <strong className="text-emerald-800 block font-bold">✓ TharSwad Artisanal:</strong>
+                      <p className="text-emerald-950">100% cold-pressed mustard oil, 21-day rooftop sun-curing, glazed ceramic barni, gut-friendly probiotics.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             
             {/* Description Tab */}
             {activeTab === 'description' && (
@@ -659,6 +760,86 @@ export const ProductDetailPage = ({ productId: propProductId, onNavigate, onQuic
         )}
 
       </div>
+
+      {/* Sun-Curing Live Batch Tracker Modal */}
+      {showBatchModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-[#FAF4EA] border-2 border-[#C59A3F] rounded-3xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
+            <button
+              onClick={() => setShowBatchModal(false)}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/90 border border-amber-300 text-gray-700 hover:text-black flex items-center justify-center cursor-pointer shadow-xs"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-xl bg-amber-300 border border-amber-400 flex items-center justify-center text-xl">
+                ☀️
+              </div>
+              <div>
+                <h3 className="font-serif font-black text-lg text-[#1F110B]">Live Solar Curing Batch Tracker</h3>
+                <p className="text-xs text-[#6B4B32]">Batch #38 • Hand-Monitored Rooftop Curing in Sikar</p>
+              </div>
+            </div>
+
+            {/* Solar Progress Bar */}
+            <div className="bg-white p-4 rounded-2xl border border-amber-200 space-y-2">
+              <div className="flex justify-between text-xs font-bold text-[#251208]">
+                <span>Curing Maturity (Day 19 of 21)</span>
+                <span className="text-amber-700">90% Cured</span>
+              </div>
+              <div className="w-full h-3 bg-amber-100 rounded-full overflow-hidden border border-amber-300">
+                <div className="h-full bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full" style={{ width: '90%' }}></div>
+              </div>
+              <p className="text-[11px] text-gray-600">
+                2 days remaining until final hand-packing into glazed ceramic barnis with pure mustard oil seal.
+              </p>
+            </div>
+
+            {/* Live Rooftop Metrics */}
+            <div className="grid grid-cols-2 gap-2.5 text-xs">
+              <div className="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                <div className="flex items-center gap-1.5 text-amber-800 font-bold">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>Curing Location</span>
+                </div>
+                <div className="font-extrabold text-[#1F110B]">Sikar, Shekhawati, RJ</div>
+              </div>
+
+              <div className="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                <div className="flex items-center gap-1.5 text-amber-800 font-bold">
+                  <Sun className="w-3.5 h-3.5" />
+                  <span>Sunlight Intensity</span>
+                </div>
+                <div className="font-extrabold text-[#1F110B]">37°C Thar Desert Sun</div>
+              </div>
+
+              <div className="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                <div className="flex items-center gap-1.5 text-amber-800 font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Natural Oil Seal</span>
+                </div>
+                <div className="font-extrabold text-[#1F110B]">100% Kacchi Ghani Mustard</div>
+              </div>
+
+              <div className="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                <div className="flex items-center gap-1.5 text-amber-800 font-bold">
+                  <CheckCircle className="w-3.5 h-3.5" />
+                  <span>Lab Purity Status</span>
+                </div>
+                <div className="font-extrabold text-emerald-700">0% Chemicals Verified</div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowBatchModal(false)}
+              className="w-full py-3 bg-[#2A1408] text-amber-300 font-bold text-xs uppercase tracking-wider rounded-xl shadow-md hover:bg-[#3D1E0B] transition-colors cursor-pointer"
+            >
+              Back to Jar Details
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

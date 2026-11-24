@@ -35,15 +35,15 @@ export const ReviewsPreview = ({ onNavigate }) => {
           <div className="flex items-center gap-3 self-start md:self-auto">
             <button
               onClick={() => onNavigate('reviews', { openWriteModal: true })}
-              className="bg-[#F5A623] hover:bg-[#E09415] text-[#1F110B] font-black text-xs px-4 py-2.5 rounded-full flex items-center gap-1.5 shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="bg-gradient-to-r from-[#9C4E15] via-[#D97706] to-[#9C4E15] hover:from-[#78350F] hover:to-[#9C4E15] text-white font-black text-xs px-4 py-2.5 rounded-full flex items-center gap-1.5 shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer border border-[#FDE68A]/50"
             >
-              <PenTool className="w-3.5 h-3.5" />
+              <PenTool className="w-3.5 h-3.5 text-[#FDE68A]" />
               <span>Write a Review</span>
             </button>
 
             <button
               onClick={() => onNavigate('reviews')}
-              className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-emerald-800 hover:underline cursor-pointer"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-[#9C4E15] hover:text-[#B45309] hover:underline cursor-pointer"
             >
               <span>View All 1,234 Reviews</span>
               <ArrowRight className="w-4 h-4" />

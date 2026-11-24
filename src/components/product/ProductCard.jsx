@@ -214,11 +214,11 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
   return (
     <div 
       onClick={handleCardClick}
-      className="group bg-gradient-to-b from-[#FFFDF9] via-[#FAF4E6] to-[#F5EAD6] rounded-t-[32px] sm:rounded-t-[38px] rounded-b-2xl sm:rounded-b-3xl border-2 border-[#D8BE95] hover:border-[#C59A3F] shadow-[0_8px_24px_rgba(45,24,16,0.08)] hover:shadow-[0_22px_44px_rgba(45,24,16,0.18)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col cursor-pointer relative overflow-hidden"
+      className="group bg-gradient-to-b from-[#FFFDF9]/95 via-[#FDF5E6]/92 to-[#F7EBD1]/95 backdrop-blur-md rounded-t-[34px] sm:rounded-t-[40px] rounded-b-2xl sm:rounded-b-3xl border-2 border-[#D8B47E] hover:border-[#C88214] shadow-[0_8px_24px_rgba(45,24,16,0.08)] hover:shadow-[0_22px_44px_rgba(180,83,9,0.22)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col cursor-pointer relative overflow-hidden"
     >
-      {/* Decorative Antique Corner Studs */}
-      <span className="absolute top-2 left-2 text-[9px] text-[#C59A3F]/60 select-none pointer-events-none">✦</span>
-      <span className="absolute top-2 right-2 text-[9px] text-[#C59A3F]/60 select-none pointer-events-none">✦</span>
+      {/* Decorative Desert Wave Crest Corners */}
+      <span className="absolute top-2 left-2.5 text-[10px] text-[#C88214]/70 select-none pointer-events-none">〰️</span>
+      <span className="absolute top-2 right-2.5 text-[10px] text-[#C88214]/70 select-none pointer-events-none">〰️</span>
 
       {/* Product Image Stage with Organic Wave Line Divider at Bottom */}
       <div 
@@ -227,7 +227,7 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className="relative aspect-square w-full bg-gradient-to-b from-[#EFE3CF] via-[#E5D4BC] to-[#DBC5A8] overflow-hidden flex items-center justify-center p-2.5 sm:p-3 select-none touch-pan-y rounded-t-[30px] sm:rounded-t-[36px]"
+        className="relative aspect-square w-full bg-gradient-to-b from-[#F9EBD1] via-[#EED4AD] to-[#E2BE8B] overflow-hidden flex items-center justify-center p-2.5 sm:p-3 select-none touch-pan-y rounded-t-[32px] sm:rounded-t-[38px]"
       >
         {/* Arched Inner Picture Frame */}
         <div 
@@ -295,7 +295,7 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
 
         {/* Stamp Tag on Image */}
         <div className="absolute bottom-4 left-2.5 pointer-events-none z-10 flex items-center gap-1 bg-[#1A0C06]/85 backdrop-blur-xs text-[#FBBF24] text-[9px] font-black px-2 py-0.5 rounded-full border border-amber-500/40 shadow-xs">
-          <span>🏺 100% Mustard Oil • Sun Aged</span>
+          <span>〰️ Sun-Cured on Thar Dunes • 100% Mustard Oil</span>
         </div>
 
         {/* Slide Indicator Dots */}
@@ -347,8 +347,8 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
         <div>
           {/* Origin Tag & Star Rating */}
           <div className="flex items-center justify-between gap-1 text-[11px] mb-1">
-            <span className="font-black text-[#8C5E35] uppercase tracking-widest text-[9px] sm:text-[10px] truncate">
-              ✦ {product.categoryName || 'Sikar • Sun-Cured'} ✦
+            <span className="font-black text-[#9C4E15] uppercase tracking-widest text-[9px] sm:text-[10px] truncate">
+              〰️ {product.categoryName ? `${product.categoryName} • TharSwad` : 'TharSwad • Sun-Cured'} 〰️
             </span>
             <div className="flex items-center gap-1 text-amber-950 bg-amber-100/80 border border-amber-300/80 px-2 py-0.5 rounded-full font-black text-[10px] sm:text-[11px] shrink-0 shadow-2xs">
               <Star className="w-3 h-3 text-amber-600 fill-current" />
@@ -367,7 +367,7 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
 
         {/* Pack Size Segmented Dial */}
         {product.packSizes && product.packSizes.length > 1 && (
-          <div className="bg-[#EFE2CE] p-1 rounded-xl border border-[#DFC4A2] flex items-center gap-1 shadow-inner">
+          <div className="bg-[#EFE2CE]/90 p-1 rounded-xl border border-[#DFC4A2] flex items-center gap-1 shadow-inner">
             {product.packSizes.map(p => {
               const isSel = selectedSize === p.size;
               return (
@@ -377,8 +377,8 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
                   onClick={(e) => { e.stopPropagation(); setSelectedSize(p.size); }}
                   className={`flex-1 py-1 rounded-lg text-[10px] sm:text-xs font-black transition-all cursor-pointer text-center ${
                     isSel
-                      ? 'bg-[#2A1408] text-[#FBBF24] shadow-xs'
-                      : 'text-[#5C4535] hover:text-[#2A1408]'
+                      ? 'bg-gradient-to-r from-[#9C4E15] to-[#B45309] text-[#FDE68A] shadow-xs border border-[#FDE68A]/30'
+                      : 'text-[#6B462C] hover:text-[#2A1408]'
                   }`}
                 >
                   {p.size}
@@ -445,7 +445,7 @@ export const ProductCard = ({ product, onNavigate, onQuickView, activePriceRange
             className={`w-full py-2.5 sm:py-3 px-3 rounded-xl sm:rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer border ${
               addedAnim
                 ? 'bg-[#1E5631] text-white border-emerald-400'
-                : 'bg-gradient-to-r from-[#144525] via-[#1B5E33] to-[#144525] hover:from-[#0E351B] hover:to-[#174F2B] text-white border-[#FBBF24]/50 shadow-emerald-950/25 hover:shadow-lg hover:border-[#FBBF24]'
+                : 'bg-gradient-to-r from-[#9C4E15] via-[#D97706] to-[#9C4E15] hover:from-[#78350F] hover:via-[#B45309] hover:to-[#78350F] text-white border-[#FDE68A]/60 shadow-[0_4px_16px_rgba(180,83,9,0.30)] hover:shadow-[0_6px_22px_rgba(180,83,9,0.45)]'
             }`}
           >
             {addedAnim ? (

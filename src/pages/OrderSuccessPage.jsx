@@ -20,7 +20,7 @@ export const OrderSuccessPage = ({ orderId = 'ORD123456789', orderSummary, onNav
     <div className="bg-transparent min-h-screen py-12">
       <div className="max-w-xl mx-auto px-4 text-center">
         
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-brand-border shadow-warm space-y-6">
+        <div className="bg-[#FFFDF9]/92 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-[#E5D9C5] shadow-warm space-y-6">
           
           {/* Animated Big Green Checkmark matching reference */}
           <div className="w-20 h-20 bg-emerald-100 text-brand-green rounded-full mx-auto flex items-center justify-center shadow-sm animate-scale-up">
@@ -35,7 +35,7 @@ export const OrderSuccessPage = ({ orderId = 'ORD123456789', orderSummary, onNav
               Order ID: <span className="text-brand-green">{orderId}</span>
             </div>
             <p className="text-xs text-brand-brownMuted leading-relaxed max-w-sm mx-auto pt-1">
-              Thank you for trusting Marusthali Achar! Our rural artisans in Sikar have received your order and are preparing your fresh pickle jars.
+              Thank you for trusting TharSwad Achar! Our rural artisans in Sikar have received your order and are preparing your fresh pickle jars.
             </p>
           </div>
 

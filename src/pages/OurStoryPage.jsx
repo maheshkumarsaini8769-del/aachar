@@ -21,7 +21,7 @@ export const OurStoryPage = ({ onNavigate }) => {
             Authentic Tradition • Heritage of Rajasthan
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-extrabold text-brand-brown">
-            The Story of Marusthali Achar
+            The Story of TharSwad Achar
           </h1>
           <p className="text-sm sm:text-base text-brand-brownMuted max-w-xl mx-auto leading-relaxed">
             Preserving the sacred tradition of sun-cooked Indian pickles while empowering rural women artisans in Sikar, Rajasthan.
@@ -43,7 +43,7 @@ export const OurStoryPage = ({ onNavigate }) => {
         </div>
 
         {/* Content Paragraphs */}
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-brand-border shadow-xs space-y-6 text-sm text-brand-brown leading-relaxed">
+        <div className="bg-[#FFFDF9]/92 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-[#E5D9C5] shadow-xs space-y-6 text-sm text-brand-brown leading-relaxed">
           
           <div className="space-y-3">
             <h2 className="font-serif text-2xl font-bold text-brand-brown">
@@ -53,7 +53,7 @@ export const OurStoryPage = ({ onNavigate }) => {
               Growing up in the Shekhawati region of Rajasthan, summer was announced not by the calendar, but by the pungent, golden aroma of pure cold-pressed mustard oil warming under the courtyard sun. Grandmothers carefully washed raw tart green mangoes in fresh well-water, diced them with age-old brass choppers, and mixed stone-ground fenugreek, fennel, and nigella seeds with pink rock salt.
             </p>
             <p>
-              Decades later, looking at commercial store shelves filled with industrial pickles steeped in chemical acetic acid, artificial preservatives, and synthetic food colors, we realized that the authentic Indian achar had almost vanished from urban tables. Marusthali Achar was founded to revive that lost authenticity.
+              Decades later, looking at commercial store shelves filled with industrial pickles steeped in chemical acetic acid, artificial preservatives, and synthetic food colors, we realized that the authentic Indian achar had almost vanished from urban tables. TharSwad Achar was founded to revive that lost authenticity.
             </p>
           </div>
 

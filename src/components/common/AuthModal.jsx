@@ -106,7 +106,7 @@ export const AuthModal = () => {
             <div className="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center text-white font-bold text-sm">
               🌿
             </div>
-            <span className="font-serif font-bold text-lg text-amber-200">Marusthali Achar Account</span>
+            <span className="font-serif font-bold text-lg text-amber-200">TharSwad Achar Account</span>
           </div>
 
           <h3 className="font-serif text-2xl font-black text-white">

@@ -6,7 +6,7 @@ export const CategoryRoundels = ({ onNavigate }) => {
   const displayCats = categories.filter(c => c.id !== 'all');
 
   return (
-    <section className="py-10 bg-brand-bg border-b border-brand-border">
+    <section className="py-10 bg-transparent border-b border-[#E5D9C5]/60">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

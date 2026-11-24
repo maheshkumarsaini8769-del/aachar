@@ -231,7 +231,7 @@ export const Header = ({ currentView, onNavigate }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white border-b border-[#E5D9C5] shadow-sm">
+      <header className="sticky top-0 z-40 bg-[#FFFDF9]/92 backdrop-blur-md border-b border-[#E5D9C5]/80 shadow-[0_4px_20px_rgba(45,24,16,0.04)]">
         
         {/* 1. Main Header Row (High Contrast & Crisp Text) */}
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -335,7 +335,7 @@ export const Header = ({ currentView, onNavigate }) => {
                 <div className="relative">
                   <Heart className="w-5 h-5 stroke-[1.9] group-hover:scale-105 transition-transform" />
                   {wishlistCount > 0 && (
-                    <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                    <span className="absolute -top-1 -right-2 bg-[#9C4E15] text-[#FDE68A] text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center ring-1 ring-white">
                       {wishlistCount}
                     </span>
                   )}
@@ -345,7 +345,7 @@ export const Header = ({ currentView, onNavigate }) => {
                 </span>
               </button>
 
-              {/* Cart with Red Notification Badge */}
+              {/* Cart with Desert Sunset Badge */}
               <button 
                 onClick={openCart}
                 className="flex flex-col items-center group text-[#2D1810] hover:text-[#B45309] transition-colors relative cursor-pointer"
@@ -353,7 +353,7 @@ export const Header = ({ currentView, onNavigate }) => {
               >
                 <div className="relative">
                   <ShoppingBag className="w-5 h-5 stroke-[1.9] group-hover:scale-105 transition-transform" />
-                  <span className="absolute -top-1.5 -right-2 bg-[#E53935] text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                  <span className="absolute -top-1.5 -right-2 bg-gradient-to-r from-[#9C4E15] to-[#B45309] text-[#FDE68A] text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs ring-1 ring-white">
                     {cartBadgeCount}
                   </span>
                 </div>
@@ -383,7 +383,7 @@ export const Header = ({ currentView, onNavigate }) => {
               >
                 <Heart className="w-5 h-5 stroke-[2.2]" />
                 {wishlistCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-red-600 text-white text-[8px] font-bold w-3 h-3 rounded-full flex items-center justify-center">
+                  <span className="absolute top-0 right-0 bg-[#9C4E15] text-[#FDE68A] text-[8px] font-black w-3 h-3 rounded-full flex items-center justify-center ring-1 ring-white">
                     {wishlistCount}
                   </span>
                 )}
@@ -394,7 +394,7 @@ export const Header = ({ currentView, onNavigate }) => {
                 aria-label="Cart"
               >
                 <ShoppingBag className="w-5 h-5 stroke-[2.2]" />
-                <span className="absolute top-0 right-0 bg-[#E53935] text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-sm">
+                <span className="absolute top-0 right-0 bg-gradient-to-r from-[#9C4E15] to-[#B45309] text-[#FDE68A] text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-xs ring-1 ring-white">
                   {cartBadgeCount}
                 </span>
               </button>
@@ -439,7 +439,7 @@ export const Header = ({ currentView, onNavigate }) => {
 
       {/* 2. Visual Category Roundels Strip - Rendered on Home View */}
       {(currentView === 'home' || !currentView) && (
-        <nav aria-label="Pickle Categories" className="bg-[#FAF6EE] border-b border-[#E5D9C5] shadow-xs select-none">
+        <nav aria-label="Pickle Categories" className="bg-[#FAF6EE]/90 backdrop-blur-md border-b border-[#E5D9C5]/70 shadow-2xs select-none">
           <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-2.5 sm:py-3.5">
             <div 
               ref={roundelsRef}

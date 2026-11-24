@@ -29,11 +29,11 @@ export const FAQSection = ({ onNavigate }) => {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-2xl border border-brand-border overflow-hidden transition-all duration-200 shadow-xs"
+              className="bg-[#FFFDF9]/90 backdrop-blur-md rounded-2xl border border-[#E5D9C5] overflow-hidden transition-all duration-200 shadow-xs hover:border-[#D4AF37]/60 hover:shadow-md"
             >
               <button
                 onClick={() => toggle(idx)}
-                className="w-full text-left p-4.5 sm:p-5 flex items-center justify-between gap-4 font-serif font-bold text-base sm:text-lg text-brand-brown hover:text-brand-green transition-colors"
+                className="w-full text-left p-4.5 sm:p-5 flex items-center justify-between gap-4 font-serif font-bold text-base sm:text-lg text-brand-brown hover:text-[#B45309] transition-colors"
               >
                 <span>{faq.question}</span>
                 <div className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center shrink-0">

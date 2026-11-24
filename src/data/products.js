@@ -82,11 +82,11 @@ export const products = [
     stockCount: 30,
     isBestseller: true,
     isFeatured: true,
-    image: '/images/products/marusthali-lemon-jar.jpg',
+    image: '/images/products/tharswad-lemon-jar.jpg',
     gallery: [
-      "/images/products/marusthali-lemon-jar.jpg",
-      "/images/products/mango-jar-classic.jpg",
-      "/images/products/achar-bowl-serving.jpg"
+      "/images/products/tharswad-lemon-jar.jpg",
+      "/images/products/tharswad-lemon-bowl.jpg",
+      "/images/products/tharswad-lemon-curing.jpg"
     ],
     packSizes: [
       { size: '250 g', price: 149, mrp: 179 },

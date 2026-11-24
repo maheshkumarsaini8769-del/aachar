@@ -3,14 +3,14 @@ import { ArrowRight, Heart, Users, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const RuralStoryBanner = ({ onNavigate }) => {
   return (
-    <section className="py-14 sm:py-20 bg-gradient-to-b from-[#FAF5EB] to-[#F5EEDB] border-b border-brand-yellow/30 relative overflow-hidden">
+    <section className="py-14 sm:py-20 bg-transparent border-b border-[#E5D9C5]/60 relative overflow-hidden">
       
       {/* Ambient glow */}
       <div className="absolute top-1/2 left-10 w-80 h-80 bg-rose-200/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
 
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="bg-white/95 rounded-3xl p-6 sm:p-10 lg:p-12 border-2 border-brand-yellow/40 shadow-xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center backdrop-blur-md">
+        <div className="bg-[#FFFDF9]/92 rounded-3xl p-6 sm:p-10 lg:p-12 border-2 border-[#D8BE95] shadow-xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center backdrop-blur-md">
           
           {/* Photo Column */}
           <div className="md:col-span-5 flex justify-center order-2 md:order-1">
@@ -46,7 +46,7 @@ export const RuralStoryBanner = ({ onNavigate }) => {
             </h2>
 
             <p className="text-sm sm:text-base text-brand-brownMuted leading-relaxed font-medium">
-              Every jar of Marusthali Achar is a living celebration of rural Rajasthan's culinary heritage. Led by 45+ skilled village women artisans in Sikar, we take no shortcuts—washing raw mangoes in clean well-water, sun-drying under white cotton canopies, and blending cold-pressed mustard oil with age-old grandmother recipes.
+              Every jar of TharSwad Achar is a living celebration of rural Rajasthan's culinary heritage. Led by 45+ skilled village women artisans in Sikar, we take no shortcuts—washing raw mangoes in clean well-water, sun-drying under white cotton canopies, and blending cold-pressed mustard oil with age-old grandmother recipes.
             </p>
 
             {/* Impact Badges */}

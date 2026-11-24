@@ -33,21 +33,21 @@ export const BestsellersSection = ({ onNavigate, onQuickView }) => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-amber-900 uppercase tracking-wider mb-2.5 bg-gradient-to-r from-amber-100 to-yellow-100 border border-amber-300 w-fit px-4 py-1.5 rounded-full shadow-2xs">
-              <Flame className="w-4 h-4 text-amber-600 fill-current" />
-              <span>Customer Favorites • Household Essentials</span>
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-amber-950 uppercase tracking-wider mb-2.5 bg-gradient-to-r from-[#FDE68A] via-[#F5D096] to-[#FDE68A] border border-[#D97706]/60 w-fit px-4 py-1.5 rounded-full shadow-2xs">
+              <Flame className="w-4 h-4 text-amber-700 fill-current" />
+              <span>Customer Favorites • Thar Desert Sun-Cured</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-brand-brown tracking-tight">
-              Bestselling Homemade Pickles
+              Thar Desert <span className="text-[#9C4E15]">Bestselling Pickles</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-[#5A493F] mt-2 font-semibold">
-              Hand-picked, sun-cured, and loved by over 10,000+ households across India.
+              Sun-cured on Rajasthan dunes and loved by over 10,000+ households across India.
             </p>
           </div>
 
           <button
             onClick={() => onNavigate('all-products')}
-            className="flex items-center gap-2 text-sm sm:text-base md:text-lg font-black text-brand-green hover:underline self-start md:self-auto"
+            className="flex items-center gap-2 text-sm sm:text-base md:text-lg font-black text-[#9C4E15] hover:text-[#B45309] hover:underline self-start md:self-auto"
           >
             <span>See All 37 Pickles</span>
             <ArrowRight className="w-5 h-5" />
@@ -60,10 +60,10 @@ export const BestsellersSection = ({ onNavigate, onQuickView }) => {
             <button
               key={c.id}
               onClick={() => setActiveCategory(c.id)}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all border whitespace-nowrap shadow-2xs ${
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all border whitespace-nowrap shadow-2xs cursor-pointer ${
                 activeCategory === c.id
-                  ? 'bg-brand-brown text-white border-brand-brown shadow-sm'
-                  : 'bg-white text-brand-brown border-brand-border/80 hover:bg-brand-cream hover:border-amber-300'
+                  ? 'bg-gradient-to-r from-[#9C4E15] to-[#B45309] text-[#FDE68A] border-[#D97706] shadow-sm'
+                  : 'bg-[#FFFDF9]/92 backdrop-blur-xs text-[#4A2D19] border-[#DFC4A2] hover:bg-[#FDF6E8] hover:border-[#D97706]'
               }`}
             >
               {c.label}

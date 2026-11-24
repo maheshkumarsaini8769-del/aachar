@@ -28,7 +28,7 @@ export const HeroSection = ({ onNavigate }) => {
   const slides = [
     {
       id: 'slide-0',
-      tag: 'MARUSTHALI ACHAR • SIKAR RAJASTHAN',
+      tag: 'THARSWAD ACHAR • SIKAR RAJASTHAN',
       title1: 'Authentic Homemade Taste,',
       title2: 'Delivered to Every Doorstep',
       desc: 'Traditional Rajasthani homemade pickles, prepared with stone-ground spices, pure mustard oil, and authentic family warmth.',
@@ -82,7 +82,7 @@ export const HeroSection = ({ onNavigate }) => {
       tag: 'SPECIAL COMBO PACK OFFER',
       title1: 'Build Your Own Achar Combo,',
       title2: 'Pick 2, 3 or 4 Jars & Save 23%',
-      desc: 'Choose your favorite Marusthali Achar glass jar boxes in a custom Combo Pack with free wooden spoon & shockproof packing.',
+      desc: 'Choose your favorite TharSwad Achar glass jar boxes in a custom Combo Pack with free wooden spoon & shockproof packing.',
       primaryBtn: 'Build Your Combo Pack →',
       primaryTarget: 'combo-builder',
       secondaryBtn: 'View All Products',
@@ -396,14 +396,14 @@ export const HeroSection = ({ onNavigate }) => {
               <div className="flex flex-wrap items-center gap-3 mb-5">
                 <button
                   onClick={(e) => { e.stopPropagation(); onNavigate(currentSlide.primaryTarget, currentSlide.primaryParams || {}); }}
-                  className="bg-[#F5A623] hover:bg-[#E09415] text-[#1F110B] font-black text-xs sm:text-sm px-6 py-2.5 sm:py-3 rounded-full shadow-md flex items-center gap-1.5 transform hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer"
+                  className="bg-gradient-to-r from-[#9C4E15] via-[#D97706] to-[#9C4E15] hover:from-[#78350F] hover:via-[#B45309] hover:to-[#78350F] text-white font-black text-xs sm:text-sm px-6 py-2.5 sm:py-3 rounded-full shadow-[0_4px_16px_rgba(180,83,9,0.30)] hover:shadow-lg flex items-center gap-1.5 transform hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer border border-[#FDE68A]/60"
                 >
                   <span>{currentSlide.primaryBtn}</span>
                 </button>
 
                 <button
                   onClick={(e) => { e.stopPropagation(); onNavigate(currentSlide.secondaryTarget); }}
-                  className="bg-white hover:bg-[#FAF6EE] text-[#1F110B] font-extrabold text-xs sm:text-sm px-6 py-2.5 sm:py-3 rounded-full border-2 border-[#C8B9A6] shadow-xs active:scale-95 transition-all cursor-pointer"
+                  className="bg-[#FFFDF9]/90 hover:bg-[#FAF0DC] text-[#251208] font-extrabold text-xs sm:text-sm px-6 py-2.5 sm:py-3 rounded-full border-2 border-[#D8B47E] shadow-xs active:scale-95 transition-all cursor-pointer"
                 >
                   <span>{currentSlide.secondaryBtn}</span>
                 </button>

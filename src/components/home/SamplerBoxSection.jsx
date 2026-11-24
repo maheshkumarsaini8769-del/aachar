@@ -48,7 +48,7 @@ export const SamplerBoxSection = ({ onNavigate }) => {
               <div className="relative rounded-3xl overflow-hidden border-2 border-amber-400/40 shadow-2xl bg-[#1C0D08]/80 group">
                 <img
                   src="/images/products/festive-special-pack.jpg"
-                  alt="Marusthali Achar 4-Jar Discovery Sampler Box"
+                  alt="TharSwad Achar 4-Jar Discovery Sampler Box"
                   className="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -67,7 +67,7 @@ export const SamplerBoxSection = ({ onNavigate }) => {
                     <span className="font-bold text-white ml-1">4.9 / 5.0 (2,410+ Discovery Boxes Delivered)</span>
                   </div>
                   <h3 className="font-serif font-black text-xl sm:text-2xl text-white">
-                    Marusthali Achar 4-Mini Jar Tasting Box
+                    TharSwad Achar 4-Mini Jar Tasting Box
                   </h3>
                   <p className="text-xs text-[#E5D7C3] mt-0.5">
                     4 Glass Jars (100g each) • Sample before buying 1kg Jars
@@ -100,7 +100,7 @@ export const SamplerBoxSection = ({ onNavigate }) => {
               </h2>
 
               <p className="text-xs sm:text-sm md:text-base text-[#D8C7B4] leading-relaxed">
-                Trying Marusthali Achar for the first time? Sample our 4 most loved traditional pickles in mini glass jars before purchasing full 1kg containers. 100% cold-pressed mustard oil and slow sun-ripened heritage.
+                Trying TharSwad Achar for the first time? Sample our 4 most loved traditional pickles in mini glass jars before purchasing full 1kg containers. 100% cold-pressed mustard oil and slow sun-ripened heritage.
               </p>
             </div>
 

@@ -64,16 +64,7 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
   const upsellProducts = products.filter(p => !cartItems.some(i => i.productId === p.id)).slice(0, 4);
 
   return (
-    <div 
-      className="min-h-screen py-8"
-      style={{
-        backgroundImage: `linear-gradient(rgba(255, 252, 245, 0.40), rgba(253, 248, 238, 0.50)), url('/images/wallpapers/wallpaper-10-champagne-tile.jpg')`,
-        backgroundRepeat: 'repeat',
-        backgroundSize: '260px auto',
-        backgroundPosition: 'top center',
-        backgroundAttachment: 'fixed'
-      }}
-    >
+    <div className="min-h-screen py-8 bg-transparent">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}
@@ -157,7 +148,7 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
                 {cartItems.map(item => (
                   <div 
                     key={item.id}
-                    className="bg-white p-4 sm:p-5 rounded-2xl border border-brand-border flex gap-4 items-center justify-between shadow-xs hover:border-brand-yellow/60 transition-colors"
+                    className="bg-[#FFFDF9]/92 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-[#DFC4A2] flex gap-4 items-center justify-between shadow-xs hover:border-[#D97706]/70 transition-colors"
                   >
                     {/* Image & Title */}
                     <div className="flex items-center gap-4 min-w-0">
@@ -241,7 +232,7 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
             {/* Right Summary Column (Col 4) */}
             <div className="lg:col-span-4 space-y-5">
               
-              <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-warm space-y-5 sticky top-28">
+              <div className="bg-[#FFFDF9]/92 backdrop-blur-md p-6 rounded-3xl border border-[#DFC4A2] shadow-warm space-y-5 sticky top-28">
                 
                 {/* Apply Coupon */}
                 <div className="space-y-2">
@@ -358,10 +349,10 @@ export const CartPage = ({ onNavigate, onQuickView }) => {
                 {/* Proceed to Checkout CTA (Mustard Yellow matching reference) */}
                 <button
                   onClick={handleProceedCheckout}
-                  className="w-full bg-brand-yellow hover:bg-brand-yellowHover text-brand-brown py-4 rounded-full font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all transform hover:-translate-y-0.5"
+                  className="w-full bg-gradient-to-r from-[#9C4E15] via-[#D97706] to-[#9C4E15] hover:from-[#78350F] hover:via-[#B45309] hover:to-[#78350F] text-white py-4 rounded-full font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer border border-[#FDE68A]/60"
                 >
                   <span>Proceed to Checkout</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-5 h-5 text-[#FDE68A]" />
                 </button>
 
                 <div className="text-[11px] text-center text-brand-brownMuted flex items-center justify-center gap-1.5 pt-1">

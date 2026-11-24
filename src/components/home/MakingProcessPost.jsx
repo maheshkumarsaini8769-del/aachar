@@ -125,7 +125,7 @@ export const MakingProcessPost = ({ onNavigate }) => {
           </div>
 
           <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold text-brand-brown tracking-tight leading-tight">
-            How Is Marusthali Achar's Authentic Homemade Pickle Handcrafted?
+            How Is TharSwad Achar's Authentic Homemade Pickle Handcrafted?
           </h2>
 
           <p className="text-xs sm:text-base md:text-lg text-brand-brownMuted leading-relaxed max-w-2xl mx-auto font-medium">

@@ -47,7 +47,7 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
           <div>
             <div className="inline-flex items-center gap-1.5 text-[11px] font-black text-[#1F110B] uppercase tracking-wider bg-[#FDE68A] border border-[#D97706] px-3 py-1 rounded-full shadow-2xs mb-2">
               <Sparkles className="w-3.5 h-3.5 text-[#B45309]" />
-              <span>MARUSTHALI ACHAR • CUSTOM COMBO PACKS</span>
+              <span>THARSWAD ACHAR • CUSTOM COMBO PACKS</span>
             </div>
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-black text-[#1F110B] tracking-tight">
               Build Your Custom <span className="text-[#B45309]">Combo Box</span>
@@ -59,7 +59,7 @@ export const ComboBuilderBanner = ({ onNavigate }) => {
 
           <button
             onClick={() => onNavigate('combo-builder')}
-            className="self-start md:self-auto bg-[#F5A623] hover:bg-[#E09415] text-[#1F110B] font-black text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md flex items-center gap-2 transform hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer shrink-0"
+            className="self-start md:self-auto bg-gradient-to-r from-[#9C4E15] via-[#D97706] to-[#9C4E15] hover:from-[#78350F] hover:via-[#B45309] hover:to-[#78350F] text-white font-black text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-[0_4px_16px_rgba(180,83,9,0.30)] flex items-center gap-2 transform hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer shrink-0 border border-[#FDE68A]/60"
           >
             <span>Open Combo Builder Studio</span>
             <ArrowRight className="w-4 h-4" />

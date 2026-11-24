@@ -63,7 +63,7 @@ export const TasteProfileFilter = ({ onNavigate, onQuickView }) => {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-white border-b border-brand-yellow/30 relative overflow-hidden">
+    <section className="py-16 sm:py-20 bg-transparent border-b border-[#E5D9C5]/60 relative overflow-hidden">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}

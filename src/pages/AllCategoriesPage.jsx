@@ -92,7 +92,7 @@ export const AllCategoriesPage = ({ onNavigate }) => {
             All Achar <span className="text-[#D97706]">Categories</span>
           </h1>
           <p className="text-xs sm:text-sm font-semibold text-[#5A493F] leading-relaxed">
-            Every pickle handcrafted in small batches by rural women artisans of Marusthali, sun-ripened in pure mustard oil with zero artificial preservatives.
+            Every pickle handcrafted in small batches by rural women artisans of TharSwad, sun-ripened in pure mustard oil with zero artificial preservatives.
           </p>
 
           {/* Quick Filter Tabs */}

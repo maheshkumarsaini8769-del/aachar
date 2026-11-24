@@ -70,7 +70,7 @@ export const AiAssistantWidget = ({ onNavigate }) => {
     {
       id: 'welcome',
       sender: 'ai',
-      text: "Namaste! 🙏 I am your **Marusthali Taste AI** assistant. Ask me anything about spice levels, healthy oil, food pairings, or personalized pickle recommendations!",
+      text: "Namaste! 🙏 I am your **TharSwad Taste AI** assistant. Ask me anything about spice levels, healthy oil, food pairings, or personalized pickle recommendations!",
       timestamp: 'Just now'
     }
   ]);
@@ -252,7 +252,7 @@ export const AiAssistantWidget = ({ onNavigate }) => {
           onClick={() => (isOpen ? handleClose() : handleOpen())}
           className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#1C120C] via-[#351E12] to-[#602D0E] text-[#FBBF24] flex items-center justify-center shadow-2xl border-2 border-[#C88214] hover:scale-110 active:scale-95 transition-all cursor-pointer group"
           aria-label="Toggle AI Pickle Assistant"
-          title="Marusthali Taste AI"
+          title="TharSwad Taste AI"
         >
           {isOpen ? (
             <X className="w-7 h-7 text-white" />
@@ -299,7 +299,7 @@ export const AiAssistantWidget = ({ onNavigate }) => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-serif font-black text-base text-[#FFFDF9]">
-                      Marusthali Taste AI
+                      TharSwad Taste AI
                     </h3>
                     <span className="inline-flex items-center gap-1 text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded-full font-bold">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />

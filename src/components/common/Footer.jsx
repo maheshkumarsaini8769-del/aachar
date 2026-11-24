@@ -60,7 +60,7 @@ export const Footer = ({ onNavigate }) => {
       {/* ========================================================================= */}
       {/* 1. TOP ILLUSTRATED RIBBON BANNER (Signature FarmDidi Feature Layout) */}
       {/* ========================================================================= */}
-      <div className="relative bg-[#FAF6EE] pt-8 sm:pt-12 pb-28 sm:pb-40 lg:pb-52 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
+      <div className="relative bg-[#FAF6EE]/85 backdrop-blur-md pt-8 sm:pt-12 pb-28 sm:pb-40 lg:pb-52 px-4 sm:px-6 lg:px-8 border-t border-[#E8DDCD]">
         
         {/* Subtle Decorative Background Arches / Sun Ray Texture */}
         <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
@@ -179,7 +179,7 @@ export const Footer = ({ onNavigate }) => {
                   <span>Reg Address :</span>
                 </p>
                 <p className="font-medium text-[#C2B29F] pl-5 leading-normal">
-                  Marusthali Rural Foods Private Limited<br />
+                  TharSwad Rural Foods Private Limited<br />
                   Plot No. 84, Shekhawati Heritage Zone, Sector 5,<br />
                   Near Old Sikar Highway, Piprali Road,<br />
                   Sikar, Rajasthan, 332001
@@ -189,7 +189,7 @@ export const Footer = ({ onNavigate }) => {
               {/* Social Media Section: Title + 5 Circular Black Buttons */}
               <div className="space-y-2.5 pt-2">
                 <h4 className="text-[11px] font-black uppercase tracking-widest text-[#FFFDF9]">
-                  FOLLOW MARUSTHALI ACHAR
+                  FOLLOW THARSWAD ACHAR
                 </h4>
 
                 {/* 5 Solid Round Black Discs with Crisp White Icons (Exact FarmDidi Style) */}
@@ -201,7 +201,7 @@ export const Footer = ({ onNavigate }) => {
                     rel="noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Instagram"
-                    title="Follow Marusthali Achar on Instagram"
+                    title="Follow TharSwad Achar on Instagram"
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
@@ -217,7 +217,7 @@ export const Footer = ({ onNavigate }) => {
                     rel="noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Pinterest"
-                    title="Follow Marusthali Achar on Pinterest"
+                    title="Follow TharSwad Achar on Pinterest"
                   >
                     <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="#FFFFFF">
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
@@ -231,7 +231,7 @@ export const Footer = ({ onNavigate }) => {
                     rel="noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Facebook"
-                    title="Follow Marusthali Achar on Facebook"
+                    title="Follow TharSwad Achar on Facebook"
                   >
                     <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="#FFFFFF">
                       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
@@ -245,7 +245,7 @@ export const Footer = ({ onNavigate }) => {
                     rel="noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="Twitter / X"
-                    title="Follow Marusthali Achar on X"
+                    title="Follow TharSwad Achar on X"
                   >
                     <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="#FFFFFF">
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -259,7 +259,7 @@ export const Footer = ({ onNavigate }) => {
                     rel="noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#120B07] hover:bg-[#B45309] text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-md border-2 border-white/25 hover:border-amber-400 group cursor-pointer"
                     aria-label="YouTube"
-                    title="Subscribe to Marusthali Achar on YouTube"
+                    title="Subscribe to TharSwad Achar on YouTube"
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
                       {/* White YouTube Screen Shape */}
@@ -497,7 +497,7 @@ export const Footer = ({ onNavigate }) => {
 
           {/* Copyright notice (Flipkart style) */}
           <div className="text-stone-300 text-xs text-center xl:text-left whitespace-nowrap">
-            © 2007-{new Date().getFullYear()} Marusthali.com
+            © 2007-{new Date().getFullYear()} TharSwad.com
           </div>
 
           {/* Payment Partner Logos (Flipkart Card Strip Style) */}

@@ -136,14 +136,14 @@
   <!-- BRAND TYPOGRAPHY ALONG CIRCULAR EMBLEM ARCS   -->
   <!-- ============================================== -->
 
-  <!-- Top Arched Text: MARUSTHALI ACHAR -->
+  <!-- Top Arched Text: THARSWAD ACHAR -->
   <text font-family="'Cinzel', 'Playfair Display', Georgia, serif" 
         font-weight="900" 
         font-size="18.5" 
         fill="#1F110B" 
         letter-spacing="4">
     <textPath href="#topTextArc" startOffset="50%" text-anchor="middle">
-      MARUSTHALI ACHAR
+      THARSWAD ACHAR
     </textPath>
   </text>
 
@@ -153,14 +153,14 @@
     <polygon points="266,150 268,145 273,144 269,141 270,136 266,139 262,136 263,141 259,144 264,145" />
   </g>
 
-  <!-- Bottom Arched Text: DESI SWAD • EST. 1994 • SIKAR -->
+  <!-- Bottom Arched Text: THAR KA SWAD • EST. 1994 • SIKAR -->
   <text font-family="'Montserrat', 'Inter', sans-serif" 
         font-weight="800" 
         font-size="10" 
         fill="#78350F" 
         letter-spacing="2.5">
     <textPath href="#bottomTextArc" startOffset="50%" text-anchor="middle">
-      • DESI SWAD • EST. 1994 • SIKAR •
+      • THAR KA SWAD • EST. 1994 • SIKAR •
     </textPath>
   </text>
 </svg>

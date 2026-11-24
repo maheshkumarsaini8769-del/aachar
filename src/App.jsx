@@ -15,6 +15,7 @@ import { LocationModal } from './components/common/LocationModal';
 import { QuickViewModal } from './components/common/QuickViewModal';
 import { AuthModal } from './components/common/AuthModal';
 import { AiAssistantWidget } from './components/common/AiAssistantWidget';
+import { WallpaperSwitcher } from './components/common/WallpaperSwitcher';
 import { PageSkeletonLoader } from './components/common/SkeletonLoader';
 
 // Core Landing Page
@@ -359,6 +360,9 @@ export function App() {
 
               {/* Floating Fake AI Assistant Widget (Bottom Right) */}
               <AiAssistantWidget onNavigate={navigateTo} />
+
+              {/* Real-time Thar Desert Wallpaper Switcher (Bottom Left) */}
+              <WallpaperSwitcher />
             </div>
           </CartProvider>
         </WishlistProvider>

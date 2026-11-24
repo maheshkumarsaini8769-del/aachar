@@ -55,7 +55,7 @@ export const ProductFilters = ({
   const availableCats = categories.filter(c => c.id !== 'all');
 
   return (
-    <div className="bg-white p-5 rounded-2xl border border-brand-border space-y-6 shadow-xs">
+    <div className="bg-[#FFFDF9]/92 backdrop-blur-md p-5 rounded-2xl border border-[#E5D9C5] space-y-6 shadow-[0_4px_20px_rgba(45,24,16,0.04)]">
       
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-brand-border">

@@ -58,7 +58,7 @@ export const ThreeTsSection = ({ onNavigate }) => {
   const currentBatch = BATCH_DATA[selectedBatch] || BATCH_DATA['SKR-2026-AAM'];
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-b border-brand-yellow/30 relative overflow-hidden">
+    <section className="py-16 sm:py-20 bg-transparent border-b border-[#E5D9C5]/60 relative overflow-hidden">
       {/* Decorative ambient watermarks */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-emerald-200/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
@@ -77,7 +77,7 @@ export const ThreeTsSection = ({ onNavigate }) => {
           </h2>
 
           <p className="text-sm sm:text-base md:text-lg text-brand-brownMuted leading-relaxed max-w-2xl mx-auto font-medium">
-            Every jar of Marusthali Achar is a symbol of 30-year-old grandmother traditions, certified laboratory purity, and rural women empowerment.
+            Every jar of TharSwad Achar is a symbol of 30-year-old grandmother traditions, certified laboratory purity, and rural women empowerment.
           </p>
         </div>
 
@@ -212,7 +212,7 @@ export const ThreeTsSection = ({ onNavigate }) => {
               <span>Interactive Batch Transparency • Verify Your Jar</span>
             </div>
             <h4 className="font-serif text-xl sm:text-2xl font-black text-white">
-              Scan or Verify Any Marusthali Achar Pickle Batch
+              Scan or Verify Any TharSwad Achar Pickle Batch
             </h4>
             <p className="text-xs sm:text-sm text-[#D8C7B4] leading-relaxed">
               Enter the batch number printed on your glass jar to review laboratory purity certificates, oil authenticity, and the artisan team that handcrafted your pickle.

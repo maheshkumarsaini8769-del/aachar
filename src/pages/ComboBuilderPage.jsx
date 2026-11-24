@@ -27,7 +27,7 @@ const COMBO_PACK_OPTIONS = [
     discount: '18% OFF',
     savings: 100,
     image: '/images/products/combo-2pack-duo.jpg',
-    desc: 'Pick any 2 Marusthali Achar jar boxes (400g each).'
+    desc: 'Pick any 2 TharSwad Achar jar boxes (400g each).'
   },
   {
     id: 'pack-3',
@@ -53,7 +53,7 @@ const COMBO_PACK_OPTIONS = [
     savings: 250,
     bestValue: true,
     image: '/images/products/combo-4pack-royal.jpg',
-    desc: 'Best value combo box with 4 full 400g Marusthali Achar jars.'
+    desc: 'Best value combo box with 4 full 400g TharSwad Achar jars.'
   }
 ];
 
@@ -322,7 +322,7 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
           <div className="text-center max-w-2xl mx-auto space-y-3.5">
             <div className="inline-flex items-center gap-1.5 bg-amber-400/20 border border-amber-400/50 px-4 py-1.5 rounded-full text-xs font-black text-[#FBBF24]">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>MARUSTHALI ACHAR • CUSTOM COMBO BUILDER</span>
+              <span>THARSWAD ACHAR • CUSTOM COMBO BUILDER</span>
             </div>
 
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight drop-shadow-sm">
@@ -331,7 +331,7 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
             </h1>
 
             <p className="text-xs sm:text-sm text-amber-50 font-semibold leading-relaxed max-w-xl mx-auto">
-              Choose your Combo Box size (2, 3, or 4 Jars), click on your favorite Marusthali Achar Jar Boxes below to fill your slots, and get up to <strong className="text-[#FBBF24] font-extrabold">23% bundle savings</strong>!
+              Choose your Combo Box size (2, 3, or 4 Jars), click on your favorite TharSwad Achar Jar Boxes below to fill your slots, and get up to <strong className="text-[#FBBF24] font-extrabold">23% bundle savings</strong>!
             </p>
 
             {/* 3-Step Breadcrumb Bar */}
@@ -356,7 +356,7 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 -mt-4 space-y-8">
         
         {/* ================= STEP 1: CHOOSE COMBO BOX SIZE ================= */}
-        <section className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8DDCD] shadow-sm">
+        <section className="bg-[#FFFDF9]/92 backdrop-blur-md rounded-3xl p-5 sm:p-7 border border-[#E8DDCD] shadow-sm">
           <div className="flex items-center justify-between pb-4 border-b border-[#EFE8DD] mb-5">
             <div>
               <div className="flex items-center gap-2">
@@ -366,7 +366,7 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
                 </h2>
               </div>
               <p className="text-xs text-[#4A3B32] font-bold mt-0.5">
-                How many Marusthali Achar Jar Boxes would you like in your combo?
+                How many TharSwad Achar Jar Boxes would you like in your combo?
               </p>
             </div>
             <span className="text-[11px] font-extrabold text-[#1E5631] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
@@ -450,7 +450,7 @@ export const ComboBuilderPage = ({ onNavigate, viewParams }) => {
                 </h2>
               </div>
               <p className="text-xs text-[#4A3B32] font-bold mt-0.5">
-                Click on any Marusthali Achar Jar Box below to place it into your Combo Box slots.
+                Click on any TharSwad Achar Jar Box below to place it into your Combo Box slots.
               </p>
             </div>
 

@@ -137,11 +137,11 @@ export const BrandLogo = ({
       <div 
         onClick={onClick}
         className={`relative rounded-full shadow-xl overflow-hidden cursor-pointer group transition-transform hover:scale-105 ${badgeSizes[size] || badgeSizes.lg} ${className}`}
-        title="Marusthali Achar - Return to Home"
+        title="TharSwad Achar - Return to Home"
       >
         <img 
-          src="/images/marusthali-logo.svg" 
-          alt="Marusthali Achar Est. 1994 Logo"
+          src="/images/tharswad-logo.svg" 
+          alt="TharSwad Achar Est. 1994 Logo"
           className="w-full h-full object-contain filter drop-shadow-sm" 
         />
       </div>
@@ -165,7 +165,7 @@ export const BrandLogo = ({
     <div 
       onClick={onClick}
       className={`flex items-center gap-2.5 sm:gap-3 group cursor-pointer select-none ${className}`}
-      title="Marusthali Achar - Home"
+      title="TharSwad Achar - Home"
     >
       {/* Visual Emblem */}
       <div className="w-10 h-10 sm:w-11 sm:h-11 shrink-0 group-hover:scale-105 transition-transform duration-200">
@@ -176,7 +176,7 @@ export const BrandLogo = ({
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 leading-none">
           <span className="font-serif text-xl sm:text-2xl md:text-[25px] font-black tracking-tight text-[#1F110B] group-hover:text-[#B45309] transition-colors">
-            Marusthali
+            TharSwad
           </span>
           <span className="font-serif text-xl sm:text-2xl md:text-[25px] font-black tracking-tight text-[#B45309]">
             Achar
@@ -184,7 +184,7 @@ export const BrandLogo = ({
         </div>
         <div className="flex items-center gap-1.5 mt-0.5">
           <span className="text-[10px] sm:text-[11px] font-bold text-[#8C6542] tracking-wider uppercase">
-            Est. 1994 • Sikar
+            Thar Desert • Est. 1994
           </span>
           <span className="w-1 h-1 rounded-full bg-[#D97706] inline-block"></span>
           <span className="text-[10px] sm:text-[11px] font-bold text-[#15803D] tracking-wide">

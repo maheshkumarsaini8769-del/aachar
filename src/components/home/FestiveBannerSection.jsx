@@ -3,7 +3,7 @@ import { ArrowRight, Gift, Sparkles } from 'lucide-react';
 
 export const FestiveBannerSection = ({ onNavigate }) => {
   return (
-    <section className="py-10 bg-brand-bg border-b border-brand-border">
+    <section className="py-10 bg-transparent border-b border-[#E5D9C5]/60">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="relative rounded-3xl overflow-hidden shadow-warm border-2 border-brand-border bg-gradient-to-r from-[#421A12] via-[#5C2417] to-[#36130B] text-white p-6 sm:p-10 md:p-12">

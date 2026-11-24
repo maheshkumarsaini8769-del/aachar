@@ -3,7 +3,9 @@ import { HeroSection } from '../components/home/HeroSection';
 import { BestsellersSection } from '../components/home/BestsellersSection';
 import { ComboBuilderBanner } from '../components/home/ComboBuilderBanner';
 import { TrustMarquee } from '../components/common/TrustMarquee';
+import { DishPairingSommelier } from '../components/home/DishPairingSommelier';
 import { MakingProcessPost } from '../components/home/MakingProcessPost';
+import { BeforeAfterSection } from '../components/home/BeforeAfterSection';
 import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { ReviewsPreview } from '../components/home/ReviewsPreview';
 import { FAQSection } from '../components/home/FAQSection';
@@ -24,22 +26,46 @@ export const HomePage = ({ onNavigate, onQuickView }) => {
       {/* 4. Trust Ticker Marquee */}
       <TrustMarquee />
 
-      {/* 5. 5-Step Solar Fermentation Making Process (Deferred for Peak FPS) */}
+      {/* 5. AI Dish Pairing & Achar Sommelier (Deferred) */}
+      <DeferredSection fallbackHeight="440px" label="AI Dish Pairing Sommelier">
+        <DishPairingSommelier onNavigate={onNavigate} onQuickView={onQuickView} />
+      </DeferredSection>
+
+      {/* Decorative Desert Flow Divider */}
+      <div className="flex items-center justify-center py-1 opacity-60 select-none pointer-events-none" aria-hidden="true">
+        <div className="h-[1px] w-28 bg-gradient-to-r from-transparent to-[#D8BE95]" />
+        <span className="px-3 text-[#B45309] text-xs font-serif tracking-widest">✦ ❖ ✦</span>
+        <div className="h-[1px] w-28 bg-gradient-to-l from-transparent to-[#D8BE95]" />
+      </div>
+
+      {/* 6. 5-Step Solar Fermentation Making Process (Deferred for Peak FPS) */}
       <DeferredSection fallbackHeight="480px" label="Handcrafted Making Process">
         <MakingProcessPost onNavigate={onNavigate} />
       </DeferredSection>
 
-      {/* 6. Why Families Trust Marusthali Achar (Deferred) */}
+      {/* Decorative Desert Flow Divider */}
+      <div className="flex items-center justify-center py-1 opacity-60 select-none pointer-events-none" aria-hidden="true">
+        <div className="h-[1px] w-28 bg-gradient-to-r from-transparent to-[#D8BE95]" />
+        <span className="px-3 text-[#B45309] text-xs font-serif tracking-widest">✦ ❖ ✦</span>
+        <div className="h-[1px] w-28 bg-gradient-to-l from-transparent to-[#D8BE95]" />
+      </div>
+
+      {/* 7. Before & After Purity Comparison: Commercial vs. TharSwad Heritage */}
+      <DeferredSection fallbackHeight="520px" label="Before & After Purity Comparison">
+        <BeforeAfterSection onNavigate={onNavigate} />
+      </DeferredSection>
+
+      {/* 8. Why Families Trust TharSwad Achar (Deferred) */}
       <DeferredSection fallbackHeight="380px" label="Why Families Trust Us">
         <WhyChooseUs />
       </DeferredSection>
 
-      {/* 7. Customer Photo Reviews (Deferred) */}
+      {/* 9. Customer Photo Reviews (Deferred) */}
       <DeferredSection fallbackHeight="420px" label="Customer Verified Reviews">
         <ReviewsPreview onNavigate={onNavigate} />
       </DeferredSection>
 
-      {/* 8. Frequently Asked Questions (Deferred) */}
+      {/* 10. Frequently Asked Questions (Deferred) */}
       <DeferredSection fallbackHeight="360px" label="Frequently Asked Questions">
         <FAQSection onNavigate={onNavigate} />
       </DeferredSection>

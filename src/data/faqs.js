@@ -1,7 +1,7 @@
 export const faqs = [
   {
     category: 'Product & Quality',
-    question: 'Are Marusthali Achar pickles really 100% preservative-free?',
+    question: 'Are TharSwad Achar pickles really 100% preservative-free?',
     answer: 'Yes, absolutely. We do not use sodium benzoate, potassium metabisulphite, artificial vinegar, or chemical acidity regulators. Preservation happens naturally through pure cold-pressed mustard oil, sun-cooking, and traditional salt-spice balances just like home.'
   },
   {

@@ -80,8 +80,8 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 border-b border-brand-border gap-4">
           <div>
-            <span className="text-xs font-bold text-brand-green uppercase tracking-wider block mb-1">
-              Traditional Rajasthani Catalogue
+            <span className="text-xs font-bold text-[#9C4E15] uppercase tracking-wider block mb-1">
+              Thar Desert Sun-Cured Catalogue
             </span>
             <h1 className="font-serif text-2xl sm:text-4xl font-extrabold text-brand-brown">
               All Achar Products
@@ -97,9 +97,9 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setIsMobileFiltersOpen(true)}
-              className="lg:hidden flex items-center gap-2 bg-brand-cream border border-brand-border px-3.5 py-2 rounded-xl text-xs font-bold text-brand-brown"
+              className="lg:hidden flex items-center gap-2 bg-[#FAF5EC] border border-[#DFC4A2] px-3.5 py-2 rounded-xl text-xs font-bold text-brand-brown"
             >
-              <SlidersHorizontal className="w-4 h-4 text-brand-green" />
+              <SlidersHorizontal className="w-4 h-4 text-[#9C4E15]" />
               <span>Filters {activeFiltersCount > 0 && `(${activeFiltersCount})`}</span>
             </button>
 
@@ -109,7 +109,7 @@ export const AllProductsPage = ({ onNavigate, onQuickView }) => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white border border-brand-border rounded-xl px-3 py-2 text-xs font-semibold text-brand-brown focus:outline-none focus:ring-1 focus:ring-brand-green shadow-xs"
+                className="bg-[#FFFDF9] border border-[#DFC4A2] rounded-xl px-3 py-2 text-xs font-semibold text-brand-brown focus:outline-none focus:ring-1 focus:ring-[#D97706] shadow-xs"
               >
                 <option value="popularity">Popularity</option>
                 <option value="rating">Customer Rating</option>

@@ -9,7 +9,7 @@ const POLICY_DATA = {
     content: [
       {
         heading: 'Pan-India Coverage',
-        text: 'Marusthali Achar ships to over 28,000+ pin codes across all states and union territories in India. Orders placed before 1:00 PM are dispatched on the same business day from our Sikar workshop.'
+        text: 'TharSwad Achar ships to over 28,000+ pin codes across all states and union territories in India. Orders placed before 1:00 PM are dispatched on the same business day from our Sikar workshop.'
       },
       {
         heading: 'Shipping Charges & Thresholds',
@@ -98,7 +98,7 @@ export const PolicyPage = ({ policyType: propPolicyType = 'shipping', onNavigate
         </div>
 
         {/* Content Box */}
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-brand-border shadow-xs space-y-6 text-xs sm:text-sm text-brand-brown leading-relaxed">
+        <div className="bg-[#FFFDF9]/92 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-[#E5D9C5] shadow-xs space-y-6 text-xs sm:text-sm text-brand-brown leading-relaxed">
           {current.content.map((sec, i) => (
             <div key={i} className="space-y-2">
               <h3 className="font-serif font-bold text-base sm:text-lg text-brand-brown">
@@ -111,7 +111,7 @@ export const PolicyPage = ({ policyType: propPolicyType = 'shipping', onNavigate
           ))}
 
           <div className="pt-4 border-t border-brand-border/60 text-xs text-brand-brownMuted">
-            For further queries or questions, contact our support team at <strong className="text-brand-brown">care@marusthaliachar.com</strong> or call <strong className="text-brand-brown">+91 9876543210</strong>.
+            For further queries or questions, contact our support team at <strong className="text-brand-brown">care@tharswad.com</strong> or call <strong className="text-brand-brown">+91 9876543210</strong>.
           </div>
         </div>
 

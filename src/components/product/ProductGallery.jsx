@@ -9,18 +9,11 @@ const MangoAchar3DViewer = lazy(() =>
 
 export const ProductGallery = ({ images = [], productName, productId }) => {
   const galleryImages = useMemo(() => {
-    const list = Array.isArray(images) ? images.filter(Boolean) : [];
-    const fallbacks = [
-      '/images/products/mango-bowl-serving.jpg',
-      '/images/products/achar-bowl-serving.jpg',
-      '/images/products/marusthali-mango-jar.jpg'
-    ];
-    for (const fb of fallbacks) {
-      if (list.length < 3 && !list.includes(fb)) {
-        list.push(fb);
-      }
+    if (Array.isArray(images) && images.length > 0) {
+      const filtered = images.filter(Boolean);
+      if (filtered.length > 0) return filtered;
     }
-    return list;
+    return ['/images/products/tharswad-lemon-jar.jpg'];
   }, [images]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -164,16 +157,16 @@ export const ProductGallery = ({ images = [], productName, productId }) => {
               setIs3DActive(false);
               setIsZoomed(false);
             }}
-            className={`relative w-13 h-13 sm:w-20 sm:h-20 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all p-0.5 bg-white shrink-0 cursor-pointer ${
+            className={`relative w-14 h-14 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 transition-all p-0.5 bg-white shrink-0 cursor-pointer ${
               !is3DActive && activeIdx === idx
-                ? 'border-brand-green ring-2 ring-brand-green/30 scale-102 shadow-xs'
-                : 'border-brand-border hover:border-brand-yellow/80 opacity-75 hover:opacity-100'
+                ? 'border-[#B45309] ring-2 ring-[#D97706]/40 scale-102 shadow-xs'
+                : 'border-[#DFC4A2] hover:border-[#D97706]/80 opacity-75 hover:opacity-100'
             }`}
           >
             <img
               src={img}
               alt={`${productName} thumbnail ${idx + 1}`}
-              className="w-full h-full object-cover rounded-md sm:rounded-lg"
+              className="w-full h-full object-cover rounded-lg"
             />
           </button>
         ))}
@@ -186,7 +179,7 @@ export const ProductGallery = ({ images = [], productName, productId }) => {
               setIs3DActive(true);
               setIsZoomed(false);
             }}
-            className={`relative w-13 h-13 sm:w-20 sm:h-20 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all p-1 flex flex-col items-center justify-center gap-0.5 shrink-0 cursor-pointer ${
+            className={`relative w-14 h-14 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 transition-all p-1 flex flex-col items-center justify-center gap-0.5 shrink-0 cursor-pointer ${
               is3DActive
                 ? 'border-brand-brown bg-amber-50 ring-2 ring-brand-brown/40 scale-102 shadow-sm'
                 : 'border-brand-border bg-white hover:border-brand-yellow/80 opacity-85 hover:opacity-100 hover:bg-amber-50/50'
@@ -210,12 +203,12 @@ export const ProductGallery = ({ images = [], productName, productId }) => {
       {/* Main View Area: Interactive 3D Viewer OR Standard Image View */}
       {is3DActive && is3DSupported ? (
         <Suspense fallback={
-          <div className="relative flex-1 aspect-square max-h-[340px] sm:max-h-none rounded-2xl sm:rounded-3xl border-2 border-brand-border bg-brand-cream/60 flex flex-col items-center justify-center">
+          <div className="relative flex-1 aspect-square w-full rounded-2xl sm:rounded-3xl border-2 border-brand-border bg-[#FFFDF9] flex flex-col items-center justify-center">
             <div className="w-10 h-10 border-3 border-brand-yellow border-t-brand-brown rounded-full animate-spin mb-2" />
             <span className="text-xs font-bold text-brand-brown">Loading 3D Experience...</span>
           </div>
         }>
-          <div className="relative flex-1 aspect-square max-h-[340px] sm:max-h-none">
+          <div className="relative flex-1 aspect-square w-full">
             <MangoAchar3DViewer 
               onClose={() => setIs3DActive(false)}
               productName={productName}
@@ -229,7 +222,7 @@ export const ProductGallery = ({ images = [], productName, productId }) => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="relative flex-1 aspect-square max-h-[340px] sm:max-h-none rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-brand-border bg-brand-cream/40 shadow-warm flex items-center justify-center group select-none touch-pan-y"
+          className="relative flex-1 aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#D8B47E]/80 bg-[#FFFDF9] shadow-warm flex items-center justify-center group select-none touch-pan-y"
         >
           <img
             src={activeImage}

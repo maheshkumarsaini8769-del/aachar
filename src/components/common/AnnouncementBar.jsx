@@ -58,7 +58,7 @@ export const AnnouncementBar = ({ onNavigate }) => {
     {
       id: 'store',
       icon: <MapPin className="w-3.5 h-3.5 text-[#FBBF24] shrink-0" />,
-      text: 'Marusthali Barni Kitchen • Piprali Road, Sikar, Rajasthan',
+      text: 'TharSwad Barni Kitchen • Piprali Road, Sikar, Rajasthan',
       highlight: 'STORE LOCATION',
       action: () => onNavigate && onNavigate('store-location')
     },

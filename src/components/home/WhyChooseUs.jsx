@@ -19,7 +19,7 @@ export const WhyChooseUs = () => {
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-[#1F110B] tracking-tight">
-            Why Families Trust Marusthali Achar
+            Why Families Trust TharSwad Achar
           </h2>
 
           <p className="text-sm sm:text-base md:text-lg text-[#5A493F] max-w-2xl mx-auto leading-relaxed font-semibold">
@@ -58,7 +58,7 @@ export const WhyChooseUs = () => {
             <div className="pt-3 border-t border-[#DFC5A2] text-xs space-y-1.5 bg-white/90 p-3 rounded-2xl border border-amber-300/80 shadow-xs">
               <div className="flex items-center gap-1.5 font-black text-emerald-800">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Marusthali: 100% Kachi Ghani Oil</span>
+                <span>TharSwad: 100% Kachi Ghani Oil</span>
               </div>
               <div className="text-[11px] text-gray-500 line-through pl-5 font-semibold">
                 Market: Refined Palm Oil & Fillers
@@ -94,7 +94,7 @@ export const WhyChooseUs = () => {
             <div className="pt-3 border-t border-[#DFC5A2] text-xs space-y-1.5 bg-white/90 p-3 rounded-2xl border border-amber-300/80 shadow-xs">
               <div className="flex items-center gap-1.5 font-black text-emerald-800">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Marusthali: 30-Day Solar Fermented</span>
+                <span>TharSwad: 30-Day Solar Fermented</span>
               </div>
               <div className="text-[11px] text-gray-500 line-through pl-5 font-semibold">
                 Market: 2-Hour Chemical Acid Boil
@@ -130,7 +130,7 @@ export const WhyChooseUs = () => {
             <div className="pt-3 border-t border-[#DFC5A2] text-xs space-y-1.5 bg-white/90 p-3 rounded-2xl border border-amber-300/80 shadow-xs">
               <div className="flex items-center gap-1.5 font-black text-emerald-800">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Marusthali: Heirloom Handcrafted</span>
+                <span>TharSwad: Heirloom Handcrafted</span>
               </div>
               <div className="text-[11px] text-gray-500 line-through pl-5 font-semibold">
                 Market: Mass Factory Processing
@@ -166,7 +166,7 @@ export const WhyChooseUs = () => {
             <div className="pt-3 border-t border-[#DFC5A2] text-xs space-y-1.5 bg-white/90 p-3 rounded-2xl border border-amber-300/80 shadow-xs">
               <div className="flex items-center gap-1.5 font-black text-emerald-800">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Marusthali: Natural Mineral Shelf-Life</span>
+                <span>TharSwad: Natural Mineral Shelf-Life</span>
               </div>
               <div className="text-[11px] text-gray-500 line-through pl-5 font-semibold">
                 Market: Synthetic Benzoates & Acids
